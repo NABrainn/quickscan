@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <div class="header">
+        @if (isValid()) {
+            <h2>Upload a document to scan.</h2>
+            <span>.jpg / .jpeg / .png required </span>
+        }
+        @else {
+            <h2>Document scan failed.</h2>
+            <span>Please try again</span>
+        }
+    </div>
+    <app-list></app-list>
+    <div class="footer">
+        <div class="button-panel">
+            <button mat-button>Regenerate</button>
+            <button mat-button>Save</button>
+            <button mat-button>Edit</button>
+            <button mat-button>Confirm</button>
+        </div>
+        <input type="file" name="" id="">
+    </div>
+</div>

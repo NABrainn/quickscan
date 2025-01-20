@@ -1,0 +1,24 @@
+<div class="list">
+@for (entry of computedEntries(); track entry.attribute) {
+    <li class="item" (click)="openItem(entry)">
+        <span class="item-text">{{entry.attribute}}:</span> 
+        @if(entryService.instanceofObject(entry.value)) {
+            <span class="item-text">Wyświetl wszystkie dane</span>
+        }
+        @else {
+            <span class="item-text">{{entry.value}}</span>
+        }
+    </li>
+    @if(entry.open) {
+        <li>details</li>
+    }
+
+
+
+}
+@empty {
+    <div>
+        Nie znaleziono paragonu do wyświetlenia.
+    </div>
+}
+</div>

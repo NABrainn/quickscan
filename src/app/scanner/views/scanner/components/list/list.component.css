@@ -1,0 +1,23 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    /* justify-content:; */
+}
+
+.item-text {
+    flex-basis: 100%;
+    flex-grow: 1;
+}
+
+.open {
+    display: inline;
+}
+
+.closed {
+    display: none;
+}
