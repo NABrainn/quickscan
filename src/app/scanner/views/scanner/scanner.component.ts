@@ -1,18 +1,12 @@
 import { Component, computed, effect, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { ListComponent } from './components/list/list.component';
-import { EntryService } from './service/entry-service';
+import { InvoiceService } from './service/entry-service';
+import { scannerService } from './service/scanner-service';
 
 export interface InvoiceEntry {
   attribute: string,
   value: any
 }
-
-const DATA = [
-  {attribute: "dataZakupu", value: '12-12-2019'},
-  {attribute: "nazwaSklepu", value: 'biedronka'},
-  {attribute: "kwotaCalkowita", value: 21.37},
-  {attribute: "produkty", value: ['baton', 4.20, 28]}
-]
 
 @Component({
   selector: 'app-scanner',
@@ -22,13 +16,16 @@ const DATA = [
   styleUrl: './scanner.component.css'
 })
 export class ScannerComponent {
-  isValid: WritableSignal<boolean> = signal(true);
-  computedValid = computed(() => this.isValid())
 
-  constructor(public scannerService: EntryService){}
+  constructor(private invoiceService: InvoiceService, private scannerService: scannerService){}
+
+  getComputedEntries() {
+    console.log(this.scannerService.computedEntries().length)
+    return this.scannerService.computedEntries();
+  }
   
   ngOnInit(): void {
-    //
+    this.scannerService.initEntries()
   }
 
 }
