@@ -18,7 +18,10 @@ export class InvoiceStore {
             razemBrutto: 12.915,
             waluta: "PLN",
             formaPlatnosci: "przelew",
-            produkty: [this.getProduct()]
+            produkty: [
+                this.getProduct(),
+                this.getProduct()
+            ]
         };
     }
 
