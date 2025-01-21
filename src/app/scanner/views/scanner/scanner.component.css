@@ -6,8 +6,8 @@
     margin: 0 auto;
 }
 
-.header {
-    font-family: 'Roboto';
+.title {
+    color: var(--three)
 }
 
 .button-panel {
