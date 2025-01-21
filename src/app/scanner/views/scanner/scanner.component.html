@@ -1,12 +1,12 @@
 <div class="wrapper">
     <div class="header">
-        @if (isValid()) {
-            <h2>Upload a document to scan.</h2>
-            <span>.jpg / .jpeg / .png required </span>
+        @if(getComputedEntries().length != 0) {
+            <h2>Paragon pomyślnie zeskanowany</h2>
+            <span>Zapisz go albo skanuj od nowa</span>
         }
         @else {
-            <h2>Document scan failed.</h2>
-            <span>Please try again</span>
+            <h2>Wybiesz paragon do zeskanowania</h2>
+            <span>Akceptowane formaty to .jpg / .png / .jpeg</span>
         }
     </div>
     <app-list></app-list>
