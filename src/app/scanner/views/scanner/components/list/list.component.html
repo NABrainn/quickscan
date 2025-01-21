@@ -1,8 +1,8 @@
 <div class="list">
-@for (entry of computedEntries(); track entry.attribute) {
+@for (entry of getComputedEntries(); track entry.attribute) {
     <li class="item" (click)="openItem(entry)">
         <span class="item-text">{{entry.attribute}}:</span> 
-        @if(entryService.instanceofObject(entry.value)) {
+        @if(tcService.isObject(entry.value)) {
             <span class="item-text">Wyświetl wszystkie dane</span>
         }
         @else {
@@ -10,11 +10,19 @@
         }
     </li>
     @if(entry.open) {
-        <li>details</li>
+        @for(value of getEntryValues(entry); track $index) {
+            @if(tcService.isArray(value[1])) {
+                @for(item of value; track $index) {
+                    <span>{{item | separator}}</span>
+                }
+            }
+            @else {
+                <span>{{value | separator}}</span>
+            }
+
+
+        }
     }
-
-
-
 }
 @empty {
     <div>
