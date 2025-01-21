@@ -1,12 +1,19 @@
 .list {
+    color: var(--one);
+    background-color: var(--two);
+    padding: 1.25em;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: .75em;
 }
 
 .item {
+    padding: .7em;
+    background-color: var(--one);
+}
+
+.row {
     display: flex;
-    /* justify-content:; */
 }
 
 .item-text {
@@ -14,10 +21,29 @@
     flex-grow: 1;
 }
 
-.open {
-    display: inline;
+.key {
+    color: var(--neutral);
 }
 
-.closed {
-    display: none;
+.value {
+    color: var(--neutral);
+}
+
+.value-object:hover {
+    cursor: pointer;
+    color: var(--neutral);
+}
+
+.details {
+    color: var(--neutral);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--one);
+}
+
+.button {
+    font-weight:500;
+    padding: .5em 0;
+    background-color: var(--four);
+    color: var(--one)
 }
