@@ -2,20 +2,16 @@ import { Component, computed, model, signal, WritableSignal } from '@angular/cor
 
 import { Invoice } from '../../../../dto/Invoice';
 import { InvoiceService } from '../../service/entry-service';
-import { JsonPipe, KeyValuePipe, NgClass } from '@angular/common';
+import { JsonPipe, KeyValuePipe, NgClass, SlicePipe } from '@angular/common';
 import { InvoiceEntry } from '../../../../dto/InvoiceEntry';
 import { SeparatorPipe } from '../../pipes/entry-pipe';
 import { TypeCheckService } from '../../../../shared/type-check-service';
 import { scannerService } from '../../service/scanner-service';
 
-interface InvoiceEntryWithOpen extends InvoiceEntry {
-  open: boolean;
-}
-
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [SeparatorPipe, JsonPipe, NgClass],
+  imports: [SlicePipe, SeparatorPipe, NgClass],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
@@ -30,11 +26,19 @@ export class ListComponent {
     return this.scannerService.computedEntries();
   }
 
+  getShowAll() {
+    return this.scannerService.showAll();
+  }
+
   getEntryValues(entry: InvoiceEntry) {
     if(Array.isArray(entry.value)){    
       return entry.value.map(o => Object.entries(o));
     }
     return Object.entries({...entry.value})
+  }
+
+  toggleListContent() {
+    this.scannerService.toggleListContent();
   }
 
   ngOnInit() {

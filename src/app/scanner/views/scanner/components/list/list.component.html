@@ -1,32 +1,75 @@
 <div class="list">
-@for (entry of getComputedEntries(); track entry.attribute) {
-    <li class="item" (click)="openItem(entry)">
-        <span class="item-text">{{entry.attribute}}:</span> 
-        @if(tcService.isObject(entry.value)) {
-            <span class="item-text">Wyświetl wszystkie dane</span>
-        }
-        @else {
-            <span class="item-text">{{entry.value}}</span>
-        }
-    </li>
-    @if(entry.open) {
-        @for(value of getEntryValues(entry); track $index) {
-            @if(tcService.isArray(value[1])) {
-                @for(item of value; track $index) {
-                    <span>{{item | separator}}</span>
+@if(getShowAll()) {
+    @for (entry of getComputedEntries(); track entry.attribute) {
+        <div class="item">
+            <li class="row">
+                <span class="item-text key">{{entry.attribute}}:</span> 
+                @if(tcService.isObject(entry.value)) {
+                    <span class="item-text value value-object" (click)="openItem(entry)">Wyświetl wszystkie dane</span>
                 }
+                @else {
+                    <span class="item-text value">{{entry.value}}</span>
+                }
+            </li>
+            @if(entry.open) {
+                <div class="details">
+                @for(value of getEntryValues(entry); track $index) {
+        
+                    @if(tcService.isArray(value[1])) {
+                        @for(item of value; track $index) {
+                            <span>{{item | separator}}</span>
+                        }
+                    }
+                    @else {
+                        <span>{{value | separator}}</span>
+                    }
+                }
+            </div>
             }
-            @else {
-                <span>{{value | separator}}</span>
-            }
-
-
-        }
+        </div>
+    }
+    @empty {
+        <div>
+            Nie znaleziono paragonu do wyświetlenia.
+        </div>
     }
 }
-@empty {
-    <div>
-        Nie znaleziono paragonu do wyświetlenia.
-    </div>
+@else {
+    @for (entry of getComputedEntries() | slice:0:6; track entry.attribute) {
+        <div class="item">
+            <li class="row">
+                <span class="item-text key">{{entry.attribute}}:</span> 
+                @if(tcService.isObject(entry.value)) {
+                    <span class="item-text value value-object" (click)="openItem(entry)">Wyświetl wszystkie dane</span>
+                }
+                @else {
+                    <span class="item-text value">{{entry.value}}</span>
+                }
+            </li>
+            @if(entry.open) {
+                <div class="details">
+                @for(value of getEntryValues(entry); track $index) {
+        
+                    @if(tcService.isArray(value[1])) {
+                        @for(item of value; track $index) {
+                            <span>{{item | separator}}</span>
+                        }
+                    }
+                    @else {
+                        <span>{{value | separator}}</span>
+                    }
+                }
+            </div>
+            }
+        </div>
+    }
+    @empty {
+        <div>
+            Nie znaleziono paragonu do wyświetlenia.
+        </div>
+    }
 }
+<button class="button" (click)="toggleListContent()">
+    {{ getShowAll() ? 'Ukryj' : 'Pokaż więcej' }}
+</button>
 </div>

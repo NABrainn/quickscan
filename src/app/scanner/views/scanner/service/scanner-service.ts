@@ -14,6 +14,9 @@ export class scannerService {
     private _entries = signal<InvoiceEntryWithOpen[]>([]);
     computedEntries = computed(() => this._entries());
 
+    private _showAll = signal(false);
+    showAll = computed(() => this._showAll())
+
     initEntries() {
         const entries = this.invoiceService.invoiceToEntries();
         this._entries.set(entries.map(entry => ({...entry, open: false})))
@@ -21,5 +24,9 @@ export class scannerService {
 
     openItem(next: InvoiceEntry) {
         this._entries.update(curr => curr.map(item => item.attribute === next.attribute && next.value instanceof Object ? {...item, open: !item.open} : item))    
+    }
+
+    toggleListContent() {
+        this._showAll.update(curr => !curr)
     }
 }
