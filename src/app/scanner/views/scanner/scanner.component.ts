@@ -1,12 +1,7 @@
 import { Component, computed, effect, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { ListComponent } from './components/list/list.component';
 import { InvoiceService } from './service/entry-service';
-import { scannerService } from './service/scanner-service';
-
-export interface InvoiceEntry {
-  attribute: string,
-  value: any
-}
+import { ScannerService } from './service/scanner-service';
 
 @Component({
   selector: 'app-scanner',
@@ -17,11 +12,10 @@ export interface InvoiceEntry {
 })
 export class ScannerComponent {
 
-  constructor(private invoiceService: InvoiceService, private scannerService: scannerService){}
+  constructor(private invoiceService: InvoiceService, private scannerService: ScannerService){}
 
-  getComputedEntries() {
-    console.log(this.scannerService.computedEntries().length)
-    return this.scannerService.computedEntries();
+  getItems() {
+    return this.scannerService.items();
   }
   
   ngOnInit(): void {
