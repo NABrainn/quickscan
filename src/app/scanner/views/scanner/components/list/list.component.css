@@ -13,3 +13,9 @@
     background-color: var(--four);
     color: var(--one)
 }
+
+.scrollbar {
+    overflow: scroll;
+    scrollbar-color: var(--three) var(--two);
+    max-height: 450px;
+}

@@ -1,25 +1,11 @@
-<div class="list">
-@if(getShowAll()) {
-    @for (item of getItems(); track item.attribute) {
-        <app-list-item [_item]="item"></app-list-item>
-    }
-    @empty {
-        <div>
-            Nie znaleziono paragonu do wyświetlenia.
-        </div>
-    }
+<div class="list scrollbar">
+
+@for (item of getItems(); track item.attribute) {
+    <app-list-item [_item]="item"></app-list-item>
 }
-@else {
-    @for (item of getItems() | slice:0:6; track item.attribute) {
-        <app-list-item [_item]="item"></app-list-item>
-    }
-    @empty {
-        <div>
-            Nie znaleziono paragonu do wyświetlenia.
-        </div>
-    }
+@empty {
+    <div>
+        Nie znaleziono paragonu do wyświetlenia.
+    </div>
 }
-<button class="button" (click)="toggleListContent()">
-    {{ getShowAll() ? 'Ukryj' : 'Pokaż więcej' }}
-</button>
 </div>
