@@ -10,7 +10,7 @@ export type Invoice = {
     razemPodatek?: number,
     razemBrutto?: number,
     waluta?: string,
-    formaPlatnosci?: string,
+    formaPłatności?: string,
     produkty?: Product[]
 }
 
