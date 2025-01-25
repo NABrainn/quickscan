@@ -1,32 +1,7 @@
 <div class="list">
 @if(getShowAll()) {
-    @for (entry of getComputedEntries(); track entry.attribute) {
-        <div class="item">
-            <li class="row">
-                <span class="item-text key">{{entry.attribute}}:</span> 
-                @if(tcService.isObject(entry.value)) {
-                    <span class="item-text value value-object" (click)="openItem(entry)">Wyświetl wszystkie dane</span>
-                }
-                @else {
-                    <span class="item-text value">{{entry.value}}</span>
-                }
-            </li>
-            @if(entry.open) {
-                <div class="details">
-                @for(value of getEntryValues(entry); track $index) {
-        
-                    @if(tcService.isArray(value[1])) {
-                        @for(item of value; track $index) {
-                            <span>{{item | separator}}</span>
-                        }
-                    }
-                    @else {
-                        <span>{{value | separator}}</span>
-                    }
-                }
-            </div>
-            }
-        </div>
+    @for (item of getItems(); track item.attribute) {
+        <app-list-item [_item]="item"></app-list-item>
     }
     @empty {
         <div>
@@ -35,33 +10,8 @@
     }
 }
 @else {
-    @for (entry of getComputedEntries() | slice:0:6; track entry.attribute) {
-        <div class="item">
-            <li class="row">
-                <span class="item-text key">{{entry.attribute}}:</span> 
-                @if(tcService.isObject(entry.value)) {
-                    <span class="item-text value value-object" (click)="openItem(entry)">Wyświetl wszystkie dane</span>
-                }
-                @else {
-                    <span class="item-text value">{{entry.value}}</span>
-                }
-            </li>
-            @if(entry.open) {
-                <div class="details">
-                @for(value of getEntryValues(entry); track $index) {
-        
-                    @if(tcService.isArray(value[1])) {
-                        @for(item of value; track $index) {
-                            <span>{{item | separator}}</span>
-                        }
-                    }
-                    @else {
-                        <span>{{value | separator}}</span>
-                    }
-                }
-            </div>
-            }
-        </div>
+    @for (item of getItems() | slice:0:6; track item.attribute) {
+        <app-list-item [_item]="item"></app-list-item>
     }
     @empty {
         <div>

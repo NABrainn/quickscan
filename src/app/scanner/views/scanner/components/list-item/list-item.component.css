@@ -1,0 +1,51 @@
+.item {
+    padding: .7em;
+    background-color: var(--one);
+}
+
+.row {
+    display: flex;
+}
+
+.item-text {
+    flex-basis: 100%;
+    flex-grow: 1;
+}
+
+.key {
+    color: var(--neutral);
+}
+
+.key::first-letter {
+    text-transform: capitalize;
+}
+
+.value {
+    color: var(--neutral);
+}
+
+.value-object:hover {
+    cursor: pointer;
+    color: var(--neutral);
+}
+
+.details {
+    color: var(--neutral);
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+    background-color: var(--one);
+}
+
+.details-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-item::first-letter {
+    text-transform: capitalize;
+}
+
+.separator {
+    border: none;
+}

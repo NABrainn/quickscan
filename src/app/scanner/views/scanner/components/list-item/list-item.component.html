@@ -1,0 +1,31 @@
+<ul class="item">
+    <li class="row">
+        <span class="item-text key">{{item()?.attribute | cCaseConverter}}:</span> 
+        @if(isObject) {
+            <span class="item-text value value-object" (click)="openItem(item())">Wyświetl wszystkie dane</span>
+        }
+        @else {
+            <span class="item-text value">{{item()?.value}}</span>
+        }
+    </li>
+    @if(isOpen()) {
+        <div class="details" @popInOut>
+        @for(detail of getItemDetails((item())); track $index; let idx = $index, count = $count) {
+            @if(isArray) {
+                <div class="details-item">
+                    <span class="">Nazwa: {{detail[1].nazwaProduktu}}</span>
+                    <span class="">Jednostka Miary: {{detail[1].jednostkaMiary}}</span>
+                    <span class="">Ilość: {{detail[1].ilosc}}</span>
+                    <span class="">Wartość Netto: {{detail[1].wartoscNetto}}</span>
+                    <span class="">Stawka VAT{{detail[1].stawkaVAT}}</span>
+                    <span class="">Podatek VAT{{detail[1].podatekVAT}}</span>
+                    <span class="">Brutto: {{detail[1].brutto}}</span>
+                </div>
+            }
+            @else {
+                <span class="details-item">{{detail[0] | cCaseConverter}}: {{detail[1]}}</span>
+            }
+        }
+        </div>
+    }
+</ul>

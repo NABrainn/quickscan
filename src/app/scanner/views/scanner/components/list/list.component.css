@@ -7,40 +7,6 @@
     gap: .75em;
 }
 
-.item {
-    padding: .7em;
-    background-color: var(--one);
-}
-
-.row {
-    display: flex;
-}
-
-.item-text {
-    flex-basis: 100%;
-    flex-grow: 1;
-}
-
-.key {
-    color: var(--neutral);
-}
-
-.value {
-    color: var(--neutral);
-}
-
-.value-object:hover {
-    cursor: pointer;
-    color: var(--neutral);
-}
-
-.details {
-    color: var(--neutral);
-    display: flex;
-    flex-direction: column;
-    background-color: var(--one);
-}
-
 .button {
     font-weight:500;
     padding: .5em 0;
