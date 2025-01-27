@@ -1,11 +1,12 @@
 <div class="list scrollbar">
-
-@for (item of getItems(); track item.attribute) {
-    <app-list-item [_item]="item"></app-list-item>
-}
-@empty {
-    <div>
-        Nie znaleziono paragonu do wyświetlenia.
-    </div>
-}
+    @for (item of items(); track $index) {
+        <app-list-item [_item]="item"></app-list-item>
+    }
+    @empty {
+        <div class="empty-list">
+            <span class="empty-text">
+                <ng-content></ng-content>
+            </span>
+        </div>
+    }
 </div>

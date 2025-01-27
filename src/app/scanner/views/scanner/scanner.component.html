@@ -5,18 +5,27 @@
             <span>Zapisz go albo skanuj od nowa</span>
         }
         @else {
-            <h2 class="title">Wybiesz paragon do zeskanowania</h2>
+            <h3 class="title">Wybiesz paragon do zeskanowania</h3>
             <span>Akceptowane formaty to .jpg / .png / .jpeg</span>
         }
     </div>
-    <app-list></app-list>
+    <div class="tabs-wrapper">
+        <app-multi-step-form [_tabs]="tabs()" [_items]="getItems()"></app-multi-step-form>
+    </div>
     <div class="footer">
         <div class="button-panel">
-            <button mat-button>Regenerate</button>
-            <button mat-button>Save</button>
-            <button mat-button>Edit</button>
-            <button mat-button>Confirm</button>
+            <app-button >
+                Regeneruj
+            </app-button>
+            <app-button>
+                Zapisz
+            </app-button>
+            <app-button>
+                Edytuj
+            </app-button>
+            <app-button>
+                Potwierdź
+            </app-button>
         </div>
-        <input type="file" name="" id="">
     </div>
 </div>

@@ -10,6 +10,19 @@
     color: var(--three)
 }
 
+.tabs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    background-color: var(--two);
+    padding: 1.25em;
+    height: 50vh;
+}
+
+
+
 .button-panel {
     display: flex;
+    gap: .75em;
 }
+

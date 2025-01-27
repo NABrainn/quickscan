@@ -1,10 +1,9 @@
 .list {
     color: var(--one);
-    background-color: var(--two);
-    padding: 1.25em;
     display: flex;
     flex-direction: column;
     gap: .75em;
+    border-radius: .15em;
 }
 
 .button {
@@ -17,5 +16,16 @@
 .scrollbar {
     overflow: scroll;
     scrollbar-color: var(--three) var(--two);
-    max-height: 450px;
+    max-height: max(43vh, 140px);
+}
+
+.empty-list {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.empty-text {
+    align-self: center;
+    color: var(--four);
 }
