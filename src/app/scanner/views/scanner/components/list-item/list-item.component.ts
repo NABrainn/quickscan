@@ -1,15 +1,13 @@
 import { Component, computed, Input, input, model, signal } from '@angular/core';
-import { TypeCheckService } from '../../../../shared/type-check-service';
-import { ScannerService } from '../../service/scanner-service';
 import { ListItem } from '../../../../dto/ListItem';
 import { CamelCaseToTextPipe } from '../../pipes/camel-case-to-text-pipe';
-import { KeyValuePipe, NgClass } from '@angular/common';
-import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
+import { KeyValuePipe, NgClass, TitleCasePipe } from '@angular/common';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-list-item',
   standalone: true,
-  imports: [CamelCaseToTextPipe, KeyValuePipe, NgClass],
+  imports: [CamelCaseToTextPipe, KeyValuePipe, TitleCasePipe, NgClass],
   templateUrl: './list-item.component.html',
   styleUrl: './list-item.component.css',
   animations: [
@@ -30,17 +28,16 @@ export class ListItemComponent {
   item = computed(() => this._item())
 
   _isOpen = signal<boolean>(false);
-  isOpen = computed(() => this._isOpen())
+  isOpen = computed(() => this._isOpen());
+  
+  _isObject = signal<boolean>(false);
+  isObject = computed(() => this._isObject());
+  
+  _isArray = signal<boolean>(false);
+  isArray = computed(() => this._isArray());
 
-  isObject: boolean = false;
-  isArray: boolean = false;
+  constructor(){}
 
-
-  constructor(private tcService: TypeCheckService, private scannerService: ScannerService){}
-
-  getItems() {
-    return this.scannerService.items();
-  }
   getItemDetails(item: ListItem | undefined): any {
     if (!item) return [];
     return Object.entries({...item.value});
@@ -51,7 +48,11 @@ export class ListItemComponent {
   }
 
   ngOnInit() {
-    this.isObject = this.tcService.isObject(this.item()?.value);
-    this.isArray = this.tcService.isArray(this._item()?.value);
+    this._isObject.set(this.item()?.value instanceof Object);
+    this._isArray.set(Array.isArray(this.item()?.value));
+  }
+
+  ngOnDestroy() {
+    console.log('component destroyed')
   }
 }
