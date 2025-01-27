@@ -1,0 +1,5 @@
+:host {
+    background-color: var(--four);
+    border-radius: .35em;
+    padding: .25em .75em;
+}
