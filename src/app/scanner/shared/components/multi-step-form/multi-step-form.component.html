@@ -1,0 +1,13 @@
+<div class="tabs">
+    @for (tab of tabs(); track $index) {
+        <span (click)="tab.enabled() ? handleTabClick(tab.label()) : $event.stopPropagation()"
+              [class.selected]="tab.selected()"
+              [class.enabled]="tab.enabled()"
+              [class.disabled]="!tab.enabled()">
+            {{ tab.label() | titlecase }}
+        </span>
+    }
+</div>
+<div class="content">
+    <ng-container [ngTemplateOutlet]="stepContent()"></ng-container>
+</div>
