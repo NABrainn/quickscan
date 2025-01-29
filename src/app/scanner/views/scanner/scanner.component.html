@@ -9,8 +9,25 @@
             <span>Akceptowane formaty to .jpg / .png / .jpeg</span>
         }
     </div>
-    <div class="tabs-wrapper">
-        <app-multi-step-form [_tabs]="tabs()" [_items]="getItems()"></app-multi-step-form>
+    <div class="main">
+        <app-multi-step-form >
+            <app-tab 
+                [label]="'upload'" 
+                [enabled]="true" 
+                [selected]="true">Upload
+            </app-tab>
+            <app-tab 
+                [label]="'ready'" 
+                [enabled]="!!getItems()" 
+                [selected]="false">Ready
+            </app-tab>
+            <ng-template #upload>
+                <app-upload-panel></app-upload-panel>
+            </ng-template>
+            <ng-template #ready>
+                <app-list [items]="getItems()"></app-list>
+            </ng-template>
+        </app-multi-step-form>
     </div>
     <div class="footer">
         <div class="button-panel">
