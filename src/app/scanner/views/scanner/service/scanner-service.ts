@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { ListItem } from "../../../dto/ListItem";
 import { InvoiceService } from "./entry-service";
+import { ListItem } from "@dto/ListItem";
 
 @Injectable({providedIn: 'root'})
 export class ScannerService {
@@ -9,16 +9,10 @@ export class ScannerService {
 
     private _items = signal<ListItem[]>([]);
     items = computed(() => this._items());
-
-    private _showAll = signal(false);
-    showAll = computed(() => this._showAll())
-
+    
     initEntries() {
         const items = this.invoiceService.invoiceToEntries();
         this._items.set(items);
     }
 
-    toggleListContent() {
-        this._showAll.update(curr => !curr)
-    }
 }

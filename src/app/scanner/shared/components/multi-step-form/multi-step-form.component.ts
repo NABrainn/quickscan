@@ -1,8 +1,9 @@
 import { Component, computed, contentChild, contentChildren, signal, TemplateRef } from '@angular/core';
 import { NgClass, NgIf, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
-import { UploadPanelComponent } from '../upload-panel/upload-panel.component';
-import { ListComponent } from '../list/list.component';
-import { TabComponent } from '../tab/tab.component';
+import { UploadPanelComponent } from '@components/upload-panel/upload-panel.component';
+import { ListComponent } from '@components/list/list.component';
+import { TabComponent } from '@components/tab/tab.component';
+
 
 @Component({
   selector: 'app-multi-step-form',

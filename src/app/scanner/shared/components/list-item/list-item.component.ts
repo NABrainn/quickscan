@@ -1,11 +1,12 @@
 import { Component, computed, input, model } from '@angular/core';
-import { ListItem } from '../../../dto/ListItem';
 import { KeyValuePipe, NgClass, TitleCasePipe } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { CamelCaseToTextPipe } from '../../pipes/camel-case-to-text-pipe';
-import { NewLinePipe } from '../../pipes/new-line.pipe';
-import { IsObjectPipe } from '../../pipes/is-object.pipe';
-import { IsArrayPipe } from '../../pipes/is-array.pipe';
+import { NewLinePipe } from '@pipes/new-line.pipe';
+import { IsObjectPipe } from '@pipes/is-object.pipe';
+import { IsArrayPipe } from '@pipes/is-array.pipe';
+import { CamelCaseToTextPipe } from '@pipes/camel-case-to-text-pipe';
+import { ListItem } from '@dto/ListItem';
+
 
 @Component({
   selector: 'app-list-item',

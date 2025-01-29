@@ -22,7 +22,16 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "baseUrl" : "./src",
+    "paths": {
+      "@components/*": ["app/scanner/shared/components/*"],
+      "@services/*": ["app/scanner/shared/services/*"],
+      "@dto/*": ["app/scanner/shared/dto/*"],
+      "@pipes/*": ["app/scanner/shared/pipes/*"]
+
+
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
