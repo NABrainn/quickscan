@@ -1,0 +1,32 @@
+<ng-content>
+    <ul class="item">
+        <li class="row">
+            <span class="item-attr key">{{item()?.attribute | camelCaseText | titlecase}}:</span>
+            <div class="item-attr">
+            @if(item()?.value | isObject) {
+                <span class="value value-object" (click)="openItem(item())">Wyświetl wszystkie dane</span>
+                <div [ngClass]="_isOpen() ? 'details-arrow-down' : 'details-arrow-up'"></div>
+            }
+            @else {
+                <span class="value">{{item()?.value}}</span>
+            }
+            </div>
+        </li>
+        @if(_isOpen()) {
+            <div class="details" @popInOut>
+            @for(details of item()?.value | keyvalue; track $index) {
+                @if(details.value | isObject) {
+                    <div>
+                        @for(detail of details?.value | keyvalue; track $index) {
+                            <pre>{{detail.key | camelCaseText}}: {{detail.value | newLine}}</pre>
+                        }
+                    </div>
+                }
+                @else {
+                    <pre>{{details.key | camelCaseText}}: {{details.value}}</pre>
+                }
+            }
+            </div>
+        }
+    </ul>
+</ng-content>

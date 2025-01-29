@@ -1,0 +1,18 @@
+<div class="scrollbar">
+    <div class="list">
+        @for (item of items(); track $index) {
+        <app-list-item 
+            [_item]="item" 
+            [_isOpen]="false"
+        >
+        </app-list-item>
+        }
+        @empty {
+            <div class="empty-list">
+                <span class="empty-text">
+                    <ng-content></ng-content>
+                </span>
+            </div>
+        }
+    </div>
+</div>
