@@ -1,4 +1,4 @@
 export type ListItem = {
     attribute?: string,
-    value?: Object,
+    value?: Object | any[],
 }
