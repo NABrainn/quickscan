@@ -1,31 +1,44 @@
 <ng-content>
     <ul class="item">
         <li class="row">
-            <span class="item-attr key">{{item()?.attribute | camelCaseText | titlecase}}:</span>
+            <span class="item-attr key">{{ item()?.attribute | camelCaseText | titlecase }}:</span>
             <div class="item-attr">
-            @if(item()?.value | isObject) {
-                <span class="value value-object" (click)="openItem(item())">Wyświetl wszystkie dane</span>
-                <div [ngClass]="_isOpen() ? 'details-arrow-down' : 'details-arrow-up'"></div>
-            }
-            @else {
-                <span class="value">{{item()?.value}}</span>
-            }
-            </div>
-        </li>
-        @if(_isOpen()) {
-            <div class="details" @popInOut>
-            @for(details of item()?.value | keyvalue; track $index) {
-                @if(details.value | isObject) {
-                    <div>
-                        @for(detail of details?.value | keyvalue; track $index) {
-                            <pre>{{detail.key | camelCaseText}}: {{detail.value | newLine}}</pre>
-                        }
-                    </div>
+                @if (item()?.value | isObject) {
+                    <span class="value value-object" (click)="openItem(item())">Wyświetl wszystkie dane</span>
+                    <div [ngClass]="_isOpen() ? 'details-arrow-down' : 'details-arrow-up'"></div>
                 }
                 @else {
-                    <pre>{{details.key | camelCaseText}}: {{details.value}}</pre>
+                    <app-editable-label [canEdit]="canEdit()">
+                        <span class="value">{{ item()?.value }}</span>
+                    </app-editable-label>
                 }
-            }
+            </div>
+        </li>
+
+        @if (_isOpen()) {
+            <div class="details" @popInOut>
+                @for (details of item()?.value | keyvalue; track $index) {
+                    @if (details.value | isObject) {
+                        <div>
+                            @for (detail of details?.value | keyvalue; track $index) {
+                                <span class="details-item">
+                                    <span class="details-item-key">{{ detail.key | camelCaseText }}: </span>
+                                    <app-editable-label [canEdit]="canEdit()" class="details-item-value">
+                                        {{ detail.value }}
+                                    </app-editable-label>
+                                </span>
+                            }
+                        </div>
+                    }
+                    @else {
+                        <span class="details-item">
+                            <span class="details-item-key">{{ details.key | camelCaseText }}: </span> 
+                            <app-editable-label [canEdit]="canEdit()" class="details-item-value">
+                                {{ details.value }}
+                            </app-editable-label>
+                        </span>
+                    }
+                }
             </div>
         }
     </ul>

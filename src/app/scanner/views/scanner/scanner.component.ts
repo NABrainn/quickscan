@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ListComponent } from '@components/list/list.component';
 import { ListItemComponent } from '@components/list-item/list-item.component';
@@ -17,8 +17,15 @@ import { ScannerService } from './service/scanner-service';
   styleUrl: './scanner.component.css'
 })
 export class ScannerComponent {
+
+  _canEdit = signal<boolean>(false);
+  canEdit = computed(() => this._canEdit())
   
   constructor(private scannerService: ScannerService){
+  }
+
+  toggleEditMode() {
+    this._canEdit.update(curr => !curr)
   }
 
   getItems() {
@@ -28,6 +35,5 @@ export class ScannerComponent {
   
   ngOnInit(): void {
     this.scannerService.initEntries();
-
   }
 }

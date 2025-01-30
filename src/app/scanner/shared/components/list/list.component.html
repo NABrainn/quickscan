@@ -3,7 +3,8 @@
         @for (item of items(); track $index) {
         <app-list-item 
             [_item]="item" 
-            [_isOpen]="false"
+            [_isOpen]="canEdit()"
+            [canEdit]="canEdit()"
         >
         </app-list-item>
         }

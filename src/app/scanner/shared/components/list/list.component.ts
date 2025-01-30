@@ -11,5 +11,6 @@ import { ListItemComponent } from '@components/list-item/list-item.component';
 export class ListComponent {
 
   items = model<any[]>();
+  canEdit = model<boolean>(false);
   
 }

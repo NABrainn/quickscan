@@ -54,9 +54,17 @@
 }
 
 .details-item {
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: .25em;
 }
+
+.details-item-key {
+    flex-basis: 50%;
+}
+
 
 .separator {
     border: none;
