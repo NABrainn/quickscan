@@ -38,6 +38,8 @@
 
 .value {
     color: var(--neutral);
+    word-break: break-all;
+
 }
 
 .value-object:hover {
@@ -59,9 +61,13 @@
     flex-direction: row;
     flex-grow: 1;
     gap: .25em;
+
 }
 
 .details-item-key {
+    flex-basis: 50%;
+}
+.detail-item-value {
     flex-basis: 50%;
 }
 

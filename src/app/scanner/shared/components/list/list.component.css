@@ -17,7 +17,6 @@
 .scrollbar {
     overflow: scroll;
     scrollbar-color: var(--three) var(--two);
-    max-height: max(43vh, 140px);
 }
 
 .empty-list {
@@ -29,4 +28,21 @@
 .empty-text {
     align-self: center;
     color: var(--four);
+}
+
+
+@media(orientation: landscape) {
+    .scrollbar {
+        overflow: scroll;
+        scrollbar-color: var(--three) var(--two);
+        max-height: clamp(130px, 16vw, 400px);
+    }
+}
+
+@media(orientation: portrait) {
+    .scrollbar {
+        overflow: scroll;
+        scrollbar-color: var(--three) var(--two);
+        max-height: clamp(250px, 15vw, 250px);
+    }
 }

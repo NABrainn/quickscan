@@ -2,8 +2,18 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    width: 45%;
     margin: 0 auto;
+}
+@media(min-width: 768px) {
+    .wrapper {
+        width: 45%;
+    }
+}
+
+@media(max-width: 768px) {
+    .wrapper {
+        width: 90%;
+    }
 }
 
 .title {
@@ -11,16 +21,32 @@
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
     background-color: var(--two);
     padding: 1.25em;
-    height: 50vh;
+}
+
+.stepper-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
 .button-panel {
     display: flex;
     gap: .75em;
 }
+
+@media(orientation: landscape) {
+    .main {
+        height: clamp(240px, 25vw, 800px);
+    }
+}
+
+@media(orientation: portrait) {
+    .main {
+        height: clamp(360px, 40vw, 900px);
+    }
+}
+
+
 

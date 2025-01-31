@@ -1,5 +1,7 @@
 @if(!canEdit()) {
-    <ng-content></ng-content>
+    <span class="label">
+        <ng-content></ng-content>
+    </span>
 }
 @else {
     <input type="text">

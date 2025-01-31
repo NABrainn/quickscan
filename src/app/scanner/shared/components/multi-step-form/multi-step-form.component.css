@@ -1,7 +1,8 @@
 :host {
+    height: inherit;
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 2em;
 }
 
 .tabs {
@@ -9,18 +10,9 @@
     gap: .5em;
 }
 
-.enabled { 
-    cursor: pointer;
-    color: var(--four);
+.content {
+    flex-basis: 80%;
 }
 
-.disabled {
-    color: var(--one)
-}
 
-.selected {
-    text-decoration: underline;
-    text-decoration-color: var(--three);
-    text-underline-offset: .3em;
-    text-decoration-thickness: .2em;
-}
+
