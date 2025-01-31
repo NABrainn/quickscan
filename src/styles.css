@@ -11,9 +11,6 @@
     src: url('assets/roboto.ttf');
 }
 
-* {
-    font-family: 'Roboto';
-}
 
 html, body {
     margin: 0;
@@ -26,8 +23,8 @@ html, body {
 /* Setup */
 html {
     /* Change default typefaces here */
-    font-family: serif;
-    font-size: 137.5%;
+    font-family: 'Roboto';
+    font-size: clamp(1vw, 16px, 4vw);
     -webkit-font-smoothing: antialiased;
   }
   /* Copy & Lists */
@@ -124,4 +121,8 @@ html {
     font: inherit;
     cursor: pointer;
     outline: inherit;
+  }
+
+  pre {
+    margin: 0;
   }
