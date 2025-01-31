@@ -1,4 +1,5 @@
 import { Component, input, model } from '@angular/core';
+import { StepperService } from '@services/stepper.service';
 
 @Component({
   selector: 'app-tab',
@@ -11,7 +12,14 @@ export class TabComponent {
   enabled = model<boolean>(true);
   selected = model<boolean>();
 
-  toggleSelected() {
-    this.selected.set(!this.selected())
+  constructor(private stepperService: StepperService) {
+  }
+
+  handleClick(label: string) {
+    this.stepperService.handleTabClick(label)
+  }
+
+  ngOnInit() {
+    
   }
 }

@@ -1,3 +1,10 @@
+<span 
+    (click)="enabled() ? handleClick(label()) : $event.stopPropagation()"
+    [class.selected]="selected()"
+    [class.enabled]="enabled()"
+    [class.disabled]="!enabled()"
+>
 <ng-content>
-    
 </ng-content>
+</span>
+
