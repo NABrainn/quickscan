@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border: .25em dashed var(--one)
+}
+
+.wrapper:-moz-drag-over {
+    background-color: red;
+}
+
+.drag-drop {
+    color: var(--four);
+    user-select: none;
+}
+
+.select-file {
+    user-select: none;
+    color: var(--neutral);
+    text-decoration: underline;
+    text-decoration-thickness: .1em;
+    text-underline-offset: .25em;
+    cursor: pointer;
+}
+
+.file-upload {
+    display: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}

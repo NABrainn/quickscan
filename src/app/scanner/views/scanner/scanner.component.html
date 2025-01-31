@@ -14,35 +14,41 @@
             <app-tab 
                 [label]="'upload'" 
                 [enabled]="true" 
-                [selected]="true">Upload
+                [selected]="true"
+                >Upload
             </app-tab>
             <app-tab 
                 [label]="'ready'" 
-                [enabled]="!!getItems()" 
-                [selected]="false">Ready
+                [enabled]="getItems().length !== 0" 
+                [selected]="false"
+                >Ready
             </app-tab>
             <ng-template #upload>
-                <app-upload-panel></app-upload-panel>
+                <app-upload-panel>
+                    <div slot='drag-drop-placeholder'>
+                        Przenieś pliki tutaj
+                    </div>
+                    <span slot='select-file-placeholder'> 
+                        albo wybierz z dysku
+                    </span>
+                </app-upload-panel>
             </ng-template>
             <ng-template #ready>
-                <app-list [items]="getItems()"></app-list>
+                <div class="stepper-content-wrapper">
+                    <app-list [items]="getItems()" [canEdit]="canEdit()"></app-list>
+                    <div class="button-panel">
+                        <app-button>
+                            Regeneruj
+                        </app-button>
+                        <app-button (click)="toggleEditMode()">
+                            Edytuj
+                        </app-button>
+                        <app-button [bgc]="'three'">
+                            Zapisz
+                        </app-button>
+                    </div>      
+                </div>
             </ng-template>
         </app-multi-step-form>
-    </div>
-    <div class="footer">
-        <div class="button-panel">
-            <app-button >
-                Regeneruj
-            </app-button>
-            <app-button>
-                Zapisz
-            </app-button>
-            <app-button>
-                Edytuj
-            </app-button>
-            <app-button>
-                Potwierdź
-            </app-button>
-        </div>
     </div>
 </div>
