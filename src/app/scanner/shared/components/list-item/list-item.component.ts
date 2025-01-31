@@ -5,14 +5,13 @@ import { IsObjectPipe } from '@pipes/is-object.pipe';
 import { IsArrayPipe } from '@pipes/is-array.pipe';
 import { CamelCaseToTextPipe } from '@pipes/camel-case-to-text-pipe';
 import { ListItem } from '@dto/ListItem';
-import { CanEditDirective } from '../../directives/can-edit.directive';
 import { EditableLabelComponent } from '@components/editable-label/editable-label.component';
 
 
 @Component({
   selector: 'app-list-item',
   standalone: true,
-  imports: [KeyValuePipe, IsObjectPipe, IsArrayPipe, CamelCaseToTextPipe, TitleCasePipe, NgClass, CanEditDirective, EditableLabelComponent],
+  imports: [KeyValuePipe, IsObjectPipe, IsArrayPipe, CamelCaseToTextPipe, TitleCasePipe, NgClass, EditableLabelComponent],
   templateUrl: './list-item.component.html',
   styleUrl: './list-item.component.css',
   animations: [

@@ -4,7 +4,7 @@
             <span class="item-attr key">{{ item()?.attribute | camelCaseText | titlecase }}:</span>
             <div class="item-attr">
                 @if (item()?.value | isObject) {
-                    <span class="value value-object" (click)="openItem(item())">Wyświetl wszystkie dane</span>
+                    <span class="value value-object" (click)="openItem(item())">Pokaż wszystko</span>
                     <div [ngClass]="_isOpen() ? 'details-arrow-down' : 'details-arrow-up'"></div>
                 }
                 @else {
@@ -24,7 +24,7 @@
                                 <span class="details-item">
                                     <span class="details-item-key">{{ detail.key | camelCaseText }}: </span>
                                     <app-editable-label [canEdit]="canEdit()" class="details-item-value">
-                                        {{ detail.value }}
+                                        <span class="value">{{ detail.value }}</span>
                                     </app-editable-label>
                                 </span>
                             }
@@ -34,7 +34,7 @@
                         <span class="details-item">
                             <span class="details-item-key">{{ details.key | camelCaseText }}: </span> 
                             <app-editable-label [canEdit]="canEdit()" class="details-item-value">
-                                {{ details.value }}
+                                <span class="value">{{ details.value }}</span>
                             </app-editable-label>
                         </span>
                     }
