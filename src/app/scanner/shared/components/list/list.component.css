@@ -2,7 +2,7 @@
     color: var(--one);
     display: flex;
     flex-direction: column;
-    gap: .75em;
+    gap: clamp(.25em, 1vw ,.75em);
     border-radius: .15em;
     padding-right: 1em;
 }
@@ -17,6 +17,7 @@
 .scrollbar {
     overflow: scroll;
     scrollbar-color: var(--three) var(--two);
+    max-height: max(40vh, 120px);
 }
 
 .empty-list {
@@ -28,21 +29,4 @@
 .empty-text {
     align-self: center;
     color: var(--four);
-}
-
-
-@media(orientation: landscape) {
-    .scrollbar {
-        overflow: scroll;
-        scrollbar-color: var(--three) var(--two);
-        max-height: clamp(130px, 16vw, 400px);
-    }
-}
-
-@media(orientation: portrait) {
-    .scrollbar {
-        overflow: scroll;
-        scrollbar-color: var(--three) var(--two);
-        max-height: clamp(250px, 15vw, 250px);
-    }
 }

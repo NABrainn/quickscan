@@ -1,8 +1,8 @@
 input[type="text"] {
     width: clamp(100px, 10vw, 200px);
-    height: 1.6em;
+    height: 1.4em;
     background-color: var(--neutral);
-    border: .25em solid var(--one);
+    border: .25em solid var(--neutral);
 }
 
 input[type="text"]:focus {

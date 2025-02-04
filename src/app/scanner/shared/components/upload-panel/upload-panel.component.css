@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: max(44vh, 150px);
     border: .25em dashed var(--one)
 }
 
