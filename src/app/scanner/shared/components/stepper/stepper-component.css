@@ -1,8 +1,9 @@
 :host {
-    height: inherit;
+    min-height: inherit;
     display: flex;
     flex-direction: column;
-    gap: 2em;
+    justify-content: start;
+    gap: clamp(1em, 1.5vw, 4em);
 }
 
 .tabs {
