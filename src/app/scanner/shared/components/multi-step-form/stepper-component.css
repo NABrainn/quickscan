@@ -1,0 +1,18 @@
+:host {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.tabs {
+    display: flex;
+    gap: .5em;
+}
+
+.content {
+    flex-basis: 80%;
+}
+
+
+

@@ -1,14 +1,17 @@
 <div class="wrapper" 
-    (dragover)="onDragOver($event)" 
-    (drop)="onDrop($event)"
-    dragoverBehavior="{enter: 'one', leave: 'two'}"
+    [dragoverBehavior]="{
+        enter: 'one', 
+        leave: 'two'
+    }"
     >
-    <input type="file" class="file-upload" (change)="onFileSelected($event)" #fileUpload>
+    <ng-content select="[slot='input-placeholder']">
+    </ng-content>
+
     <a class="drag-drop">
         <ng-content select="[slot='drag-drop-placeholder']">
         </ng-content>
     </a>
-    <a class="select-file" (click)="fileUpload.click()">
+    <a class="select-file">
         <ng-content select="[slot='select-file-placeholder']">
         </ng-content>
     </a>

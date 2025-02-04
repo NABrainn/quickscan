@@ -1,5 +1,5 @@
 <span 
-    (click)="enabled() ? handleClick(label()) : $event.stopPropagation()"
+    (click)="enabled() ? handleClick(this) : $event.stopPropagation()"
     [class.selected]="selected()"
     [class.enabled]="enabled()"
     [class.disabled]="!enabled()"

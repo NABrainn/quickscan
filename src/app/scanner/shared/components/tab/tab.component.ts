@@ -1,25 +1,19 @@
-import { Component, input, model } from '@angular/core';
-import { StepperService } from '@services/stepper.service';
+import { Component, input, model, output } from '@angular/core';
 
 @Component({
   selector: 'app-tab',
   standalone: true,
+  imports: [],
   templateUrl: './tab.component.html',
   styleUrl: './tab.component.css'
 })
 export class TabComponent {
-  label = input<string>('Default');
+  label = model<string | undefined>('Default');
   enabled = model<boolean>(true);
   selected = model<boolean>();
+  tabClicked = output<TabComponent>()
 
-  constructor(private stepperService: StepperService) {
-  }
-
-  handleClick(label: string) {
-    this.stepperService.handleTabClick(label)
-  }
-
-  ngOnInit() {
-    
+  handleClick(tab: TabComponent) {
+    this.tabClicked.emit(this)
   }
 }

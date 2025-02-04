@@ -1,0 +1,13 @@
+<div class="tabs">
+    <ng-content>
+        
+    </ng-content>
+</div>
+<div class="content">
+    <ng-container
+    #container
+    [ngTemplateOutlet]="content()"
+    >
+
+    </ng-container>
+</div>

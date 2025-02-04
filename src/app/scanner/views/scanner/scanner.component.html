@@ -10,45 +10,49 @@
         }
     </div>
     <div class="main">
-        <app-multi-step-form >
+        <app-stepper>
             <app-tab 
-                [label]="'upload'" 
+                [label]="'one'" 
                 [enabled]="true" 
                 [selected]="true"
                 >Upload
             </app-tab>
             <app-tab 
-                [label]="'ready'" 
+                [label]="'two'" 
                 [enabled]="getItems().length !== 0" 
                 [selected]="false"
                 >Ready
             </app-tab>
-            <ng-template #upload>
-                <app-upload-panel>
-                    <div slot='drag-drop-placeholder'>
-                        Przenieś pliki tutaj
+            <ng-container #container></ng-container>
+            <ng-template #one>
+                    <app-upload-panel appFileUploadNextStep>
+                        <div slot="input-placeholder">
+                            <input type="file" class="file-upload" appFileInput appFileUploadNextStep #fileUpload>
+                        </div>
+                        <div slot='drag-drop-placeholder'>
+                            Przenieś pliki tutaj
+                        </div>
+                        <span slot='select-file-placeholder' (click)="fileUpload.click()"> 
+                            albo wybierz z dysku
+                        </span>
+                    </app-upload-panel>
+            </ng-template>
+            <ng-template #two>
+                    <div class="stepper-content-wrapper">
+                        <app-list [items]="getItems()" [canEdit]="canEdit()"></app-list>
+                        <div class="button-panel">
+                            <app-button>
+                                Regeneruj
+                            </app-button>
+                            <app-button (click)="toggleEditMode()">
+                                Edytuj
+                            </app-button>
+                            <app-button [bgc]="'three'">
+                                Zapisz
+                            </app-button>
+                        </div>      
                     </div>
-                    <span slot='select-file-placeholder'> 
-                        albo wybierz z dysku
-                    </span>
-                </app-upload-panel>
             </ng-template>
-            <ng-template #ready>
-                <div class="stepper-content-wrapper">
-                    <app-list [items]="getItems()" [canEdit]="canEdit()"></app-list>
-                    <div class="button-panel">
-                        <app-button>
-                            Regeneruj
-                        </app-button>
-                        <app-button (click)="toggleEditMode()">
-                            Edytuj
-                        </app-button>
-                        <app-button [bgc]="'three'">
-                            Zapisz
-                        </app-button>
-                    </div>      
-                </div>
-            </ng-template>
-        </app-multi-step-form>
+        </app-stepper>
     </div>
 </div>
