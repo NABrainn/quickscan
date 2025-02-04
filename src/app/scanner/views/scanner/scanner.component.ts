@@ -4,7 +4,7 @@ import { ListComponent } from '@components/list/list.component';
 import { ListItemComponent } from '@components/list-item/list-item.component';
 import { ButtonComponent } from '@components/button/button.component';
 import { UploadPanelComponent } from '@components/upload-panel/upload-panel.component';
-import { StepperComponent } from '@components/multi-step-form/stepper-component';
+import { StepperComponent } from '@components/stepper/stepper-component';
 import { TabComponent } from '@components/tab/tab.component';
 import { ScannerService } from './service/scanner-service';
 import { FileUploadNextStepDirective } from 'app/scanner/shared/directives/file-upload-next-step.directive';
