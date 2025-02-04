@@ -15,9 +15,16 @@
 html, body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    height: 100%;
     background-color: var(--neutral);
 }
+
+/* app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+} */
+
 
 /*! Typebase.less v0.1.0 | MIT License */
 /* Setup */
