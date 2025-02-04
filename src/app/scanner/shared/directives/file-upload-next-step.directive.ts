@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Directive, HostListener, inject } from '@angular/core';
-import { StepperComponent } from '@components/multi-step-form/stepper-component';
+import { StepperComponent } from '@components/stepper/stepper-component';
 
 @Directive({
   selector: '[appFileUploadNextStep]',
