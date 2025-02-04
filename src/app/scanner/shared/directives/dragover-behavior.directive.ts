@@ -11,16 +11,26 @@ type colors = {
 })
 export class DragoverBehaviorDirective {
 
-  color = input<colors>()
+  dragoverBehavior = input<colors>()
 
   constructor(private el: ElementRef) { }
 
-  @HostListener('dragover') onDragOver(){
-    this.el.nativeElement.style.backgroundColor = `var(--one)`;
+  @HostListener('dragover', ['$event']) 
+  onDragOver(event: Event){
+    event.preventDefault();
+    event.stopPropagation();
+    this.el.nativeElement.style.backgroundColor = `var(--${this.dragoverBehavior()?.enter})`;
   }
 
-  @HostListener('dragleave') onDragLeave(){
-    this.el.nativeElement.style.backgroundColor = `var(--two)`;
+  @HostListener('dragleave', ['$event']) 
+  onDragLeave(){
+    console.log(this.dragoverBehavior()?.leave)
+    this.el.nativeElement.style.backgroundColor = `var(--${this.dragoverBehavior()?.leave})`;
+  }
+
+  @HostListener('drop', ['$event']) 
+  onDrop(){
+    this.el.nativeElement.style.backgroundColor = `var(--${this.dragoverBehavior()?.leave})`;
   }
 
 }
