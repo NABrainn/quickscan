@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, Renderer2, viewChild } from '@angular/core';
+import { Component, ElementRef, input, Renderer2, viewChild } from '@angular/core';
 
 @Component({
   selector: 'app-button',

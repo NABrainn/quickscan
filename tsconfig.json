@@ -29,8 +29,6 @@
       "@services/*": ["app/scanner/shared/services/*"],
       "@dto/*": ["app/scanner/shared/dto/*"],
       "@pipes/*": ["app/scanner/shared/pipes/*"]
-
-
     }
   },
   "angularCompilerOptions": {

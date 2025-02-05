@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Client, Product, Vendor } from "@dto/Invoice";
+import { Client, Invoice, Product, Vendor } from "@dto/Invoice";
+import { ListItem } from "@dto/ListItem";
+import { delay, of } from "rxjs";
 
-//this is a service for providing data to the client
 @Injectable({providedIn: 'root'})
 export class InvoiceStore {
-    getInvoice() {
+    getInvoice(): Invoice {
         return {
             odbiorca: this.getClient(),
             sprzedawca: this.getVendor(),
@@ -17,12 +18,33 @@ export class InvoiceStore {
             razemPodatek: 2.415,
             razemBrutto: 12.915,
             waluta: "PLN",
-            formaPlatnosci: "przelew",
+            formaPłatności: "przelew",
             produkty: [
                 this.getProduct(),
                 this.getProduct()
             ]
         };
+    }
+
+    $getInvoice() {
+        return of<Invoice>({
+            odbiorca: this.getClient(),
+            sprzedawca: this.getVendor(),
+            numerFaktury: "FV/2023/001",
+            nrKontaRachunkuBankowego: "PL12345678901234567890123456",
+            dataWystawienia: "2023-10-01",
+            dataSprzedaży: "2023-10-01",
+            razemNetto: 10.5,
+            razemStawka: 23,
+            razemPodatek: 2.415,
+            razemBrutto: 12.915,
+            waluta: "PLN",
+            formaPłatności: "przelew",
+            produkty: [
+                this.getProduct(),
+                this.getProduct()
+            ]
+        }).pipe(delay(2000))
     }
 
     getClient(): Client {
@@ -51,5 +73,15 @@ export class InvoiceStore {
             nip: "0987654321",
             adres: "ul. Handlowa 2, 11-111 Gdańsk"
         };
+    }
+
+    invoiceToEntries() {
+        const invoice = this.getInvoice();
+        const entries: ListItem[] = [];
+
+        Object.entries(invoice).forEach(([k, v]) => {
+            entries.push({attribute: k, value: v} as ListItem);
+        })
+        return entries;
     }
 }

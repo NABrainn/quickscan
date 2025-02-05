@@ -5,7 +5,7 @@ import { IsObjectPipe } from '@pipes/is-object.pipe';
 import { IsArrayPipe } from '@pipes/is-array.pipe';
 import { CamelCaseToTextPipe } from '@pipes/camel-case-to-text-pipe';
 import { ListItem } from '@dto/ListItem';
-import { EditableLabelComponent } from '@components/editable-label/editable-label.component';
+import { EditableLabelComponent } from 'app/scanner/ui/editable-label/editable-label.component';
 
 
 @Component({

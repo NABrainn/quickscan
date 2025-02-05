@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ScannerComponent } from './scanner/views/scanner/scanner.component';
-import { LoadingBarComponent } from '@components/loading-spinner/loading-bar.component';
+import { LoadingBarComponent } from 'app/scanner/ui/loading-bar/loading-bar.component';
+import { ScannerComponent } from './scanner/features/scanner/scanner.component';
 
 @Component({
   selector: 'app-root',

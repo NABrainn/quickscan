@@ -15,5 +15,14 @@
     flex-basis: 80%;
 }
 
+.stepper-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
 
+.button-panel {
+    display: flex;
+    gap: .75em;
+}
 
