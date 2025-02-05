@@ -17,7 +17,7 @@
 .scrollbar {
     overflow: scroll;
     scrollbar-color: var(--three) var(--two);
-    max-height: max(40vh, 120px);
+    max-height: max(35vh, 120px);
 }
 
 .empty-list {
