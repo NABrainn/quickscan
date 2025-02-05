@@ -20,21 +20,27 @@
     [ngTemplateOutlet]="content()"
     >
     <ng-template #one>
-        <app-upload-panel fileDropBehavior>
-            <div slot="input-placeholder">
-                <input type="file" class="file-upload" appFileInput fileSelectBehavior #fileUpload>
-            </div>
-            <div slot='drag-drop-placeholder'>
-                Przenieś pliki tutaj
-            </div>
-            <span slot='select-file-placeholder' (click)="fileUpload.click()"> 
-                albo wybierz z dysku
-            </span>
-        </app-upload-panel>
+        <div class="stepper-content-wrapper">
+            <app-upload-panel 
+                (formData)="handleFileUpload($event)"
+                [error]="error()"
+            >
+                
+                <div slot='drag-drop-placeholder'>
+                    Przenieś pliki tutaj
+                </div>
+                <span slot='select-file-placeholder'> 
+                    albo wybierz z dysku
+                </span>
+            </app-upload-panel>
+        </div>
     </ng-template>
     <ng-template #two>
         <div class="stepper-content-wrapper">
-            <app-list [items]="items()" [canEdit]="canEdit()">
+            <app-list 
+                [items]="items()" 
+                [canEdit]="canEdit()"
+            >
 
             </app-list>
             <div class="button-panel">

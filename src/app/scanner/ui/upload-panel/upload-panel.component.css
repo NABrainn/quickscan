@@ -11,6 +11,13 @@
     background-color: red;
 }
 
+.content-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: .5em;
+}
+
 .drag-drop {
     color: var(--four);
     user-select: none;
@@ -23,6 +30,11 @@
     text-decoration-thickness: .1em;
     text-underline-offset: .25em;
     cursor: pointer;
+}
+
+.error-msg {
+    color: var(--three);
+    font-weight: 500;
 }
 
 .file-upload {

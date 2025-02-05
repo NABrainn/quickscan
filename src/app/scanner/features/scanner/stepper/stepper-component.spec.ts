@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StepperComponent } from './stepper-component';
 
-import { MultiStepFormComponent } from './stepper-component';
-
-describe('MultiStepFormComponent', () => {
-  let component: MultiStepFormComponent;
-  let fixture: ComponentFixture<MultiStepFormComponent>;
+describe('StepperComponent', () => {
+  let component: StepperComponent;
+  let fixture: ComponentFixture<StepperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MultiStepFormComponent]
+      imports: [StepperComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MultiStepFormComponent);
+    fixture = TestBed.createComponent(StepperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

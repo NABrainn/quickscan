@@ -1,25 +1,22 @@
 import {
   Component,
   computed,
-  contentChild,
-  contentChildren,
   signal,
   TemplateRef,
-  AfterContentInit,
   input,
-  OnInit,
   viewChildren,
   AfterViewInit,
   viewChild,
+  inject,
 } from '@angular/core';
-import { NgClass, NgIf, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
-import { UploadPanelComponent } from 'app/scanner/ui/upload-panel/upload-panel.component';
+import { NgClass, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
+import { EmitResponse, UploadPanelComponent } from 'app/scanner/ui/upload-panel/upload-panel.component';
 import { ListComponent } from 'app/scanner/ui/list/list.component';
 import { ButtonComponent } from 'app/scanner/ui/button/button.component';
 import { TabComponent } from 'app/scanner/ui/tab/tab.component';
 import { FileInputDirective } from 'app/scanner/shared/directives/file-input.directive';
-import { FileSelectBehaviorDirective } from './directives/file-select-behavior.directive';
-import { FileDropBehaviorDirective } from './directives/file-drop-behavior.directive';
+import { FileUploadService } from '@services/file-upload-service/file-upload-service';
+import { LoadingService } from 'app/scanner/core/loading.service';
 
 @Component({
   selector: 'app-stepper',
@@ -33,18 +30,22 @@ import { FileDropBehaviorDirective } from './directives/file-drop-behavior.direc
     TitleCasePipe, 
     NgTemplateOutlet,  
     FileInputDirective,
-    FileDropBehaviorDirective,
-    FileSelectBehaviorDirective
   ],
   templateUrl: './stepper-component.html',
   styleUrls: ['./stepper-component.css'],
 })
-export class StepperComponent implements AfterContentInit, AfterViewInit, OnInit {
+export class StepperComponent implements AfterViewInit {
+
+  fileService = inject(FileUploadService)
+  loadingService = inject(LoadingService);
 
   items = input<any[]>([]);
 
   _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit())
+
+  _error = signal<string>('');
+  error = computed(() => this._error())
 
   _tabs = signal<TabComponent[]>([]);
   tabs = viewChildren(TabComponent);
@@ -56,7 +57,6 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnInit
 
   templateOne = viewChild('one', { read: TemplateRef });
   templateTwo = viewChild('two', { read: TemplateRef });
-
 
   content = computed(() => this.selected()?.label() === 'one' ? this.templateOne() ?? null : this.templateTwo() ?? null);
 
@@ -82,13 +82,17 @@ export class StepperComponent implements AfterContentInit, AfterViewInit, OnInit
     });
   }
 
-  ngAfterContentInit() {
+  handleFileUpload(er: EmitResponse) {
+    this._error.set(er.message);
+    if(er.data)
+      this.fileService.upload(er.data as FormData).subscribe({
+        next: () => this.selectNext(),
+        error: () => this._error.set('Wystąpił błąd serwera'),
+        complete: () => console.log('operation complete')
+      })
   }
 
   ngAfterViewInit(): void {
     this._tabs.set([...this.tabs()]);
-  }
-
-  ngOnInit(): void {
   }
 }
