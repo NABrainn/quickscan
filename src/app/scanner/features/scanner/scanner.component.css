@@ -17,6 +17,13 @@
     padding: 1.25em;
 }
 
+@media (orientation: portrait) {
+    .main {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
 .title {
     color: var(--three)
 }
