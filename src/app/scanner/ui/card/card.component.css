@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-img {
+    height: auto;
+}

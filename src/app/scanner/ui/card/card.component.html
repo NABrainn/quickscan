@@ -1,0 +1,18 @@
+<img 
+    [src]="imgUrl()" 
+    alt="obrazek zawierający smutną minę" 
+    class="hero-img"
+    [style]="{
+        'width': imgWidth()
+    }"
+>
+<h3 class="header">
+    <ng-content select="[slot='header']">
+        Miejsce na nagłówek
+    </ng-content>
+</h3>
+<span class="description">
+    <ng-content select="[slot='description']">
+        Miejsce na opis
+    </ng-content>
+</span>
