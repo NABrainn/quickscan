@@ -17,6 +17,7 @@ import { TabComponent } from 'app/scanner/ui/tab/tab.component';
 import { FileInputDirective } from 'app/scanner/shared/directives/file-input.directive';
 import { FileUploadService } from '@services/file-upload-service/file-upload-service';
 import { LoadingService } from 'app/scanner/core/loading.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -30,6 +31,7 @@ import { LoadingService } from 'app/scanner/core/loading.service';
     TitleCasePipe, 
     NgTemplateOutlet,  
     FileInputDirective,
+    RouterLink
   ],
   templateUrl: './stepper-component.html',
   styleUrls: ['./stepper-component.css'],
@@ -38,6 +40,7 @@ export class StepperComponent implements AfterViewInit {
 
   fileService = inject(FileUploadService)
   loadingService = inject(LoadingService);
+  router = inject(Router);
 
   items = input<any[]>([]);
 
@@ -58,7 +61,16 @@ export class StepperComponent implements AfterViewInit {
   templateOne = viewChild('one', { read: TemplateRef });
   templateTwo = viewChild('two', { read: TemplateRef });
 
-  content = computed(() => this.selected()?.label() === 'one' ? this.templateOne() ?? null : this.templateTwo() ?? null);
+  content = computed(() => {
+    if (this.selected()?.label() === 'one') {
+      this.router.navigate(['/scanner/upload']);
+      return this.templateOne() ?? null;
+    }
+    else {
+      this.router.navigate(['/scanner/ready']);
+      return this.templateTwo() ?? null;
+    }
+  });
 
 
   toggleEditMode() {
@@ -87,7 +99,7 @@ export class StepperComponent implements AfterViewInit {
     if(er.data)
       this.fileService.upload(er.data as FormData).subscribe({
         next: () => this.selectNext(),
-        error: () => this._error.set('Wystąpił błąd serwera'),
+        error: () => this.selectNext(),
         complete: () => console.log('operation complete')
       })
   }
