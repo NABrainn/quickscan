@@ -14,13 +14,4 @@ export class LoadingBarComponent {
   private el = viewChild('progress', {'read': ElementRef})
   private loadingService = inject(LoadingService);
   isLoading = computed(() => this.loadingService.isLoading());
-
-  ngOnInit() {
-    this.el()?.nativeElement.style
-    console.log('loading...')
-  }
-
-  ngOnDestroy() {
-    console.log('loading complete.')
-  }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, input } from '@angular/core';
 
 @Component({
   selector: 'app-card',

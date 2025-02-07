@@ -9,7 +9,6 @@ import { ButtonComponent } from 'app/scanner/ui/button/button.component';
 import { ListComponent } from 'app/scanner/ui/list/list.component';
 import { StepperComponent } from './stepper/stepper-component';
 
-
 @Component({
   selector: 'app-scanner',
   standalone: true,
