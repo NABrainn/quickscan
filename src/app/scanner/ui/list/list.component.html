@@ -5,6 +5,9 @@
             [_item]="item" 
             [_isOpen]="canEdit()"
             [canEdit]="canEdit()"
+            [validator]="validator()"
+            (status)="formStatus.emit($event)"
+            #ref
         >
         </app-list-item>
         }
