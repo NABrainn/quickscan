@@ -4,13 +4,15 @@
         [enabled]="true" 
         [selected]="true"
         (tabClicked)="handleTabClick($event)"
-    >Upload
+
+        >Upload
     </app-tab>
     <app-tab 
         [label]="'two'" 
         [enabled]="items().length !== 0" 
         [selected]="false"
         (tabClicked)="handleTabClick($event)"
+
         >Ready
     </app-tab>
 </div>
@@ -37,21 +39,31 @@
     </ng-template>
     <ng-template #two>
         <div class="stepper-content-wrapper">
-            <app-list 
-                [items]="items()" 
-                [canEdit]="canEdit()"
-            >
+            <form (ngSubmit)="onSubmit()">
+                <app-list 
+                    [items]="items()" 
+                    [canEdit]="canEdit()"
+                    [validator]="validator()"
+                    (formStatus)="_formStatus.set($event)"
+                >
+                </app-list>
+            </form>
 
-            </app-list>
             <div class="button-panel">
                 <app-button>
                     Regeneruj
                 </app-button>
-                <app-button (click)="toggleEditMode()">
+                <app-button 
+                    (click)="toggleEditMode()"
+                    [disabled]="valid()"
+                >
                     Edytuj
                 </app-button>
-                <app-button [bgc]="'three'">
-                    Zapisz
+                <app-button 
+                    [bgc]="'three'" 
+                    [disabled]="valid()"
+                >
+                    Prześlij
                 </app-button>
             </div>      
         </div>

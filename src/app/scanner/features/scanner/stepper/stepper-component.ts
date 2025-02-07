@@ -1,14 +1,4 @@
-import {
-  Component,
-  computed,
-  signal,
-  TemplateRef,
-  input,
-  viewChildren,
-  AfterViewInit,
-  viewChild,
-  inject,
-} from '@angular/core';
+import { Component, computed, signal, TemplateRef, input, viewChildren, AfterViewInit, viewChild, inject, OnInit, WritableSignal, effect} from '@angular/core';
 import { NgClass, NgTemplateOutlet, TitleCasePipe } from '@angular/common';
 import { EmitResponse, UploadPanelComponent } from 'app/scanner/ui/upload-panel/upload-panel.component';
 import { ListComponent } from 'app/scanner/ui/list/list.component';
@@ -18,6 +8,13 @@ import { FileInputDirective } from 'app/scanner/shared/directives/file-input.dir
 import { FileUploadService } from '@services/file-upload-service/file-upload-service';
 import { LoadingService } from 'app/scanner/core/loading.service';
 import { Router, RouterLink } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+
+export type Validator = {
+  string?: FormControl,
+  number?: FormControl,
+  status?: WritableSignal<boolean | undefined>
+}
 
 @Component({
   selector: 'app-stepper',
@@ -36,13 +33,28 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './stepper-component.html',
   styleUrls: ['./stepper-component.css'],
 })
-export class StepperComponent implements AfterViewInit {
+export class StepperComponent implements AfterViewInit, OnInit {
 
   fileService = inject(FileUploadService)
   loadingService = inject(LoadingService);
   router = inject(Router);
 
+  validator = input<Validator>({
+    string: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(25)]
+    },
+    ),
+    number: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(25), Validators.pattern('^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$')]
+    },
+    ),
+  });
+
+  _formStatus = signal<string>('valid');
+  valid = computed(() => this._formStatus() === 'invalid' ? true : false)
+
   items = input<any[]>([]);
+  formData = computed(() => this.items().map(el => ({[el.attribute]: el.value})))
 
   _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit())
@@ -72,7 +84,6 @@ export class StepperComponent implements AfterViewInit {
     }
   });
 
-
   toggleEditMode() {
     this._canEdit.update(curr => !curr)
   }
@@ -99,12 +110,24 @@ export class StepperComponent implements AfterViewInit {
     if(er.data)
       this.fileService.upload(er.data as FormData).subscribe({
         next: () => this.selectNext(),
-        error: () => this.selectNext(),
+        error: () => this._error.set('Wystąpił błąd serwera'),
         complete: () => console.log('operation complete')
       })
   }
 
+  handle(event: Event) {
+    console.log(this.valid())
+    console.log(event)
+  }
+
+  onSubmit() {
+    console.log('submitted')
+  }
+
   ngAfterViewInit(): void {
     this._tabs.set([...this.tabs()]);
+  }
+
+  ngOnInit(): void {
   }
 }

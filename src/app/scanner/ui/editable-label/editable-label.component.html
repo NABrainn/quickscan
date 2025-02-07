@@ -1,8 +1,14 @@
-@if(!canEdit()) {
-    <span class="label">
-        <ng-content></ng-content>
-    </span>
-}
-@else {
-    <input type="text">
-}
+<span class="label" #label>
+    <textarea 
+        (input)="update($event)" 
+        [value]="value()" 
+        [readonly]="!canEdit()"
+        wrap="soft"
+        type="text"
+        rows="1"
+        spellcheck="false"
+        class="edit-field"
+    >
+    </textarea>
+</span>
+

@@ -1,11 +1,19 @@
-input[type="text"] {
-    width: clamp(100px, 10vw, 200px);
-    height: 1.4em;
-    background-color: var(--neutral);
-    border: .25em solid var(--neutral);
+textarea {
+    font-family: 'Roboto';
+    background-color: var(--one);
+    padding: 0;
+    border: 0;
+    color: var(--neutral);
+    font-size: inherit;
+    resize: none;
 }
 
-input[type="text"]:focus {
-    border: .25em solid var(--three);
+textarea:focus {
     outline: none;
 }
+
+textarea:not(:read-only):focus {
+    color: var(--four);
+
+}
+
