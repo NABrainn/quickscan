@@ -1,1 +1,0 @@
-export type Colors = 'one' | 'two' | 'three' | 'four' | 'neutral';
