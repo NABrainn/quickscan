@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  scanner_db:
+    container_name: scanner_db
+    image: postgres:12
+    ports:
+      - 5440:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: scanner
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}
