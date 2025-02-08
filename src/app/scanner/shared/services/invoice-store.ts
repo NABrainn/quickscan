@@ -50,7 +50,7 @@ export class InvoiceStore {
     getClient(): Client {
         return {
             nazwa: "Firma ABC",
-            nip: "1234567890",
+            nip: 1234567890,
             adres: "ul. Przykładowa 1, 00-000 Warszawa"
         };
     }
@@ -70,7 +70,7 @@ export class InvoiceStore {
     getVendor(): Vendor {
         return {
             nazwa: "Dostawca XYZ",
-            nip: "0987654321",
+            nip: 2987654321,
             adres: "ul. Handlowa 2, 11-111 Gdańsk"
         };
     }

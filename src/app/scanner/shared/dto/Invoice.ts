@@ -16,7 +16,7 @@ export type Invoice = {
 
 export interface Client {
     nazwa?: string,
-    nip?: string,
+    nip?: number,
     adres?: string
 }
 
@@ -31,6 +31,6 @@ export interface Product {
 }
 export interface Vendor {
     nazwa?: string,
-    nip?: string,
+    nip?: number,
     adres?: string
 }

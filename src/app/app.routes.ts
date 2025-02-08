@@ -8,10 +8,6 @@ export const routes: Routes = [
     { 
         path: 'scanner', 
         component: ScannerComponent,
-        children: [
-            { path: 'upload', component: UploadPanelComponent },
-            { path: 'ready', component: ListComponent }
-        ]
     },
     {
         path: '',
