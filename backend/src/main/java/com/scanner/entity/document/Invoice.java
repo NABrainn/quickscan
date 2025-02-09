@@ -23,13 +23,13 @@ public class Invoice extends Document{
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @Column(name = "bank_account_number", nullable = true)
+    @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
-    @Column(name = "issue_date", nullable = true)
+    @Column(name = "issue_date")
     private Date issueDate;
 
-    @Column(name = "sale_date", nullable = true)
+    @Column(name = "sale_date")
     private Date saleDate;
 
     @Column(name = "total_netto")

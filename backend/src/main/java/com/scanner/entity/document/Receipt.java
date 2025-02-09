@@ -18,7 +18,7 @@ public class Receipt extends Document{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "purchase_date", nullable = true)
+    @Column(name = "purchase_date")
     private Date purchaseDate;
 
     @Column(name = "store_name")
