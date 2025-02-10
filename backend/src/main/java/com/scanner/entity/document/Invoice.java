@@ -4,12 +4,15 @@ import com.scanner.entity.Client;
 import com.scanner.entity.Vendor;
 import com.scanner.entity.product.InvoiceProduct;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 import java.util.Set;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Getter
 @Setter
 @Entity
@@ -58,7 +61,7 @@ public class Invoice extends Document{
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Vendor vendor;
 
-    @OneToMany(mappedBy = "invoice")
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<InvoiceProduct> products;
 
     @Override

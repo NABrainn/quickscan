@@ -2,9 +2,12 @@ package com.scanner.entity.product;
 
 import com.scanner.entity.document.Receipt;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Getter
 @Setter
 @Entity
