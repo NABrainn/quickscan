@@ -21,7 +21,7 @@ public class Vendor {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "nip")
+    @Column(name = "nip", unique = true)
     private String nip;
 
     @Column(name = "address")
