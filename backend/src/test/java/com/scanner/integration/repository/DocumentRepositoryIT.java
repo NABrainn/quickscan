@@ -14,11 +14,11 @@ import com.scanner.repository.document.DocumentRepository;
 import com.scanner.repository.document.InvoiceRepository;
 import com.scanner.repository.document.ReceiptRepository;
 import com.scanner.repository.product.InvoiceProductRepository;
+import com.scanner.utility.DocumentTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -28,7 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DataJpaTest
-@ActiveProfiles("test")
 class DocumentRepositoryIT extends ITBase {
 
     @Autowired
@@ -52,12 +51,10 @@ class DocumentRepositoryIT extends ITBase {
     @Autowired
     TestEntityManager entityManager;
 
+
     @Test
     void shouldAddOneReceipt() {
-        Document documentToSave = Receipt.builder()
-                .storeName("biedronka")
-                .totalAmount(21.37)
-                .build();
+        Document documentToSave = DocumentTestFactory.createReceipt();
 
         Document savedDocument = documentRepository.save(documentToSave);
         assertThat(entityManager.find(Document.class, documentToSave.getId())).isEqualTo(savedDocument);
@@ -66,18 +63,7 @@ class DocumentRepositoryIT extends ITBase {
 
     @Test
     void shouldUpdateOneInvoice() {
-        Invoice documentToSave = Invoice.builder()
-                .invoiceNumber("847254")
-                .bankAccountNumber("93846")
-                .issueDate(new Date())
-                .currency("ZŁ")
-                .paymentMethod("KARTA")
-                .saleDate(new Date())
-                .totalGross(2100)
-                .totalRate(3939)
-                .totalNetto(393)
-                .totalTax(32)
-                .build();
+        Invoice documentToSave = DocumentTestFactory.createInvoice();
         entityManager.persist(documentToSave);
         documentToSave.setCurrency("USD$$$$$");
         Set<InvoiceProduct> products = new HashSet<>();
@@ -164,18 +150,7 @@ class DocumentRepositoryIT extends ITBase {
                 .build();
         Document savedReceipt = documentRepository.save(receiptToSave);
 
-        Invoice invoiceToSave = Invoice.builder()
-                .invoiceNumber("847254")
-                .bankAccountNumber("93846")
-                .issueDate(new Date())
-                .currency("ZŁ")
-                .paymentMethod("KARTA")
-                .saleDate(new Date())
-                .totalGross(2100)
-                .totalRate(3939)
-                .totalNetto(393)
-                .totalTax(32)
-                .build();
+        Invoice invoiceToSave = DocumentTestFactory.createInvoice();
         Invoice savedInvoice = documentRepository.save(invoiceToSave);
 
         assertThat(entityManager.find(Document.class, invoiceToSave.getId())).isEqualTo(savedInvoice);
@@ -205,54 +180,58 @@ class DocumentRepositoryIT extends ITBase {
 
     @Test
     void shouldRemoveOneDocument() {
-        Document documentToSave = Invoice.builder()
-                .invoiceNumber("847254")
-                .bankAccountNumber("92836342")
-                .issueDate(new Date())
-                .currency("ZŁ")
-                .paymentMethod("KARTA")
-                .saleDate(new Date())
-                .totalGross(2100)
-                .totalRate(3939)
-                .totalNetto(393)
-                .totalTax(32)
-                .products(
+        Invoice documentToSave = DocumentTestFactory.createInvoice();
+                documentToSave.setProducts(
                         Set.of(
-                                InvoiceProduct.builder()
-                                        .productName("mleko")
-                                        .measureUnit("gram")
-                                        .quantity(22)
-                                        .netWorth(1111)
-                                        .vatRate(21)
-                                        .vatTax(31)
-                                        .gross(2421)
-                                        .build()
+                            InvoiceProduct.builder()
+                                    .productName("mleko")
+                                    .measureUnit("gram")
+                                    .quantity(22)
+                                    .netWorth(1111)
+                                    .vatRate(21)
+                                    .vatTax(31)
+                                    .gross(2421)
+                                    .build()
                         )
-                )
-                .vendor(Vendor.builder()
+                );
+                documentToSave.setVendor(Vendor.builder()
                         .nip("PL123123123")
                         .name("Bob")
                         .address("Warszawa")
                         .build()
-                )
-                .client(Client.builder()
+                );
+                documentToSave.setClient(Client.builder()
                         .nip("PL123123123")
                         .name("Bob")
                         .address("Warszawa")
                         .build()
-                )
-                .build();
+                );
         Document savedDocument = documentRepository.save(documentToSave);
         assertThat(documentRepository.findAll().size()).isEqualTo(1);
         assertThat(receiptRepository.findAll().size()).isEqualTo(0);
         assertThat(invoiceRepository.findAll().size()).isEqualTo(1);
         assertThat(vendorRepository.findAll().size()).isEqualTo(1);
         assertThat(clientRepository.findAll().size()).isEqualTo(1);
+
         documentRepository.delete(savedDocument);
         assertThat(documentRepository.findAll().size()).isEqualTo(0);
         assertThat(receiptRepository.findAll().size()).isEqualTo(0);
         assertThat(invoiceRepository.findAll().size()).isEqualTo(0);
         assertThat(vendorRepository.findAll().size()).isEqualTo(0);
         assertThat(clientRepository.findAll().size()).isEqualTo(0);
+    }
+
+    @Test
+    void shouldAddTenDocuments() {
+        for (int i = 0; i < 5; i++) {
+            Invoice invoice = DocumentTestFactory.createInvoice();
+            Receipt receipt = DocumentTestFactory.createReceipt();
+
+            entityManager.persist(invoice);
+            entityManager.persist(receipt);
+        }
+        assertThat(invoiceRepository.findAll().size()).isEqualTo(5);
+        assertThat(receiptRepository.findAll().size()).isEqualTo(5);
+        assertThat(documentRepository.findAll().size()).isEqualTo(10);
     }
 }
