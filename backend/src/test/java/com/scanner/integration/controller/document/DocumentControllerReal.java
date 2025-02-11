@@ -1,25 +1,34 @@
-package com.scanner.integration.controller;
+package com.scanner.integration.controller.document;
 
 import com.scanner.entity.document.Document;
-import com.scanner.entity.document.Invoice;
 import com.scanner.entity.document.Receipt;
 import com.scanner.integration.ITBase;
+import com.scanner.repository.document.DocumentRepository;
+import com.scanner.service.DocumentService;
+import com.scanner.utility.DocumentTestFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Date;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class DocumentControllerIT extends ITBase {
+@SpringBootTest
+public class DocumentControllerReal extends ITBase {
 
     @Autowired
     public MockMvc mockMvc;
+
+    @Autowired
+    private DocumentService documentService;
+
+    @Autowired
+    private DocumentRepository documentRepository;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -37,22 +46,13 @@ public class DocumentControllerIT extends ITBase {
                         .accept("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        assertThat(documentRepository.findAll().size()).isEqualTo(1);
+        assertThat(documentService.getAllDocuments().size()).isEqualTo(1);
     }
 
     @Test
     public void shouldAddNewInvoice() throws Exception {
-        Document document = Invoice.builder()
-                .invoiceNumber("847254")
-                .bankAccountNumber("92836342")
-                .issueDate(new Date())
-                .currency("ZŁ")
-                .paymentMethod("KARTA")
-                .saleDate(new Date())
-                .totalGross(2100)
-                .totalRate(3939)
-                .totalNetto(393)
-                .totalTax(32)
-                .build();
+        Document document = DocumentTestFactory.createInvoice();
         String json = mapper.writeValueAsString(document);
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/documents")
@@ -61,7 +61,10 @@ public class DocumentControllerIT extends ITBase {
                         .accept("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        assertThat(documentRepository.findAll().size()).isEqualTo(1);
+        assertThat(documentService.getAllDocuments().size()).isEqualTo(1);
     }
+
 
     @Test
     public void shouldGetAllDocuments() throws Exception {
