@@ -1,7 +1,8 @@
 package com.scanner.controller;
 
 import com.scanner.entity.document.Document;
-import com.scanner.service.DocumentService;
+import com.scanner.service.document.DocumentService;
+import com.scanner.service.document.DocumentServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,15 @@ public class DocumentController {
     }
 
     @PostMapping
-    public Document saveDocument(@RequestBody Document document) {
-        return documentService.saveDocument(document);
+    public ResponseEntity<?> saveDocument(
+            @RequestBody Document document
+    ) {
+        try {
+            return ResponseEntity.ok(documentService.saveDocument(document));
+        }
+        catch (DocumentServiceException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")
