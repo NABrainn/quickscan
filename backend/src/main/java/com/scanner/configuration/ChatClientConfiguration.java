@@ -32,22 +32,22 @@ public class ChatClientConfiguration {
                         "numerFaktury": "numerFaktury",  
                         "nrRachunkuBankowego": "nrRachunkuBankowego", 
                         "dataWystawienia": "dataWystawienia",  
-                        "dataSprzedazy": "dataSprzedazy",  
+                        "dataSprzedaży": "dataSprzedazy",  
                         "razemNetto": "razemNetto",  
                         "razemStawka": "razemStawka",  
                         "razemPodatek": "razemPodatek",  
                         "razemBrutto": "razemBrutto", 
                         "waluta": "waluta",  
-                        "formaPlatnosci": "formaPlatnosci",   
+                        "formaPłatności": "formaPlatnosci",   
                         "produkty": [
                             {     
                             "nazwaProduktu": "nazwaProduktu",    
                             "jednostkaMiary": "jednostkaMiary" (zobacz czy nie istnieje skrót 'j. m.' zapisz wartość jako value jednostkiMiary. key jednostkaMiary bez zmian),      
-                            "ilosc":  "ilosc"(jeśli ilość nie jest integerem napisz tylko float np. 0.55, zawsze w String),  
-                            "wartoscNetto": "wartoscNetto",  
-                            "stawkaVat": "stawkaVat",  
-                            "podatekVat": "podatekVat",  
-                            "brutto": "brutto" 
+                            "ilość":  "ilosc"(jeśli ilość nie jest integerem napisz tylko float np. 0.55, zawsze w String),  
+                            "wartośćNetto": "wartoscNetto",  
+                            "stawkaVAT": "stawkaVat",  
+                            "podatekVAT": "podatekVat",  
+                            "wartośćBrutto": "brutto" 
                             }  
                             ]
                         }
