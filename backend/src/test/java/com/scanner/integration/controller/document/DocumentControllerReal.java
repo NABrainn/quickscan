@@ -6,6 +6,7 @@ import com.scanner.integration.ITBase;
 import com.scanner.repository.document.DocumentRepository;
 import com.scanner.service.DocumentService;
 import com.scanner.utility.DocumentTestFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,11 @@ public class DocumentControllerReal extends ITBase {
     private DocumentRepository documentRepository;
 
     ObjectMapper mapper = new ObjectMapper();
+
+    @BeforeEach
+    void setup() {
+        documentRepository.deleteAll();
+    }
 
     @Test
     public void shouldAddNewReceipt() throws Exception {
