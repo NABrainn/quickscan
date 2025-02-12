@@ -2,7 +2,7 @@ package com.scanner.integration.controller.fileUpload;
 
 import com.scanner.controller.FileUploadController;
 import com.scanner.integration.ITBase;
-import com.scanner.service.FileUploadService;
+import com.scanner.service.fileUpload.FileUploadService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +23,6 @@ public class FileUploadControllerMock extends ITBase {
 
     @MockitoBean
     private FileUploadService fileUploadService;
-
 
     @Test
     void shouldAcceptJPG() throws Exception {

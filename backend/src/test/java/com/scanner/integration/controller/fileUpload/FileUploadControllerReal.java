@@ -3,7 +3,7 @@ package com.scanner.integration.controller.fileUpload;
 import com.scanner.dto.InvoiceDto;
 import com.scanner.dto.ReceiptDto;
 import com.scanner.integration.ITBase;
-import com.scanner.service.DocumentService;
+import com.scanner.service.document.DocumentService;
 import com.scanner.service.fileUpload.FileUploadService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
