@@ -1,5 +1,6 @@
 package com.scanner.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Invoice;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,12 +19,15 @@ public class Vendor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonProperty("nazwa")
     @Column(name = "name")
     private String name;
 
+    @JsonProperty("nip")
     @Column(name = "nip", unique = true)
     private String nip;
 
+    @JsonProperty("adres")
     @Column(name = "address")
     private String address;
 

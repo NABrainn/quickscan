@@ -1,5 +1,6 @@
 package com.scanner.entity.document;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.Client;
 import com.scanner.entity.Vendor;
 import com.scanner.entity.product.InvoiceProduct;
@@ -7,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.Date;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -23,44 +23,57 @@ public class Invoice extends Document{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonProperty("numerFaktury")
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
+    @JsonProperty("numerKontaBankowego")
     @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
+    @JsonProperty("dataWydania")
     @Column(name = "issue_date")
-    private Date issueDate;
+    private String issueDate;
 
+    @JsonProperty("dataSprzedaży")
     @Column(name = "sale_date")
-    private Date saleDate;
+    private String saleDate;
 
+    @JsonProperty("razemNetto")
     @Column(name = "total_netto")
     private double totalNetto;
 
+    @JsonProperty("razemRata")
     @Column(name = "total_rate")
     private double totalRate;
 
+    @JsonProperty("razemPodatek")
     @Column(name = "total_tax")
     private double totalTax;
 
+    @JsonProperty("razemBrutto")
     @Column(name = "total_gross")
     private double totalGross;
 
+    @JsonProperty("waluta")
     @Column(name = "currency")
     private String currency;
 
+    @JsonProperty("metodaPłatności")
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @JsonProperty("odbiorca")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
+    @JsonProperty("sprzedawca")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Vendor vendor;
 
+    @JsonProperty("produkty")
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<InvoiceProduct> products;
 

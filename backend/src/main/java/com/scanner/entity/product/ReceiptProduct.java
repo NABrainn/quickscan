@@ -1,5 +1,7 @@
 package com.scanner.entity.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Receipt;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,9 +16,11 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "receipt_products")
 public class ReceiptProduct extends Product{
 
+    @JsonProperty("cenaSuma")
     @Column(name = "sum_price")
     private double sumPrice;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "receipt_id")
     private Receipt receipt;

@@ -1,5 +1,6 @@
 package com.scanner.entity.document;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.product.ReceiptProduct;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,15 +22,19 @@ public class Receipt extends Document{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonProperty("dataZakupu")
     @Column(name = "purchase_date")
-    private Date purchaseDate;
+    private String purchaseDate;
 
+    @JsonProperty("nazwaSklepu")
     @Column(name = "store_name")
     private String storeName;
 
+    @JsonProperty("kwotaCałkowita")
     @Column(name = "total_amount")
     private double totalAmount;
 
+    @JsonProperty("produkty")
     @OneToMany(mappedBy = "receipt")
     private Set<ReceiptProduct> products;
 
