@@ -1,14 +1,12 @@
-package com.scanner.service;
+package com.scanner.service.document;
 
 import com.scanner.entity.document.Document;
-import com.scanner.entity.document.Invoice;
-import com.scanner.entity.document.Receipt;
 import com.scanner.repository.document.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DocumentService {
@@ -21,7 +19,12 @@ public class DocumentService {
     }
 
     public Document saveDocument(Document document) {
-        return documentRepository.save(document);
+        try {
+            return documentRepository.save(document);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DocumentServiceException("Nip klienta/sprzedawcy istnieje w systemie.");
+        }
     }
 
     public Document getDocumentById(long id) {
