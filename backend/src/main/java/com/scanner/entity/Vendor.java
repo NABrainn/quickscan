@@ -1,5 +1,6 @@
 package com.scanner.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Invoice;
 import jakarta.persistence.*;
@@ -15,6 +16,7 @@ import lombok.*;
 @Table(name = "vendors")
 public class Vendor {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,6 +33,7 @@ public class Vendor {
     @Column(name = "address")
     private String address;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "vendor")
     private Invoice invoice;
 
