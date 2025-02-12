@@ -18,7 +18,7 @@ public class ReceiptDto extends DocumentDto{
     @JsonProperty("nazwaSklepu")
     private String storeName;
 
-    @JsonProperty("kwotaCalkowita")
+    @JsonProperty("kwotaCałkowita")
     private double totalAmount;
 
     @Getter(onMethod_ = { @JsonProperty("produkty") })

@@ -27,11 +27,11 @@ public class Invoice extends Document{
     @Column(name = "invoice_number")
     private String invoiceNumber;
 
-    @JsonProperty("numerKontaBankowego")
+    @JsonProperty("nrRachunkuBankowego")
     @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
-    @JsonProperty("dataWydania")
+    @JsonProperty("dataWystawienia")
     @Column(name = "issue_date")
     private String issueDate;
 
@@ -49,7 +49,7 @@ public class Invoice extends Document{
 
     @JsonProperty("razemPodatek")
     @Column(name = "total_tax")
-    private double totalTax;
+    private String totalTax;
 
     @JsonProperty("razemBrutto")
     @Column(name = "total_gross")
@@ -59,7 +59,7 @@ public class Invoice extends Document{
     @Column(name = "currency")
     private String currency;
 
-    @JsonProperty("metodaPłatności")
+    @JsonProperty("formaPłatności")
     @Column(name = "payment_method")
     private String paymentMethod;
 
