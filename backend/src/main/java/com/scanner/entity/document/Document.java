@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        property = "documentType"
+        property = "type"
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Receipt.class, name = "receipt"),
