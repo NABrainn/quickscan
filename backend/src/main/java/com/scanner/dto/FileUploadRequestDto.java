@@ -2,7 +2,7 @@ package com.scanner.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public record FileUploadRequest(
+public record FileUploadRequestDto(
         MultipartFile file,
         String name
 ) {
