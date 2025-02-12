@@ -73,7 +73,7 @@ class DocumentRepositoryIT extends ITBase {
                 .quantity(42000)
                 .netWorth(6543)
                 .vatRate(21)
-                .vatTax(588)
+                .vatTax("588%")
                 .gross(33)
                 .build());
         products.add(InvoiceProduct.builder()
@@ -82,7 +82,7 @@ class DocumentRepositoryIT extends ITBase {
                 .quantity(28000)
                 .netWorth(653)
                 .vatRate(1)
-                .vatTax(8)
+                .vatTax("8%")
                 .gross(93)
                 .build());
 
@@ -99,14 +99,14 @@ class DocumentRepositoryIT extends ITBase {
         Document documentToSave = Invoice.builder()
                 .invoiceNumber("847254")
                 .bankAccountNumber("92836342")
-                .issueDate(new Date())
+                .issueDate("new Date()")
                 .currency("ZŁ")
                 .paymentMethod("KARTA")
-                .saleDate(new Date())
+                .saleDate("new Date()")
                 .totalGross(2100)
                 .totalRate(3939)
                 .totalNetto(393)
-                .totalTax(32)
+                .totalTax("32%")
                 .products(
                         Set.of(
                             InvoiceProduct.builder()
@@ -115,7 +115,7 @@ class DocumentRepositoryIT extends ITBase {
                                     .quantity(22)
                                     .netWorth(1111)
                                     .vatRate(21)
-                                    .vatTax(31)
+                                    .vatTax("31%")
                                     .gross(2421)
                                     .build()
                         )
@@ -189,7 +189,7 @@ class DocumentRepositoryIT extends ITBase {
                                     .quantity(22)
                                     .netWorth(1111)
                                     .vatRate(21)
-                                    .vatTax(31)
+                                    .vatTax("31%")
                                     .gross(2421)
                                     .build()
                         )

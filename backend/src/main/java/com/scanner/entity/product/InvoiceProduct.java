@@ -30,7 +30,7 @@ public class InvoiceProduct extends Product{
 
     @JsonProperty("podatekVAT")
     @Column(name = "VAT_tax")
-    private double vatTax;
+    private String vatTax;
 
     @JsonProperty("wartośćBrutto")
     @Column(name = "gross")

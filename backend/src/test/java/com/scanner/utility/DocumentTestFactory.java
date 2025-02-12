@@ -10,14 +10,14 @@ public class DocumentTestFactory {
         return Invoice.builder()
                 .invoiceNumber("847254")
                 .bankAccountNumber("93836")
-                .issueDate(new Date())
+                .issueDate("today")
                 .currency("ZŁ")
                 .paymentMethod("KARTA")
-                .saleDate(new Date())
+                .saleDate("tomorrow")
                 .totalGross(2100)
                 .totalRate(3939)
                 .totalNetto(393)
-                .totalTax(32)
+                .totalTax("32%")
                 .build();
     }
 

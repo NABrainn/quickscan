@@ -4,7 +4,7 @@ import com.scanner.entity.document.Document;
 import com.scanner.entity.document.Receipt;
 import com.scanner.integration.ITBase;
 import com.scanner.repository.document.DocumentRepository;
-import com.scanner.service.DocumentService;
+import com.scanner.service.document.DocumentService;
 import com.scanner.utility.DocumentTestFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
