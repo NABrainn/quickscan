@@ -10,5 +10,23 @@ services:
       POSTGRES_DB: scanner
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:26.1.2
+    ports:
+      - 9090:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - scanner_network
+    command:
+      - "start-dev"
+
 volumes:
   pgdata: {}
+
+networks:
+  scanner_network:
+    driver: bridge
