@@ -2,7 +2,6 @@ package com.scanner.utility;
 
 import com.scanner.entity.Client;
 import com.scanner.entity.Vendor;
-import com.scanner.entity.document.Document;
 import com.scanner.entity.document.Invoice;
 import com.scanner.entity.document.Receipt;
 import com.scanner.entity.product.InvoiceProduct;
