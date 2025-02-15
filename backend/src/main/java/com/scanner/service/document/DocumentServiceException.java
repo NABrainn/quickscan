@@ -1,7 +1,10 @@
 package com.scanner.service.document;
 
-public class DocumentServiceException extends RuntimeException{
-    public DocumentServiceException(String message) {
-        super(message);
+import com.scanner.exception.RestException;
+import org.springframework.http.HttpStatus;
+
+public class DocumentServiceException extends RestException {
+    public DocumentServiceException(String message, HttpStatus httpStatus) {
+        super(message, httpStatus);
     }
 }
