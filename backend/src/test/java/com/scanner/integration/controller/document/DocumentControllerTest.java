@@ -1,6 +1,5 @@
 package com.scanner.integration.controller.document;
 
-import com.scanner.entity.Client;
 import com.scanner.entity.document.Document;
 import com.scanner.entity.document.Receipt;
 import com.scanner.integration.ITBase;
