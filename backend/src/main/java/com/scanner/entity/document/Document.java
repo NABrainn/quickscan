@@ -27,4 +27,7 @@ public abstract class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "createdBy")
+    private String createdBy;
 }
