@@ -33,20 +33,30 @@ public class FileUploadService {
     }
 
     public DocumentDto process(FileUploadRequestDto fileUploadRequest) {
-        BufferedImage image = null;
+        BufferedImage image = readImage(fileUploadRequest);
+        BufferedImage resizedImage = imageProcessor.resizeImage(image, 3.3);
+        String ocrResult = performOCR(resizedImage);
+        String jsonContent = chatService.generateContent(ocrResult);
+        return parseDocument(jsonContent);
+    }
+
+    private BufferedImage readImage(FileUploadRequestDto request) {
         try {
-            image = ImageIO.read(fileUploadRequest.file().getInputStream());
+            return ImageIO.read(request.file().getInputStream());
         } catch (IOException e) {
             throw new FileUploadException("Nie udało się przeczytać pliku.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        BufferedImage resizedImage = imageProcessor.resizeImage(image, 3.3);
-        String result = null;
+    }
+
+    private String performOCR(BufferedImage image) {
         try {
-            result = tesseractService.doOCR(resizedImage);
+            return tesseractService.doOCR(image);
         } catch (TesseractException e) {
             throw new FileUploadException("Nie udało się zeskanować pliku.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        String json =  chatService.generateContent(result);
+    }
+
+    private DocumentDto parseDocument(String json) {
         try {
             return objectMapper.readValue(json, DocumentDto.class);
         } catch (JsonProcessingException e) {
