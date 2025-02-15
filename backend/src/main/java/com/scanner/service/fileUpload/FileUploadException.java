@@ -1,7 +1,10 @@
 package com.scanner.service.fileUpload;
 
-public class FileUploadException extends RuntimeException{
-    public FileUploadException(String message, Throwable cause) {
-        super(message, cause);
+import com.scanner.exception.RestException;
+import org.springframework.http.HttpStatus;
+
+public class FileUploadException extends RestException {
+    public FileUploadException(String message, HttpStatus httpStatus) {
+        super(message, httpStatus);
     }
 }
