@@ -9,6 +9,7 @@ import com.scanner.service.ImageProcessor;
 import com.scanner.service.TesseractService;
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -36,20 +37,20 @@ public class FileUploadService {
         try {
             image = ImageIO.read(fileUploadRequest.file().getInputStream());
         } catch (IOException e) {
-            throw new FileUploadException("Nie udało się przeczytać pliku.", e);
+            throw new FileUploadException("Nie udało się przeczytać pliku.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         BufferedImage resizedImage = imageProcessor.resizeImage(image, 3.3);
         String result = null;
         try {
             result = tesseractService.doOCR(resizedImage);
         } catch (TesseractException e) {
-            throw new FileUploadException("Nie udało się zeskanować pliku.", e);
+            throw new FileUploadException("Nie udało się zeskanować pliku.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         String json =  chatService.generateContent(result);
         try {
             return objectMapper.readValue(json, DocumentDto.class);
         } catch (JsonProcessingException e) {
-            throw new FileUploadException("Nie udało się przeprocesować pliku json.", e);
+            throw new FileUploadException("Nie udało się przeprocesować pliku json.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
