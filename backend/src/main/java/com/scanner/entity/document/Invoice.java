@@ -7,6 +7,8 @@ import com.scanner.entity.product.InvoiceProduct;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
@@ -74,6 +76,7 @@ public class Invoice extends Document{
     private Vendor vendor;
 
     @JsonProperty("produkty")
+    @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<InvoiceProduct> products;
 
