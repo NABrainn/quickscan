@@ -3,7 +3,6 @@ package com.scanner.controller;
 import com.scanner.dto.FileUploadRequestDto;
 import com.scanner.service.fileUpload.FileUploadException;
 import com.scanner.service.fileUpload.FileUploadService;
-import net.sourceforge.tess4j.TesseractException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @Validated
 @RestController
@@ -43,7 +42,7 @@ public class FileUploadController {
             return ResponseEntity.ok(fileUploadService.process(fileUploadRequest));
         }
         catch(FileUploadException e) {
-            return new ResponseEntity<>("Nie udało się przeprocesować pliku.", HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nie udało się przeprocesować pliku.");
         }
     }
 }
