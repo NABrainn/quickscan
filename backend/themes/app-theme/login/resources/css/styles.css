@@ -32,7 +32,7 @@ div.kc-logo-text span {
   display: none;
 }
 
-#rememberMe, button{
+#rememberMe, button, input{
     background-color: #004f55 !important;
     border-color: #004f55 !important;
     accent-color: #004f55;
