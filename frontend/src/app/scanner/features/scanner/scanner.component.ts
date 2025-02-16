@@ -1,20 +1,32 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {MatStepperModule} from '@angular/material/stepper'; 
-import { AuthGuardData, createKeycloakSignal, KEYCLOAK_EVENT_SIGNAL, KeycloakService } from 'keycloak-angular';
-import Keycloak from 'keycloak-js';
+import {MatButtonModule} from '@angular/material/button';
+import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
+import { ListComponent } from 'app/scanner/ui/list/list.component';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-scanner',
   imports: [
-    MatStepperModule
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    FileUploadComponent,
+    ListComponent,
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
 })
-export class ScannerComponent {
-  kcInstance = inject(Keycloak)
+export class ScannerComponent implements OnInit {
 
-  async logout(): Promise<void> {
-    this.kcInstance.logout({ redirectUri: window.location.origin });
+  fb = inject(FormBuilder);
+
+  
+  fileUploadForm = this.fb.group({
+    file: ['', Validators.required]
+  })
+
+  ngOnInit(): void {
+    console.log(this.fileUploadForm.status)
   }
 }

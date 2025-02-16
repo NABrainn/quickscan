@@ -1,8 +1,24 @@
-<div class="pt-24 w-3/5 m-auto">
-    <mat-stepper>
-        <mat-step label="Upload"></mat-step>
-        <mat-step label="Ready"></mat-step>
+<div class="md:max-w-3/5 m-auto">
+    <mat-stepper linear #stepper>
+        <mat-step [stepControl]="fileUploadForm"> 
+            <ng-template matStepLabel>
+                Wgraj dokument
+            </ng-template>
+                <app-file-upload [formGroup]="fileUploadForm">
+                        
+                </app-file-upload>
+            <button mat-button matStepperNext type="button">Dalej</button>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>
+                Prześlij
+            </ng-template>
+            <app-list>
+
+            </app-list>
+            <button mat-button matStepperPrevious type="button">Previous</button>
+        </mat-step>
     </mat-stepper>
-    <button (click)="logout()">buton</button>
 </div>
+
 
