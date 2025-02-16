@@ -23,6 +23,8 @@ services:
       - scanner_network
     command:
       - "start-dev"
+    volumes:
+      - ./themes:/opt/keycloak/themes
 
 volumes:
   pgdata: {}
