@@ -1,7 +1,7 @@
 package com.scanner.controller;
 
 import com.scanner.dto.FileUploadRequestDto;
-import com.scanner.service.fileUpload.FileUploadException;
+import com.scanner.service.fileUpload.FileUploadServiceException;
 import com.scanner.service.fileUpload.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,15 +34,15 @@ public class FileUploadController {
             produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     public ResponseEntity<?> process(
-            @Valid @RequestParam("file")MultipartFile file,
+            @RequestParam("file")MultipartFile file,
             @RequestParam("name") String name
             ) {
         FileUploadRequestDto fileUploadRequest = new FileUploadRequestDto(file, name);
         try {
             return ResponseEntity.ok(fileUploadService.process(fileUploadRequest));
         }
-        catch(FileUploadException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nie udało się przeprocesować pliku.");
+        catch(FileUploadServiceException e) {
+            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
         }
     }
 }
