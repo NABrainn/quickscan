@@ -17,7 +17,8 @@ export class DragDropDirective {
     event.stopPropagation();
     
     const files = event.dataTransfer?.files;
-    this.fileDropped.emit(files?.[0])
+    if(files?.length as number > 0)
+      this.fileDropped.emit(files?.[0]);
   }
 
   @HostListener('dragover', ['$event'])
