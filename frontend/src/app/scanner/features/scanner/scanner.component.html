@@ -12,10 +12,9 @@
                 (formData)="uploadFile($event)"> 
                 </app-file-upload>
             <button 
-                #next
                 mat-button 
                 matStepperNext 
-                (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagane wrzucenie pliku *')"
+                (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagany plik *')"
                 type="button">Dalej
             </button>
         </mat-step>
@@ -23,13 +22,11 @@
             <ng-template matStepLabel>
                 Prześlij
             </ng-template>
-            <app-list>
-
-            </app-list>
+            <app-document-card></app-document-card>
             <button 
-            mat-button 
-            matStepperPrevious 
-            type="button">Previous</button>
+                mat-button 
+                matStepperPrevious 
+                type="button">Cofnij</button>
         </mat-step>
     </mat-stepper>
 </div>
