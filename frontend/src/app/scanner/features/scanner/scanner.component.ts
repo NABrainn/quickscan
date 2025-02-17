@@ -2,9 +2,10 @@ import { Component, computed, inject, input, OnInit, signal, TemplateRef, viewCh
 import {MatStepper, MatStepperModule} from '@angular/material/stepper'; 
 import {MatButtonModule} from '@angular/material/button';
 import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
-import { ListComponent } from 'app/scanner/ui/list/list.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScannerService } from './service/scanner.service';
+import { DocumentCardComponent } from 'app/scanner/ui/document-card/document-card.component';
+import { Invoice, Receipt } from 'app/scanner/shared/types';
 
 @Component({
   selector: 'app-scanner',
@@ -13,7 +14,7 @@ import { ScannerService } from './service/scanner.service';
     MatStepperModule,
     MatButtonModule,
     FileUploadComponent,
-    ListComponent,
+    DocumentCardComponent,
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
@@ -25,7 +26,8 @@ export class ScannerComponent{
 
   _stepErrorMsg = signal<string>('');
   stepErrorMsg = computed(() => this._stepErrorMsg());
-  document = signal<Object>({});
+  document = signal<Invoice | Receipt>({});
+  cDocument = computed(() => this.document())
   stepper = viewChild(MatStepper);
   
   fileUploadForm = this.fb.group({
@@ -33,13 +35,16 @@ export class ScannerComponent{
   })
 
   uploadFile(formData: FormData) {
-    console.log('xd');
     this.service.uploadFile(formData).subscribe({
-      next: (res) => {
+      next: (res: Invoice | Receipt) => {
         this.document.set(res);
         this.stepper()?.next();
+        console.log(this.cDocument())
       },
-      error: (res) => this._stepErrorMsg.set(res?.message)
+      error: (res) => {
+        this._stepErrorMsg.set(res?.error?.message);
+        this.fileUploadForm?.reset();
+      }
     });
   }
 }
