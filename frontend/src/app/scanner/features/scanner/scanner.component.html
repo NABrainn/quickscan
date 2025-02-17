@@ -4,10 +4,20 @@
             <ng-template matStepLabel>
                 Wgraj dokument
             </ng-template>
-                <app-file-upload [formGroup]="fileUploadForm">
-                        
+                <app-file-upload 
+                [errorMsg]="stepErrorMsg()"
+                [maxSizeNumber]="5"
+                [allowedTypes]="['image/jpeg', 'image/png']"
+                [formGroup]="fileUploadForm"
+                (formData)="uploadFile($event)"> 
                 </app-file-upload>
-            <button mat-button matStepperNext type="button">Dalej</button>
+            <button 
+                #next
+                mat-button 
+                matStepperNext 
+                (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagane wrzucenie pliku *')"
+                type="button">Dalej
+            </button>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>
@@ -16,7 +26,10 @@
             <app-list>
 
             </app-list>
-            <button mat-button matStepperPrevious type="button">Previous</button>
+            <button 
+            mat-button 
+            matStepperPrevious 
+            type="button">Previous</button>
         </mat-step>
     </mat-stepper>
 </div>
