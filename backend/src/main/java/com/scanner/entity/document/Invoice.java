@@ -45,7 +45,7 @@ public class Invoice extends Document{
     @Column(name = "total_netto")
     private double totalNetto;
 
-    @JsonProperty("razemRata")
+    @JsonProperty("razemStawka")
     @Column(name = "total_rate")
     private double totalRate;
 
