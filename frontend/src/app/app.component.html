@@ -1,5 +1,9 @@
-<div class="min-h-screen bg-[var(--mat-sys-background)]">
-  <router-outlet>
-  </router-outlet>
+<div class="flex flex-col min-h-screen bg-[var(--mat-sys-background)]">
+  <div class="flex-grow">
+    <router-outlet></router-outlet>
+  </div>
+  @if(isLoading()) {
+    <mat-progress-bar class="" mode="indeterminate"></mat-progress-bar>
+  }
 </div>
 
