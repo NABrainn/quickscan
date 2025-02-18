@@ -1,6 +1,6 @@
 <div class="md:max-w-3/5 m-auto">
     <mat-stepper linear #stepper>
-        <mat-step [stepControl]="fileUploadForm"> 
+        <!-- <mat-step [stepControl]="fileUploadForm"> 
             <ng-template matStepLabel>
                 Wgraj dokument
             </ng-template>
@@ -17,17 +17,36 @@
                 (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagany plik *')"
                 type="button">Dalej
             </button>
-        </mat-step>
+        </mat-step> -->
+        <!------------------------------------ TODO UNCOMMENT ABOVE LATER ---------------------------------->
+
         <mat-step>
             <ng-template matStepLabel>
                 Prześlij
             </ng-template>
-            <app-document-card></app-document-card>
+            <app-document-card
+            [document]="cDocument()">
+
+            </app-document-card>
             <button 
                 mat-button 
                 matStepperPrevious 
                 type="button">Cofnij</button>
         </mat-step>
+
+        <!------------------------------------ TODO UNCOMMENT BELOW LATER ---------------------------------->
+        <!-- <mat-step>
+            <ng-template matStepLabel>
+                Prześlij
+            </ng-template>
+            <app-document-card>
+
+            </app-document-card>
+            <button 
+                mat-button 
+                matStepperPrevious 
+                type="button">Cofnij</button>
+        </mat-step> -->
     </mat-stepper>
 </div>
 

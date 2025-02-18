@@ -6,6 +6,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScannerService } from './service/scanner.service';
 import { DocumentCardComponent } from 'app/scanner/ui/document-card/document-card.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
+import { TestObjects } from 'app/scanner/shared/test-objects';
 
 @Component({
   selector: 'app-scanner',
@@ -13,7 +14,7 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
     ReactiveFormsModule,
     MatStepperModule,
     MatButtonModule,
-    FileUploadComponent,
+    // FileUploadComponent,
     DocumentCardComponent,
   ],
   templateUrl: './scanner.component.html',
@@ -21,13 +22,16 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
 })
 export class ScannerComponent{
 
+  test = inject(TestObjects);
   fb = inject(FormBuilder);
   service = inject(ScannerService);
 
   _stepErrorMsg = signal<string>('');
   stepErrorMsg = computed(() => this._stepErrorMsg());
-  document = signal<Invoice | Receipt>({});
-  cDocument = computed(() => this.document())
+
+  document = signal<Invoice | Receipt>(this.test.helperInvoice());
+  cDocument = computed(() => this.document());
+
   stepper = viewChild(MatStepper);
   
   fileUploadForm = this.fb.group({
