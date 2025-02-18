@@ -1,0 +1,29 @@
+@if(cData() | isArray) {
+    @for(item of cData(); track $index; let idx = $index) {
+        <div class="flex flex-col">
+            @for(detail of item | keyvalue ; track $index) {
+                <span class="flex">
+                    <span>{{detail.key}}:</span>
+                    <app-editable-field 
+                    [key]="detail.key"
+                    [value]="detail.value"
+                    (valueChange)="updateData(idx, $event)"></app-editable-field>
+                </span>
+            }
+        </div>
+
+    }
+}
+@else {
+    <div class="flex flex-col">
+        @for(detail of cData() | keyvalue; track $index) {
+            <span class="flex">
+                <span>{{detail.key}}: </span>
+                <app-editable-field 
+                [key]="detail.key"
+                [value]="detail.value" 
+                (valueChange)="updateData(null, $event)"></app-editable-field>
+            </span>
+        }
+    </div>
+}

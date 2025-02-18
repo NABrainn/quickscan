@@ -1,0 +1,6 @@
+<form (submit)="$event.preventDefault()">
+    <input
+    type="text"
+    (input)="updateValue()"
+    [formControl]="fc">
+</form>

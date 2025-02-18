@@ -1,0 +1,17 @@
+@if((value() | typeof) === 'object') {
+    <div class="flex flex-col">
+        <span>
+            <span>{{key()}}:</span>
+            <span (click)="toggleDetails()">Wyświetl szczegóły</span>
+        </span>
+        @if(isToggledDetails()) {
+            <app-list-item-details [data]="value()"></app-list-item-details>
+        }
+    </div>
+}
+@else {
+    <span>
+        <span>{{key() | titlecase}}:</span>
+        <span>{{value()}}</span>
+    </span>
+}
