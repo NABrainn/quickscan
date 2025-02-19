@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 
@@ -18,14 +18,23 @@ export class EditableFieldComponent {
   cKey = computed(() => this.key());
 
   value = input<any>();
-  cValue = computed(() => this.value());
 
   control = input<FormControl>()
 
   valueChange = output<any>();
   validChange = output<boolean>();
 
-  fc: FormControl =  new FormControl(this.cValue(), Validators.required);
+  fc: FormControl =  new FormControl({value: '', disabled: this.canEdit()}, [Validators.required]);
+
+  constructor() {
+    effect(() => {
+      if (this.canEdit()) {
+        this.fc.enable({ emitEvent: false });
+      } else {
+        this.fc.disable({ emitEvent: false });
+      }
+    });
+  }
 
   updateValue() {
     this.valueChange.emit({
@@ -36,6 +45,6 @@ export class EditableFieldComponent {
   }
 
   ngOnInit() {
-    this.fc.setValue(this.cValue());
+    this.fc.setValue(this.value());
   }
 }

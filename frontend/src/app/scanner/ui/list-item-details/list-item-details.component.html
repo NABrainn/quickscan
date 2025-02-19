@@ -6,6 +6,7 @@
                 <span class="flex">
                     <span>{{detail.key}}:</span>
                     <app-editable-field 
+                    [canEdit]="canEdit()"
                     [key]="detail.key"
                     [value]="detail.value"
                     (valueChange)="updateData(idx, $event)"></app-editable-field>
@@ -23,7 +24,7 @@
                 <span class="flex">
                     <span>{{detail.key}}: </span>
                     <app-editable-field 
-                    [control]=""
+                    [canEdit]="canEdit()"
                     [key]="detail.key"
                     [value]="detail.value" 
                     (valueChange)="updateData(null, $event)"></app-editable-field>

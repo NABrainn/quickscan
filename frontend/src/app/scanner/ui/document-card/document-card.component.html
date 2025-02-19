@@ -1,7 +1,24 @@
 <mat-card>
     <mat-card-content>
-        <app-list [document]="document()">
+        <app-list 
+        [isToggledDetails]="isToggledDetails()"
+        [canEdit]="canEdit()"
+        [document]="document()">
             
         </app-list>
     </mat-card-content>
+    <mat-card-actions>
+        <button 
+        (click)="regenerate()"
+        mat-flat-button>Regeneruj
+        </button>
+        <button 
+        (click)="edit()"
+        mat-flat-button>Edytuj
+        </button>
+        <button 
+        (click)="save()"
+        mat-flat-button>Zapisz
+        </button>
+    </mat-card-actions>
 </mat-card>

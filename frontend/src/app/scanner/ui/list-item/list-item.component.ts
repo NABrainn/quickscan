@@ -16,12 +16,14 @@ import { EditableFieldComponent } from '../editable-field/editable-field.compone
 })
 export class ListItemComponent {
 
-  isToggledDetails = signal<boolean>(false);
+  isToggledDetails = model<boolean>(false);
+
   isItemValid = signal<boolean>(true);
   itemValidChange = output<boolean>();
 
   key = input<string>();
   value = input<any>();
+  canEdit = input<boolean>(false);
 
   toggleDetails() {
     if(this.isItemValid())
