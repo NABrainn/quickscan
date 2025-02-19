@@ -1,19 +1,18 @@
-import { Component, computed, input, model, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-import {MatFormField, MatFormFieldModule} from '@angular/material/form-field'; 
 
 @Component({
   selector: 'app-editable-field',
   imports: [
-    MatFormField,
     MatInputModule,
     ReactiveFormsModule,
   ],
   templateUrl: './editable-field.component.html'
 })
 export class EditableFieldComponent {
-  canEdit = model<boolean>(false);
+
+  canEdit = input<boolean>(false);
 
   key = input<any>('');
   cKey = computed(() => this.key());
@@ -21,17 +20,22 @@ export class EditableFieldComponent {
   value = input<any>();
   cValue = computed(() => this.value());
 
+  control = input<FormControl>()
+
   valueChange = output<any>();
+  validChange = output<boolean>();
 
   fc: FormControl =  new FormControl(this.cValue(), Validators.required);
 
-  ngOnInit() {
-    this.fc.setValue(this.cValue());
+  updateValue() {
+    this.valueChange.emit({
+      key: this.cKey(), 
+      value: this.fc.value,
+    });
+    this.validChange.emit(this.fc.valid)
   }
 
-  updateValue() {
-
-    if(this.fc.valid)
-      this.valueChange.emit({key: this.cKey(), value: this.fc.value});
+  ngOnInit() {
+    this.fc.setValue(this.cValue());
   }
 }

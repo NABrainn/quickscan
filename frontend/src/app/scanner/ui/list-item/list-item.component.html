@@ -5,13 +5,18 @@
             <span (click)="toggleDetails()">Wyświetl szczegóły</span>
         </span>
         @if(isToggledDetails()) {
-            <app-list-item-details [data]="value()"></app-list-item-details>
+            <app-list-item-details 
+            (validChange)="updateItemValid($event)"
+            [data]="value()">
+            </app-list-item-details>
         }
     </div>
 }
 @else {
-    <span>
+    <span class="flex">
         <span>{{key() | titlecase}}:</span>
-        <span>{{value()}}</span>
+        <app-editable-field 
+        (validChange)="updateItemValid($event)"
+        [value]="value()"></app-editable-field>
     </span>
 }

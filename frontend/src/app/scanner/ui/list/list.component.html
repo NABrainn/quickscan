@@ -1,6 +1,7 @@
 @for(item of document() | keyvalue; track $index) {
     <div class="flex flex-col">
         <app-list-item 
+        (itemValidChange)="onItemValidChange()"
         [key]="item.key" 
         [value]="item.value">
         </app-list-item>
