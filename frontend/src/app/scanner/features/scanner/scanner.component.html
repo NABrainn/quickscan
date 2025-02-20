@@ -1,52 +1,60 @@
 <div class="md:max-w-3/5 m-auto">
-    <mat-stepper linear #stepper>
-        <!-- <mat-step [stepControl]="fileUploadForm"> 
+    <mat-stepper linear #stepper (selectionChange)="navigate($event)">
+        <mat-step 
+        [stepControl]="fileUploadForm"
             <ng-template matStepLabel>
                 Wgraj dokument
             </ng-template>
-                <app-file-upload 
-                [errorMsg]="stepErrorMsg()"
-                [maxSizeNumber]="5"
-                [allowedTypes]="['image/jpeg', 'image/png']"
-                [formGroup]="fileUploadForm"
-                (formData)="uploadFile($event)"> 
-                </app-file-upload>
+            <app-file-upload 
+            [errorMsg]="stepErrorMsg()"
+            [maxSizeNumber]="5"
+            [allowedTypes]="['image/jpeg', 'image/png']"
+            [formGroup]="fileUploadForm"
+            (formData)="uploadFile($event)"> 
+            </app-file-upload>
             <button 
                 mat-button 
                 matStepperNext 
                 (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagany plik *')"
                 type="button">Dalej
             </button>
-        </mat-step> -->
-        <!------------------------------------ TODO UNCOMMENT ABOVE LATER ---------------------------------->
-
-        <mat-step>
+        </mat-step>
+        <mat-step
             <ng-template matStepLabel>
                 Prześlij
             </ng-template>
             <app-document-card
-            [document]="cDocument()">
-
+            (requestRegenerate)="regenerateDocument()"
+            (requestUpload)="saveDocument()"
+            [document]="document()">
             </app-document-card>
+            <div class="flex justify-between">
+                <button 
+                mat-button 
+                matStepperPrevious 
+                type="button">Cofnij
+            </button>
+            <button 
+                mat-button 
+                matStepperNext 
+                type="button">Dalej
+            </button>
+            </div>
+
+        </mat-step>
+
+        <mat-step
+            <ng-template matStepLabel>
+                Gotowe
+            </ng-template>
+            <app-ready-card
+            (requestNavigate)="handleNavigate($event)">
+            </app-ready-card>
             <button 
                 mat-button 
                 matStepperPrevious 
                 type="button">Cofnij</button>
         </mat-step>
-
-        <!------------------------------------ TODO UNCOMMENT BELOW LATER ---------------------------------->
-        <!-- <mat-step>
-            <ng-template matStepLabel>
-                Prześlij
-            </ng-template>
-            <app-document-card>
-
-            </app-document-card>
-            <button 
-                mat-button 
-                matStepperPrevious 
-                type="button">Cofnij</button>
-        </mat-step> -->
     </mat-stepper>
 </div>
 
