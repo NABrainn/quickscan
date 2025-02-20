@@ -1,11 +1,12 @@
 @if(cData() | isArray) {
-    <form>
+    <form class="flex flex-col gap-8">
     @for(item of cData(); track $index; let idx = $index) {
-        <div class="flex flex-col">
+        <div>
             @for(detail of item | keyvalue ; track $index) {
-                <span class="flex">
-                    <span>{{detail.key}}:</span>
+                <span class="flex text-[var(--mat-sys-on-surface)]">
+                    <span class="basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
+                    class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [canEdit]="canEdit()"
                     [key]="detail.key"
                     [value]="detail.value"
@@ -22,8 +23,9 @@
         <div class="flex flex-col">
             @for(detail of cData() | keyvalue; track $index) {
                 <span class="flex">
-                    <span>{{detail.key}}: </span>
+                    <span class="text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
+                    class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [canEdit]="canEdit()"
                     [key]="detail.key"
                     [value]="detail.value" 
