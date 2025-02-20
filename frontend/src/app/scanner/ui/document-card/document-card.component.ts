@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../list/list.component';
@@ -19,34 +19,31 @@ import { ScannerService } from 'app/scanner/features/scanner/service/scanner.ser
 })
 export class DocumentCardComponent {
 
-  service = inject(ScannerService);
-
   private readonly _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit());
 
   private readonly _isToggledDetails = signal<boolean>(false);
   isToggledDetails = computed(() => this._isToggledDetails())
-
-  formData = input.required<FormData>();
   
-  document = input<Invoice | Receipt>({});
+  document = model<Invoice | Receipt>({});
   data = computed(() => {
     return Object.entries(this.document());
   });
 
+  requestRegenerate = output<void>();
+  requestUpload = output<void>();
+
   regenerate() {
-    this.service.uploadFile(this.formData());
-    console.log('regenerate')
+    this.requestRegenerate.emit();
   }
 
   edit() {
     this._canEdit.update(prev => !prev);
-    this._isToggledDetails.update(prev => !prev)
-    console.log('edit')
+    this._isToggledDetails.update(prev => !prev);
   }
 
   save() {
-    console.log('save')
+    this.requestUpload.emit();
   }
 
 }
