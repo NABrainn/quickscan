@@ -1,11 +1,12 @@
-@for(item of document() | keyvalue; track $index) {
-    <div class="flex flex-col">
-        <app-list-item 
-        (itemValidChange)="onItemValidChange()"
-        [isToggledDetails]="isToggledDetails()"
-        [canEdit]="canEdit()"
-        [key]="item.key" 
-        [value]="item.value">
-        </app-list-item>
-    </div>
-}
+<div class="flex flex-col gap-2">
+    @for(item of document() | keyvalue; track $index) {
+            <app-list-item 
+            class="bg-[var(--mat-sys-secondary)] p-2"
+            (itemValidChange)="onItemValidChange()"
+            [isToggledDetails]="isToggledDetails()"
+            [canEdit]="canEdit()"
+            [key]="item.key" 
+            [value]="item.value">
+            </app-list-item>
+    }
+</div>

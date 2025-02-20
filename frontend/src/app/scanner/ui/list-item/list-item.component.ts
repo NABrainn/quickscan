@@ -3,11 +3,13 @@ import { Component, input, model, output, signal } from '@angular/core';
 import { TypeofPipe } from '@pipes/typeof/typeof.pipe';
 import { ListItemDetailsComponent } from '../list-item-details/list-item-details.component';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
+import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
 
 @Component({
   selector: 'app-list-item',
   imports: [
     TitleCasePipe,
+    CamelCaseToWordsPipe,
     TypeofPipe,
     ListItemDetailsComponent,
     EditableFieldComponent

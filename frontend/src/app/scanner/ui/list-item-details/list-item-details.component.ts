@@ -1,8 +1,9 @@
-import { KeyValuePipe } from '@angular/common';
+import { KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, computed, input, model, output, viewChildren } from '@angular/core';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
 
 @Component({
   selector: 'app-list-item-details',
@@ -10,7 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     IsArrayPipe,
     KeyValuePipe,
     EditableFieldComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TitleCasePipe,
+    CamelCaseToWordsPipe
   ],
   templateUrl: './list-item-details.component.html'
 })

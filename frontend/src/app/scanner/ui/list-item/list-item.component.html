@@ -1,18 +1,23 @@
 @if(value() === null) {
-    <span class="flex">
-        <span>{{key() | titlecase}}:</span>
+    <div class="flex">
+        <span 
+        class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
+        class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItemValid($event)"
         [canEdit]="canEdit()"
         [value]="'null'"></app-editable-field>
-    </span>
+    </div>
 }
 @else if((value() | typeof) === 'object') {
     <div class="flex flex-col">
-        <span>
-            <span>{{key()}}:</span>
-            <span (click)="toggleDetails()">Wyświetl szczegóły</span>
-        </span>
+        <div class="flex">
+            <span 
+            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
+            <span 
+            class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
+            (click)="toggleDetails()">Wyświetl szczegóły</span>
+        </div>
         @if(isToggledDetails()) {
             <app-list-item-details 
             (validChange)="updateItemValid($event)"
@@ -22,11 +27,12 @@
     </div>
 }
 @else {
-    <span class="flex">
-        <span>{{key() | titlecase}}:</span>
+    <div class="flex">
+        <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
+        class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItemValid($event)"
         [canEdit]="canEdit()"
         [value]="value()"></app-editable-field>
-    </span>
+    </div>
 }
