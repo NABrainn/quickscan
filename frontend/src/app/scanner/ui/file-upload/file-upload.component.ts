@@ -1,4 +1,4 @@
-import { Component, computed, Input, input, model, OnInit, output, signal } from '@angular/core';
+import { Component, computed, Input, input, model, output } from '@angular/core';
 import {MatCardModule} from '@angular/material/card'; 
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';

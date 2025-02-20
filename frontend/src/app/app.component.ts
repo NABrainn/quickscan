@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {MatProgressBar, MatProgressBarModule} from '@angular/material/progress-bar'; 
+import {MatProgressBar} from '@angular/material/progress-bar'; 
 import { LoadingService } from './scanner/core/loading.service';
 
 @Component({
