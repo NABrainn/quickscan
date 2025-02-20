@@ -1,0 +1,20 @@
+<mat-card class="p-4 gap-8">
+    <mat-card-header class="flex flex-col">
+        <p class="font-semibold text-lg text-[var(--mat-sys-on-tertiary-container)]">Prawie koniec</p>
+        <span class="text-[var(--mat-sys-on-surface)]">Co chcesz zrobić dalej?</span>
+    </mat-card-header>
+    <mat-card-actions class="flex gap-4">
+        <button 
+        mat-fab extended
+        (click)="goTo('skaner/skanuj')">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span>Zeskanuj kolejny</span>
+        </button>
+        <button 
+        mat-fab extended
+        (click)="goTo('')">
+            <mat-icon>view_list</mat-icon>
+            <span>Przejdź do widoku dokumentów</span>
+        </button>
+    </mat-card-actions>
+</mat-card>
