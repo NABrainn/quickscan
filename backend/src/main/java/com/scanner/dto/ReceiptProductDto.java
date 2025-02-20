@@ -4,6 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record ReceiptProductDto(
         @JsonProperty("nazwaProduktu") String productName,
-        @JsonProperty("cenaSuma") double cenaSuma,
-        @JsonProperty("ilość") int quantity) {
+        @JsonProperty("cenaSuma") String cenaSuma,
+        @JsonProperty("ilość") String quantity) {
 }

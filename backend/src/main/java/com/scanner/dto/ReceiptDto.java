@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,7 +24,7 @@ public class ReceiptDto extends DocumentDto{
 
     @Getter(onMethod_ = { @JsonProperty("produkty") })
     @JsonSetter(contentNulls = Nulls.SKIP)
-    private List<ReceiptProductDto> products;
+    private Set<ReceiptProductDto> products;
 
 }
 

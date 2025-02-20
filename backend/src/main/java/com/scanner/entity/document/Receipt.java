@@ -31,7 +31,7 @@ public class Receipt extends Document{
 
     @JsonProperty("kwotaCałkowita")
     @Column(name = "total_amount")
-    private double totalAmount;
+    private String totalAmount;
 
     @JsonProperty("produkty")
     @OneToMany(mappedBy = "receipt")

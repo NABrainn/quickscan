@@ -25,16 +25,16 @@ public class InvoiceDto extends DocumentDto {
     private String saleDate;
 
     @JsonProperty("razemNetto")
-    private double totalNetto;
+    private String totalNetto;
 
     @JsonProperty("razemStawka")
-    private double totalRate;
+    private String totalRate;
 
     @JsonProperty("razemPodatek")
     private String totalTax;
 
     @JsonProperty("razemBrutto")
-    private double totalGross;
+    private String totalGross;
 
     @JsonProperty("waluta")
     private String currency;
@@ -48,7 +48,6 @@ public class InvoiceDto extends DocumentDto {
     @JsonProperty("sprzedawca")
     private Vendor vendor;
 
-    @JsonProperty("produkty")
     @Getter(onMethod_ = { @JsonProperty("produkty") })
     private Set<InvoiceProduct> products;
 }

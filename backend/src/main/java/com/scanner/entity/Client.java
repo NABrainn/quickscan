@@ -25,7 +25,7 @@ public class Client {
     private String name;
 
     @JsonProperty("nip")
-    @Column(name = "nip", unique = true)
+    @Column(name = "nip")
     private String nip;
 
     @JsonProperty("adres")

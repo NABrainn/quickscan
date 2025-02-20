@@ -22,11 +22,11 @@ public class InvoiceProduct extends Product{
 
     @JsonProperty("wartośćNetto")
     @Column(name = "net_worth")
-    private double netWorth;
+    private String netWorth;
 
     @JsonProperty("stawkaVAT")
     @Column(name = "VAT_rate")
-    private double vatRate;
+    private String vatRate;
 
     @JsonProperty("podatekVAT")
     @Column(name = "VAT_tax")
@@ -34,7 +34,7 @@ public class InvoiceProduct extends Product{
 
     @JsonProperty("wartośćBrutto")
     @Column(name = "gross")
-    private double gross;
+    private String gross;
 
     @JsonIgnore
     @ManyToOne

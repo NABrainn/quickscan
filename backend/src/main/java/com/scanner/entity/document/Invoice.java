@@ -43,11 +43,11 @@ public class Invoice extends Document{
 
     @JsonProperty("razemNetto")
     @Column(name = "total_netto")
-    private double totalNetto;
+    private String totalNetto;
 
     @JsonProperty("razemStawka")
     @Column(name = "total_rate")
-    private double totalRate;
+    private String totalRate;
 
     @JsonProperty("razemPodatek")
     @Column(name = "total_tax")
@@ -55,7 +55,7 @@ public class Invoice extends Document{
 
     @JsonProperty("razemBrutto")
     @Column(name = "total_gross")
-    private double totalGross;
+    private String totalGross;
 
     @JsonProperty("waluta")
     @Column(name = "currency")

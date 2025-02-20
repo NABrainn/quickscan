@@ -18,7 +18,7 @@ public class ReceiptProduct extends Product{
 
     @JsonProperty("cenaSuma")
     @Column(name = "sum_price")
-    private double sumPrice;
+    private String sumPrice;
 
     @JsonIgnore
     @ManyToOne

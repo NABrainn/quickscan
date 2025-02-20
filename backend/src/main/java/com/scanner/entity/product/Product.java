@@ -26,5 +26,5 @@ public abstract class Product {
 
     @JsonProperty("ilość")
     @Column(name = "quantity")
-    private long quantity;
+    private String quantity;
 }

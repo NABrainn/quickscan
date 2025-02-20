@@ -32,7 +32,7 @@ public class DocumentController {
             return ResponseEntity.ok(documentService.saveDocument(document));
         }
         catch (DocumentServiceException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dokument zawira błędne dane.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dokument zawiera błędne dane.");
         }
     }
 
@@ -48,7 +48,7 @@ public class DocumentController {
 
     @GetMapping
     public Page<Document> getAllDocuments(
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending,
