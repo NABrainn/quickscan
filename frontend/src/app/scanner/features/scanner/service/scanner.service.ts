@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { API_URL } from 'environment';
 
 @Injectable({
@@ -12,5 +13,9 @@ export class ScannerService {
 
   uploadFile(data: FormData) {
     return this.http.post(`${this.url}/upload`, data);
+  }
+
+  saveDocument(data: Invoice | Receipt) {
+    return this.http.post(`${this.url}/documents`, data)
   }
 }
