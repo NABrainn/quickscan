@@ -21,19 +21,26 @@ export class ListItemComponent {
   isToggledDetails = model<boolean>(false);
 
   isItemValid = signal<boolean>(true);
-  itemValidChange = output<boolean>();
 
   key = input<string>();
   value = input<any>();
   canEdit = input<boolean>(false);
+
+  itemValidChange = output<boolean>();
+  itemValueChange = output<any>();
+
 
   toggleDetails() {
     if(this.isItemValid())
       this.isToggledDetails.update(prev => !prev);
   }
 
-  updateItemValid(valid: boolean) {
+  updateItem(valid: boolean) {
     this.isItemValid.set(valid);
-    this.itemValidChange.emit(valid)
+    this.itemValidChange.emit(valid);
+  }
+
+  onValueChange(value: any) {
+    this.itemValueChange.emit(value);
   }
 }

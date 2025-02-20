@@ -19,6 +19,9 @@ import { ScannerService } from 'app/scanner/features/scanner/service/scanner.ser
 })
 export class DocumentCardComponent {
 
+  _changedDocument = signal<Invoice | Receipt>({});
+  changedDocument = computed(() => this._changedDocument())
+
   private readonly _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit());
 
@@ -30,8 +33,10 @@ export class DocumentCardComponent {
     return Object.entries(this.document());
   });
 
+  errorMsg = input<string>();
+
   requestRegenerate = output<void>();
-  requestUpload = output<void>();
+  requestUpload = output<Invoice | Receipt>();
 
   regenerate() {
     this.requestRegenerate.emit();
@@ -43,7 +48,6 @@ export class DocumentCardComponent {
   }
 
   save() {
-    this.requestUpload.emit();
+    this.requestUpload.emit(this.changedDocument());
   }
-
 }

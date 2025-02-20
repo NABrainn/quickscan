@@ -7,7 +7,7 @@ import { ScannerService } from './service/scanner.service';
 import { DocumentCardComponent } from 'app/scanner/ui/document-card/document-card.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ReadyCardComponent } from 'app/scanner/ui/ready-card/ready-card.component';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
@@ -19,6 +19,7 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
     FileUploadComponent,
     DocumentCardComponent,
     ReadyCardComponent,
+    RouterOutlet
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
@@ -29,7 +30,7 @@ export class ScannerComponent{
   service = inject(ScannerService);
   router = inject(Router);
 
-  _stepErrorMsg = signal<string>('');
+  readonly _stepErrorMsg = signal<string>('');
   stepErrorMsg = computed(() => this._stepErrorMsg());
 
   private readonly _document = signal<Invoice | Receipt>({} as Invoice);
@@ -44,10 +45,15 @@ export class ScannerComponent{
     file: ['', Validators.required]
   })
 
+  documentUploadForm = this.fb.group({
+    document: [null as (Invoice | Receipt) | null, Validators.required]
+  })
+
   uploadFile(formData: FormData) {
     this._savedFormData.set(formData);
     this.service.uploadFile(formData).subscribe({
       next: (res: Invoice | Receipt) => {
+        this._stepErrorMsg.set('');
         this._document.set(res);
         this.stepper()?.next();
       },
@@ -66,12 +72,14 @@ export class ScannerComponent{
     });
   }
 
-  saveDocument() {
-    this.service.saveDocument(this.document()).subscribe({
+  saveDocument(document: Invoice | Receipt) {
+    console.log(document)
+    this.service.saveDocument(document).subscribe({
       next: (res: Invoice | Receipt) => {
+        this.documentUploadForm.controls.document.setValue(document)
         this.stepper()?.next();
       },
-      error: (res) => console.log(res)
+      error: (res) => this._stepErrorMsg.set(res?.error?.message)
     });
   }
 
@@ -91,8 +99,9 @@ export class ScannerComponent{
     }
   }
 
-  handleNavigate(value: string) {
-    this.router.navigate([value]);
-    this.stepper()?.reset();
+  handleNavigate(value: any) {
+    this.router.navigate([value.uri]);
+    if(value.reset)
+      this.stepper()?.reset();
   }
 }

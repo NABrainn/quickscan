@@ -4,8 +4,10 @@
         class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
-        (validChange)="updateItemValid($event)"
+        (validChange)="updateItem($event)"
+        (valueChange)="onValueChange($event)"
         [canEdit]="canEdit()"
+        [key]="key()"
         [value]="'null'"></app-editable-field>
     </div>
 }
@@ -20,7 +22,7 @@
         </div>
         @if(isToggledDetails()) {
             <app-list-item-details 
-            (validChange)="updateItemValid($event)"
+            (validChange)="updateItem($event)"
             [canEdit]="canEdit()"
             [data]="value()"></app-list-item-details>
         }
@@ -31,8 +33,10 @@
         <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
-        (validChange)="updateItemValid($event)"
+        (validChange)="updateItem($event)"
+        (valueChange)="onValueChange($event)"
         [canEdit]="canEdit()"
+        [key]="key()"
         [value]="value()"></app-editable-field>
     </div>
 }

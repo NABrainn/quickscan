@@ -1,6 +1,6 @@
-@if(cData() | isArray) {
+@if(data() | isArray) {
     <form class="flex flex-col gap-8">
-    @for(item of cData(); track $index; let idx = $index) {
+    @for(item of data(); track $index; let idx = $index) {
         <div>
             @for(detail of item | keyvalue ; track $index) {
                 <span class="flex text-[var(--mat-sys-on-surface)]">
@@ -21,7 +21,7 @@
 @else {
     <form>
         <div class="flex flex-col">
-            @for(detail of cData() | keyvalue; track $index) {
+            @for(detail of data() | keyvalue; track $index) {
                 <span class="flex">
                     <span class="text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 

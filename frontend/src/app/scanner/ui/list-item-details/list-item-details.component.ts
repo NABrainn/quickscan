@@ -25,7 +25,6 @@ export class ListItemDetailsComponent {
   validChange = output<boolean>();
 
   data = model<any | any[]>();
-  cData = computed(() => this.data());
 
   updateData(index: number | null, change: any) {
     this.data.update(prev => {

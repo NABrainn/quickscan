@@ -14,9 +14,7 @@ export class EditableFieldComponent {
 
   canEdit = input<boolean>(false);
 
-  key = input<any>('');
-  cKey = computed(() => this.key());
-
+  key = input.required<any>();
   value = input<any>();
 
   control = input<FormControl>()
@@ -38,10 +36,10 @@ export class EditableFieldComponent {
 
   updateValue() {
     this.valueChange.emit({
-      key: this.cKey(), 
+      key: this.key(), 
       value: this.fc.value,
     });
-    this.validChange.emit(this.fc.valid)
+    this.validChange.emit(this.fc.valid);
   }
 
   ngOnInit() {
