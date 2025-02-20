@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
         <app-list 
         [isToggledDetails]="isToggledDetails()"
@@ -7,7 +7,7 @@
             
         </app-list>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions class="flex gap-2">
         <button 
         (click)="regenerate()"
         mat-flat-button>Regeneruj
