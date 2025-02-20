@@ -15,9 +15,9 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './ready-card.component.html'
 })
 export class ReadyCardComponent {
-  requestNavigate = output<string>();
+  requestNavigate = output<{uri: string, reset?: boolean}>();
 
-  goTo(uri: string) {
-    this.requestNavigate.emit(uri);
+  goTo(uri: string, reset?: boolean) {
+    this.requestNavigate.emit({uri, reset});
   }
 }
