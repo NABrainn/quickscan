@@ -7,3 +7,7 @@
 .mat-icon-lg {
     transform: scale(2);
 }
+  
+input:disabled,select:disabled,textarea:disabled {
+    color: var(--mat-sys-primary-fixed) !important;
+  }

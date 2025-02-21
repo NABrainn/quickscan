@@ -1,12 +1,23 @@
-import { Component, computed, effect, input, output } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
+import { Component, effect, input, output } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import {MatInput, MatError, MatHint, MatFormField} from '@angular/material/input';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-editable-field',
   imports: [
-    MatInputModule,
     ReactiveFormsModule,
+    MatFormField,
+    MatInput,
+    MatError,
+    MatHint
   ],
   templateUrl: './editable-field.component.html'
 })
@@ -17,18 +28,18 @@ export class EditableFieldComponent {
   key = input.required<any>();
   value = input<any>();
 
-  control = input<FormControl>()
-
   valueChange = output<any>();
   validChange = output<boolean>();
 
-  fc: FormControl =  new FormControl({value: '', disabled: this.canEdit()}, [Validators.required]);
+  fc: FormControl = new FormControl({value: '', disabled: this.canEdit()}, [Validators.maxLength(30)]);
+  matcher = new MyErrorStateMatcher();
 
   constructor() {
     effect(() => {
       if (this.canEdit()) {
         this.fc.enable({ emitEvent: false });
-      } else {
+      } 
+      else {
         this.fc.disable({ emitEvent: false });
       }
     });
