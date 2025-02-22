@@ -8,7 +8,7 @@
         (valueChange)="onValueChange($event)"
         [canEdit]="canEdit()"
         [key]="key()"
-        [value]="'null'"></app-editable-field>
+        [value]="''"></app-editable-field>
     </div>
 }
 @else if((value() | typeof) === 'object') {
@@ -23,8 +23,10 @@
         @if(isToggledDetails()) {
             <app-list-item-details 
             (validChange)="updateItem($event)"
+            (valueChange)="onValueChange($event)"
             [canEdit]="canEdit()"
-            [data]="value()"></app-list-item-details>
+            [value]="value()">
+            </app-list-item-details>
         }
     </div>
 }

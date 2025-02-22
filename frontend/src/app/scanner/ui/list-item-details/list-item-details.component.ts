@@ -21,13 +21,14 @@ export class ListItemDetailsComponent {
 
   fields = viewChildren(EditableFieldComponent);
 
+  value = model<any | any[]>();
+
   canEdit = input<boolean>(false);
   validChange = output<boolean>();
-
-  data = model<any | any[]>();
+  valueChange = output<any | any[]>();
 
   updateData(index: number | null, change: any) {
-    this.data.update(prev => {
+    this.value.update(prev => {
       if(index === null) {
         prev[change.key] = change.value;
         return prev;
@@ -39,5 +40,6 @@ export class ListItemDetailsComponent {
     })
 
     this.fields().every(el => el.fc.valid === true) ? this.validChange.emit(true) : this.validChange.emit(false);
+    this.valueChange.emit(this.value());
   }
 }
