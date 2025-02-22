@@ -13,12 +13,6 @@
                 [formGroup]="fileUploadForm"
                 (formData)="uploadFile($event)"> 
                 </app-file-upload>
-                <button 
-                mat-button 
-                matStepperNext 
-                (click)="fileUploadForm.valid ? _stepErrorMsg.set('') : _stepErrorMsg.set('Wymagany plik *')"
-                type="button">Dalej
-            </button>
             </ng-template>
         </mat-step>
         <mat-step
@@ -33,18 +27,6 @@
                 [errorMsg]="stepErrorMsg()"
                 [document]="document()">
                 </app-document-card>
-                <div class="flex justify-between">
-                    <button 
-                    mat-button 
-                    matStepperPrevious 
-                    type="button">Cofnij
-                    </button>
-                    <button 
-                        mat-button 
-                        matStepperNext 
-                        type="button">Dalej
-                    </button>
-                </div>
             </ng-template>
         </mat-step>
         <mat-step>
@@ -55,13 +37,7 @@
                 <app-ready-card
                 (requestNavigate)="handleNavigate($event)">
                 </app-ready-card>
-                <button 
-                mat-button 
-                matStepperPrevious 
-                type="button">Cofnij
-                </button>
             </ng-template>
-
         </mat-step>
     </mat-stepper>
 </div>
