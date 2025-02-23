@@ -1,17 +1,16 @@
 <form class="min-w-50">
-    <mat-form-field class="w-full">
         <input
         type="text"
         matInput
-        class="w-[100%] text-[var(--mat-sys-tertiary)]"
+        class="w-[100%]"
         type="text"
         (input)="updateValue()"
         [errorStateMatcher]="matcher"
         [formControl]="fc">
-        @if(fc.hasError('maxlength')) {
-            <mat-error>Długość nie może przekroczyć <strong>30</strong> znaków</mat-error>
-        }
-    </mat-form-field>
+            <span 
+            [hidden]="!fc.hasError('maxlength')"
+            class="text-[var(--mat-sys-on-error-container)]">
+            Długość nie może przekroczyć <strong>50</strong> znaków</span>
 </form>
 
   

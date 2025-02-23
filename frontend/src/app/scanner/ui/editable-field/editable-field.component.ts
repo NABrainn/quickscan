@@ -1,7 +1,7 @@
 import { Component, effect, input, output } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {MatInput, MatError, MatHint, MatFormField} from '@angular/material/input';
+import {MatInput} from '@angular/material/input';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -14,10 +14,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-editable-field',
   imports: [
     ReactiveFormsModule,
-    MatFormField,
     MatInput,
-    MatError,
-    MatHint
   ],
   templateUrl: './editable-field.component.html'
 })
@@ -31,7 +28,7 @@ export class EditableFieldComponent {
   valueChange = output<any>();
   validChange = output<boolean>();
 
-  fc: FormControl = new FormControl({value: '', disabled: this.canEdit()}, [Validators.maxLength(30)]);
+  fc: FormControl = new FormControl({value: '', disabled: this.canEdit()}, [Validators.maxLength(50)]);
   matcher = new MyErrorStateMatcher();
 
   constructor() {
@@ -55,5 +52,6 @@ export class EditableFieldComponent {
 
   ngOnInit() {
     this.fc.setValue(this.value());
+    this.validChange.emit(this.fc.valid);
   }
 }
