@@ -4,6 +4,8 @@ import { TypeofPipe } from '@pipes/typeof/typeof.pipe';
 import { ListItemDetailsComponent } from '../list-item-details/list-item-details.component';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
+import { MatIcon } from '@angular/material/icon';
+import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 
 @Component({
   selector: 'app-list-item',
@@ -12,19 +14,21 @@ import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-w
     CamelCaseToWordsPipe,
     TypeofPipe,
     ListItemDetailsComponent,
-    EditableFieldComponent
+    EditableFieldComponent,
+    MatIcon,
+    IsArrayPipe
   ],
   templateUrl: './list-item.component.html'
 })
 export class ListItemComponent {
 
   isToggledDetails = model<boolean>(false);
-
   isItemValid = signal<boolean>(true);
 
   key = input<string>();
   value = input<any>();
   canEdit = input<boolean>(false);
+  documentType = input<string | undefined>();
 
   itemValidChange = output<boolean>();
   itemValueChange = output<any>();
@@ -42,5 +46,27 @@ export class ListItemComponent {
 
   onValueChange(value: any) {
     this.itemValueChange.emit(value);
+  }
+
+  addProduct() {
+    console.log(this.documentType());
+    if(this.documentType() === 'invoice')
+      this.value().push({
+        nazwaProduktu: '',
+        ilość: '',
+        cenaSuma: '',
+        jednostkaMiary: '',
+        wartośćNetto: '',
+        stawkaVAT: '',
+        podatekVAT: '',
+        wartośćBrutto: '',
+      })
+    else {
+      this.value().push({
+        nazwaProduktu: '',
+        ilość: '',
+        cenaSuma: ''
+      })
+    }
   }
 }

@@ -15,6 +15,7 @@ export class ListComponent implements OnInit{
 
   _document = model.required<Invoice | Receipt>();
   document = computed(() => this._document());
+  documentType = computed(() => this._document().type)
 
   documentRef: Invoice | Receipt = {};
 
@@ -23,18 +24,17 @@ export class ListComponent implements OnInit{
   canEdit = input<boolean>(false);
   isToggledDetails = input<boolean>(false);
 
-  allFieldsValid = output<boolean>();
+  listValid = output<boolean>();
   documentChange = output<Invoice | Receipt>();
 
   onItemValidChange() {
-    return this.items().every(el => el.isItemValid() === true) ? this.allFieldsValid.emit(true) : this.allFieldsValid.emit(false); 
+    return this.items().every(el => el.isItemValid() === true) ? this.listValid.emit(true) : this.listValid.emit(false); 
   }
 
   onItemValueChange(entry: any){
     const document: any = this.documentRef;
     document[entry.key] = entry.value;
     this.documentChange.emit(document);
-    console.log(this.documentRef)
   }
 
   ngOnInit(): void {

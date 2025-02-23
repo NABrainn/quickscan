@@ -3,7 +3,6 @@ import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../list/list.component';
 import { MatButton } from '@angular/material/button';
-import { ScannerService } from 'app/scanner/features/scanner/service/scanner.service';
 
 @Component({
   selector: 'app-document-card',
@@ -20,20 +19,24 @@ import { ScannerService } from 'app/scanner/features/scanner/service/scanner.ser
 export class DocumentCardComponent {
 
   _changedDocument = signal<Invoice | Receipt>({});
-  changedDocument = computed(() => this._changedDocument())
+  changedDocument = computed(() => this._changedDocument());
+
+  readonly _documentValid = signal<boolean>(false);
+  documentValid = computed(() => this._documentValid());
 
   private readonly _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit());
 
   private readonly _isToggledDetails = signal<boolean>(false);
-  isToggledDetails = computed(() => this._isToggledDetails())
+  isToggledDetails = computed(() => this._isToggledDetails());
   
   document = model<Invoice | Receipt>({});
   data = computed(() => {
     return Object.entries(this.document());
   });
 
-  errorMsg = input<string>();
+  private readonly _errorMsg = signal<string>('');
+  errorMsg = computed(() => this._errorMsg())
 
   requestRegenerate = output<void>();
   requestUpload = output<Invoice | Receipt>();
@@ -48,6 +51,13 @@ export class DocumentCardComponent {
   }
 
   save() {
-    this.requestUpload.emit(this.changedDocument());
+    if(this.documentValid())
+      this.requestUpload.emit(this.changedDocument());
+    else
+      this._errorMsg.set('Dokument zawiera błędne dane');
+  }
+
+  ngOnInit() {
+    this._changedDocument.set(this.document());
   }
 }

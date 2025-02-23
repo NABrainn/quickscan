@@ -1,6 +1,7 @@
 <mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
         <app-list 
+        (listValid)="_documentValid.set($event)"
         (documentChange)="_changedDocument.set($event)"
         [isToggledDetails]="isToggledDetails()"
         [canEdit]="canEdit()"
@@ -21,7 +22,7 @@
         (click)="save()"
         mat-flat-button>Zapisz
         </button>
-        <span  class="text-[var(--mat-sys-error)]">
+        <span class="text-[var(--mat-sys-on-error-container)]">
             {{errorMsg()}}
         </span>
     </mat-card-actions>

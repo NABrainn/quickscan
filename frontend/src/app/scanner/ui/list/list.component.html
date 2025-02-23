@@ -4,6 +4,7 @@
             class="bg-[var(--mat-sys-secondary)] p-2"
             (itemValidChange)="onItemValidChange()"
             (itemValueChange)="onItemValueChange($event)"
+            [documentType]="documentType()"
             [isToggledDetails]="isToggledDetails()"
             [canEdit]="canEdit()"
             [key]="item.key" 
