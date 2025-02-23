@@ -15,10 +15,23 @@
     <div class="flex flex-col">
         <div class="flex">
             <span 
-            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
-            <span 
-            class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
-            (click)="toggleDetails()">Wyświetl szczegóły</span>
+            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}
+            </span>
+            <div class="basis-1/2 flex gap-2 justify-between w-full">
+                <span 
+                class="text-[var(--mat-sys-primary-fixed)] cursor-pointer"
+                (click)="toggleDetails()">Wyświetl szczegóły</span>
+                @if(value() | isArray) {
+                    <div 
+                    (click)="addProduct()"
+                    class="flex gap-2 cursor-pointer">
+                        <span class="text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
+                        <mat-icon
+                        style="color: var(--mat-sys-tertiary-fixed);">
+                        add</mat-icon>
+                    </div>
+                }
+            </div>
         </div>
         @if(isToggledDetails()) {
             <app-list-item-details 
