@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './scanner/core/auth/components/page-not-f
 import { FileUploadComponent } from './scanner/ui/file-upload/file-upload.component';
 import { DocumentCardComponent } from './scanner/ui/document-card/document-card.component';
 import { ReadyCardComponent } from './scanner/ui/ready-card/ready-card.component';
+import { stepperGuard } from './scanner/features/scanner/guards/stepper.guard';
 
 export const routes: Routes = [
     { 
@@ -12,23 +13,22 @@ export const routes: Routes = [
         canActivate: [canActivateAuthRole],
         children: [
             {
-                path: 'skanuj', component: FileUploadComponent
+                path: 'skanuj', component: FileUploadComponent, canActivate: [stepperGuard]
             },
             {
-                path: 'przeslij', component: DocumentCardComponent
+                path: 'przeslij', component: DocumentCardComponent, canActivate: [stepperGuard]
             },
             {
-                path: 'gotowe', component: ReadyCardComponent
+                path: 'gotowe', component: ReadyCardComponent, canActivate: [stepperGuard]
             }
         ]
     },
     {
         path: '',
-        redirectTo: 'skaner',
+        redirectTo: 'skaner/skanuj',
         pathMatch: 'full',
         
     },
-    
     {
         path: '**',
         component: PageNotFoundComponent
