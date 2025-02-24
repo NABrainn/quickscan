@@ -7,8 +7,9 @@ import { ScannerService } from './service/scanner.service';
 import { DocumentCardComponent } from 'app/scanner/ui/document-card/document-card.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ReadyCardComponent } from 'app/scanner/ui/ready-card/ready-card.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { StepperService } from './service/stepper.service';
 
 @Component({
   selector: 'app-scanner',
@@ -18,16 +19,17 @@ import { StepperSelectionEvent } from '@angular/cdk/stepper';
     MatButtonModule,
     FileUploadComponent,
     DocumentCardComponent,
-    ReadyCardComponent,
-    RouterOutlet
+    ReadyCardComponent
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
 })
 export class ScannerComponent{
 
+  scannerService = inject(ScannerService);
+  stepperService = inject(StepperService);
+
   fb = inject(FormBuilder);
-  service = inject(ScannerService);
   router = inject(Router);
 
   readonly _stepErrorMsg = signal<string>('');
@@ -51,21 +53,23 @@ export class ScannerComponent{
 
   uploadFile(formData: FormData) {
     this._savedFormData.set(formData);
-    this.service.uploadFile(formData).subscribe({
+    this.scannerService.uploadFile(formData).subscribe({
       next: (res: Invoice | Receipt) => {
         this._stepErrorMsg.set('');
         this._document.set(res);
+        this.stepperService.fileUploadValid.set(true);
         this.stepper()?.next();
       },
       error: (res) => {
         this._stepErrorMsg.set(res?.error?.message);
+        this.stepperService.fileUploadValid.set(false);
         this.fileUploadForm?.reset();
       }
     });
   }
 
   regenerateDocument() {
-    this.service.uploadFile(this.savedFormData()).subscribe({
+    this.scannerService.uploadFile(this.savedFormData()).subscribe({
       next: (res: Invoice | Receipt) => {
         this._document.set(res);
       },
@@ -74,12 +78,16 @@ export class ScannerComponent{
 
   saveDocument(document: Invoice | Receipt) {
     console.log(document)
-    this.service.saveDocument(document).subscribe({
+    this.scannerService.saveDocument(document).subscribe({
       next: (res: Invoice | Receipt) => {
-        this.documentUploadForm.controls.document.setValue(document)
+        this.documentUploadForm.controls.document.setValue(document);
+        this.stepperService.documentUploadValid.set(true);
         this.stepper()?.next();
       },
-      error: (res) => this._stepErrorMsg.set(res?.error?.message)
+      error: (res) =>  {
+        this.stepperService.documentUploadValid.set(false);
+        this._stepErrorMsg.set(res?.error?.message);
+      }
     });
   }
 
