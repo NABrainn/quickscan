@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @Entity
-@Table(name = "invoice_product")
+@Table(name = "invoice_products")
 public class InvoiceProduct extends Product{
 
     @JsonProperty("jednostkaMiary")
