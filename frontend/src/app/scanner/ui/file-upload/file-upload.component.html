@@ -10,8 +10,8 @@
             <div class="flex flex-col items-center gap-2 min-h-44">
                 <mat-icon 
                     style="color: var(--mat-sys-secondary-fixed);"
-                    class="mat-icon-lg"
-                >file_upload</mat-icon>
+                    class="mat-icon-lg">
+                    file_upload</mat-icon>
                 <form [formGroup]="fileUploadForm">
                     <input 
                         accept="image/png, image/jpeg"
@@ -22,12 +22,12 @@
                         (change)="onFileClicked($event)"
                 >
                 </form>
-                <span class="block text-[var(--mat-sys-secondary-fixed)]">Wrzuć zdjęcie dokumentu albo 
+                <span class="block text-[var(--mat-sys-secondary-fixed)]">
+                    Wrzuć zdjęcie dokumentu albo 
                     <a 
-                        (click)="fileInput.click()"
-                        class="font-semibold text-[var(--mat-sys-on-tertiary-fixed-variant)] cursor-pointer"
-
-                    >wybierz z dysku</a>
+                    (click)="fileInput.click()"
+                    class="font-semibold text-[var(--mat-sys-on-tertiary-fixed-variant)] cursor-pointer">
+                    wybierz z dysku</a>
                 </span>
                 <span class="block text-[var(--mat-sys-secondary-fixed)]">obsługiwane formaty: .jpg / .jpeg / .png</span>
                 <span class="text-[var(--mat-sys-error)]">{{cErrorMsg()}}</span>

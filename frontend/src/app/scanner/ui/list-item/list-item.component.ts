@@ -49,7 +49,6 @@ export class ListItemComponent {
   }
 
   addProduct() {
-    console.log(this.documentType());
     if(this.documentType() === 'invoice')
       this.value().push({
         nazwaProduktu: '',

@@ -24,7 +24,6 @@
                 <app-document-card
                 (requestRegenerate)="regenerateDocument()"
                 (requestUpload)="saveDocument($event)"
-                [errorMsg]="stepErrorMsg()"
                 [document]="document()">
                 </app-document-card>
             </ng-template>
