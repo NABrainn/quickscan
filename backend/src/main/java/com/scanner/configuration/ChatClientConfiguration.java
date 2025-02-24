@@ -40,7 +40,7 @@ public class ChatClientConfiguration {
                             "razemBrutto": "razemBrutto", 
                             "waluta": "waluta",  
                             "formaPłatności": "formaPlatnosci",   
-                            "produkty": [
+                            "produkty": [   (jeśli tablica jest pusta, wpisz "[]")
                                     {     
                                         "nazwaProduktu": "nazwaProduktu",    
                                         "jednostkaMiary": "jednostkaMiary" (zobacz czy nie istnieje skrót 'j. m.' zapisz wartość jako value jednostkiMiary. key jednostkaMiary bez zmian),      
