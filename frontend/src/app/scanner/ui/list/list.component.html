@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-2">
-    @for(item of _document() | keyvalue; track $index) {
+    @for(item of documentDisplay() | keyvalue; track $index) {
             <app-list-item 
             class="bg-[var(--mat-sys-secondary)] p-2"
             (itemValidChange)="onItemValidChange()"

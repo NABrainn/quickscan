@@ -14,8 +14,13 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
 export class ListComponent implements OnInit{
 
   _document = model.required<Invoice | Receipt>();
-  document = computed(() => this._document());
-  documentType = computed(() => this._document().type)
+  documentDisplay = computed(() => {
+    const document = {...this._document()};
+    delete document.type;
+    return document;
+  });
+
+  documentType = computed(() => this._document().type);
 
   documentRef: Invoice | Receipt = {};
 
@@ -38,6 +43,6 @@ export class ListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.documentRef = {...this.document()};
+    this.documentRef = {...this._document()};
   }  
 }
