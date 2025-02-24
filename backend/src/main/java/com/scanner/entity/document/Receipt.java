@@ -5,6 +5,8 @@ import com.scanner.entity.product.ReceiptProduct;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
@@ -34,7 +36,8 @@ public class Receipt extends Document{
     private String totalAmount;
 
     @JsonProperty("produkty")
-    @OneToMany(mappedBy = "receipt")
+    @Fetch(FetchMode.JOIN)
+    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReceiptProduct> products;
 
     @Override
