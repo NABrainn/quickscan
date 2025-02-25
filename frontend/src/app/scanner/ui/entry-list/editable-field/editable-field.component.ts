@@ -1,7 +1,8 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {MatInput} from '@angular/material/input';
+import { ListService } from '../list.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EditableFieldComponent {
 
-  canEdit = input<boolean>(false);
+  private readonly service = inject(ListService);
 
   key = input.required<any>();
   value = input<any>();
@@ -28,12 +29,12 @@ export class EditableFieldComponent {
   valueChange = output<any>();
   validChange = output<boolean>();
 
-  fc: FormControl = new FormControl({value: '', disabled: this.canEdit()}, [Validators.maxLength(50)]);
+  fc: FormControl = new FormControl({value: '', disabled: this.service.canEdit()}, [Validators.maxLength(50)]);
   matcher = new MyErrorStateMatcher();
 
   constructor() {
     effect(() => {
-      if (this.canEdit()) {
+      if (this.service.canEdit()) {
         this.fc.enable({ emitEvent: false });
       } 
       else {

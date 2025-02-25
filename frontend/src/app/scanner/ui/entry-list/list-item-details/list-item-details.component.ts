@@ -1,5 +1,5 @@
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
-import { Component, computed, input, model, output, viewChildren } from '@angular/core';
+import { Component, model, output, viewChildren } from '@angular/core';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 import { EditableFieldComponent } from '../editable-field/editable-field.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,6 @@ export class ListItemDetailsComponent {
 
   value = model<any | any[]>();
 
-  canEdit = input<boolean>(false);
   validChange = output<boolean>();
   valueChange = output<any | any[]>();
 

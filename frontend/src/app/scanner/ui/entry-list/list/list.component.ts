@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, computed, input, model, OnInit, output, viewChildren } from '@angular/core';
+import { Component, computed, inject, input, model, OnInit, output, viewChildren } from '@angular/core';
 import { ListItemComponent } from '../list-item/list-item.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 
@@ -26,7 +26,6 @@ export class ListComponent implements OnInit{
 
   items = viewChildren(ListItemComponent);
 
-  canEdit = input<boolean>(false);
   isToggledDetails = input<boolean>(false);
 
   listValid = output<boolean>();

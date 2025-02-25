@@ -6,7 +6,6 @@
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItem($event)"
         (valueChange)="onValueChange($event)"
-        [canEdit]="canEdit()"
         [key]="key()"
         [value]="''"></app-editable-field>
     </div>
@@ -21,7 +20,7 @@
                 <span 
                 class="text-[var(--mat-sys-primary-fixed)] cursor-pointer"
                 (click)="toggleDetails()">Wyświetl szczegóły</span>
-                @if(value() | isArray) {
+                @if((value() | isArray) && isToggledDetails()) {
                     <div 
                     (click)="addProduct()"
                     class="flex gap-2 cursor-pointer">
@@ -37,7 +36,6 @@
             <app-list-item-details 
             (validChange)="updateItem($event)"
             (valueChange)="onValueChange($event)"
-            [canEdit]="canEdit()"
             [value]="value()">
             </app-list-item-details>
         }
@@ -50,7 +48,6 @@
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItem($event)"
         (valueChange)="onValueChange($event)"
-        [canEdit]="canEdit()"
         [key]="key()"
         [value]="value()"></app-editable-field>
     </div>
