@@ -25,8 +25,7 @@ export class ListItemComponent {
   isToggledDetails = model<boolean>(false);
   isItemValid = signal<boolean>(true);
 
-  key = input<string>();
-  value = input<any>();
+  entry = model<{key: string, value: any}>();
   documentType = input<string | undefined>();
 
   itemValidChange = output<boolean>();
@@ -43,13 +42,14 @@ export class ListItemComponent {
     this.itemValidChange.emit(valid);
   }
 
-  onValueChange(value: any) {
-    this.itemValueChange.emit(value);
+  onValueChange() {
+    console.log('value changed');
+    // this.itemValueChange.emit(value);
   }
 
   addProduct() {
     if(this.documentType() === 'invoice')
-      this.value().push({
+      this.entry()?.value.push({
         nazwaProduktu: '',
         ilość: '',
         cenaSuma: '',
@@ -60,7 +60,7 @@ export class ListItemComponent {
         wartośćBrutto: '',
       })
     else {
-      this.value().push({
+      this.entry()?.value.push({
         nazwaProduktu: '',
         ilość: '',
         cenaSuma: ''

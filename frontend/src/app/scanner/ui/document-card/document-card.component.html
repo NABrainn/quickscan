@@ -1,10 +1,8 @@
 <mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
         <app-list 
-        (listValid)="_documentValid.set($event)"
         (documentChange)="_changedDocument.set($event)"
         [isToggledDetails]="isToggledDetails()"
-        [canEdit]="canEdit()"
         [_document]="document()">
             
         </app-list>

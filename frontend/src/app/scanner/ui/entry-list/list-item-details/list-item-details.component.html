@@ -7,9 +7,8 @@
                     <span class="basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
-                    [key]="detail.key"
-                    [value]="detail.value"
-                    (valueChange)="updateData(idx, $event)"></app-editable-field>
+                    [entry]="{key: detail.key, value: detail.value}"
+                    (entry)="updateData(idx, $event)"></app-editable-field>
                 </span>
             }
         </div>
@@ -25,9 +24,8 @@
                     <span class="text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
-                    [key]="detail.key"
-                    [value]="detail.value" 
-                    (valueChange)="updateData(null, $event)"></app-editable-field>
+                    [entry]="{key: detail.key, value: detail.value}"
+                    (entry)="updateData(null, $event)"></app-editable-field>
                 </span>
             }
         </div>

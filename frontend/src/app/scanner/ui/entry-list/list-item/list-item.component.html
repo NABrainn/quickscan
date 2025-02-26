@@ -1,26 +1,24 @@
-@if(value() === null) {
+@if(entry()?.value === null) {
     <div class="flex">
         <span 
-        class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
+        class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItem($event)"
-        (valueChange)="onValueChange($event)"
-        [key]="key()"
-        [value]="''"></app-editable-field>
+        [(entry)]="entry"></app-editable-field>
     </div>
 }
-@else if((value() | typeof) === 'object') {
+@else if((entry()?.value | typeof) === 'object') {
     <div class="flex flex-col">
         <div class="flex">
             <span 
-            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}
+            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}
             </span>
             <div class="basis-1/2 flex gap-2 justify-between w-full">
                 <span 
                 class="text-[var(--mat-sys-primary-fixed)] cursor-pointer"
                 (click)="toggleDetails()">Wyświetl szczegóły</span>
-                @if((value() | isArray) && isToggledDetails()) {
+                @if((entry()?.value | isArray) && isToggledDetails()) {
                     <div 
                     (click)="addProduct()"
                     class="flex gap-2 cursor-pointer">
@@ -35,20 +33,18 @@
         @if(isToggledDetails()) {
             <app-list-item-details 
             (validChange)="updateItem($event)"
-            (valueChange)="onValueChange($event)"
-            [value]="value()">
+            [(value)]="entry">
             </app-list-item-details>
         }
     </div>
 }
 @else {
     <div class="flex">
-        <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{key() | camelCaseToWords | titlecase}}</span>
+        <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (validChange)="updateItem($event)"
-        (valueChange)="onValueChange($event)"
-        [key]="key()"
-        [value]="value()"></app-editable-field>
+        [(entry)]="entry"
+        ></app-editable-field>
     </div>
 }

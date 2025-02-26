@@ -24,7 +24,6 @@ export class ListItemDetailsComponent {
   value = model<any | any[]>();
 
   validChange = output<boolean>();
-  valueChange = output<any | any[]>();
 
   updateData(index: number | null, change: any) {
     this.value.update(prev => {
@@ -38,7 +37,7 @@ export class ListItemDetailsComponent {
       }
     })
 
-    this.fields().every(el => el.fc.valid === true) ? this.validChange.emit(true) : this.validChange.emit(false);
-    this.valueChange.emit(this.value());
+    this.fields().every(el => el.form.controls.input.valid === true) ? this.validChange.emit(true) : this.validChange.emit(false);
+    this.value.set(this.value());
   }
 }

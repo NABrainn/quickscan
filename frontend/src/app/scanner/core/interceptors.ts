@@ -13,4 +13,4 @@ export function LoadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
         loadingService.loadingOff();
       })
     )
-  }
+}

@@ -1,8 +1,9 @@
 import { Component, computed, inject, input, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 import { Invoice, Receipt } from 'app/scanner/shared/types';
-import { ListComponent } from '../list/list.component';
+import { ListComponent } from '../entry-list/list/list.component';
 import { MatButton } from '@angular/material/button';
+import { ListService } from '../entry-list/list.service';
 
 @Component({
   selector: 'app-document-card',
@@ -18,11 +19,13 @@ import { MatButton } from '@angular/material/button';
 })
 export class DocumentCardComponent {
 
+  service = inject(ListService);
+
   _changedDocument = signal<Invoice | Receipt>({});
   changedDocument = computed(() => this._changedDocument());
 
-  readonly _documentValid = signal<boolean>(false);
-  documentValid = computed(() => this._documentValid());
+  _isDataValid = this.service._isDataValid;
+  isDataValid = this.service.isDataValid;
 
   private readonly _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit());
@@ -46,12 +49,12 @@ export class DocumentCardComponent {
   }
 
   edit() {
-    this._canEdit.update(prev => !prev);
+    this.service._canEdit.update(prev => !prev);
     this._isToggledDetails.update(prev => !prev);
   }
 
   save() {
-    if(this.documentValid())
+    if(this.service.isDataValid())
       this.requestUpload.emit(this.changedDocument());
     else
       this._errorMsg.set('Dokument zawiera błędne dane');

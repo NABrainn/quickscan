@@ -2,6 +2,7 @@ import { KeyValuePipe } from '@angular/common';
 import { Component, computed, inject, input, model, OnInit, output, viewChildren } from '@angular/core';
 import { ListItemComponent } from '../list-item/list-item.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
+import { ListService } from '../list.service';
 
 @Component({
   selector: 'app-list',
@@ -11,7 +12,9 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
   ],
   templateUrl: './list.component.html'
 })
-export class ListComponent implements OnInit{
+export class ListComponent implements OnInit {
+
+  service = inject(ListService);
 
   _document = model.required<Invoice | Receipt>();
   documentDisplay = computed(() => {
@@ -27,12 +30,10 @@ export class ListComponent implements OnInit{
   items = viewChildren(ListItemComponent);
 
   isToggledDetails = input<boolean>(false);
-
-  listValid = output<boolean>();
   documentChange = output<Invoice | Receipt>();
 
   onItemValidChange() {
-    return this.items().every(el => el.isItemValid() === true) ? this.listValid.emit(true) : this.listValid.emit(false); 
+    return this.items().every(el => el.isItemValid() === true) ? this.service._isDataValid.set(true) : this.service._isDataValid.set(false); 
   }
 
   onItemValueChange(entry: any){

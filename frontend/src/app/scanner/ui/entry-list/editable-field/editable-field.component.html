@@ -4,13 +4,13 @@
         matInput
         class="w-[100%]"
         type="text"
-        (input)="updateValue()"
+        (input)="onInput()"
         [errorStateMatcher]="matcher"
-        [formControl]="fc">
-            <span 
-            [hidden]="!fc.hasError('maxlength')"
-            class="text-[var(--mat-sys-on-error-container)]">
-            Długość nie może przekroczyć <strong>50</strong> znaków</span>
+        [formControl]="form.controls.input">
+        <span 
+        [hidden]="!form.controls.input.hasError('maxlength')"
+        class="text-[var(--mat-sys-on-error-container)]">
+        Długość nie może przekroczyć <strong>50</strong> znaków</span>
 </form>
 
   

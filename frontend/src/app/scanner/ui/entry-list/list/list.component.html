@@ -6,8 +6,7 @@
             (itemValueChange)="onItemValueChange($event)"
             [documentType]="documentType()"
             [isToggledDetails]="isToggledDetails()"
-            [key]="item.key" 
-            [value]="item.value">
+            [entry]="{key: item.key, value: item.value}">
             </app-list-item>
     }
 </div>
