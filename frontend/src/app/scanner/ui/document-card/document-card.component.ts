@@ -18,7 +18,7 @@ import { MatButton } from '@angular/material/button';
 })
 export class DocumentCardComponent {
 
-  private readonly _isDataValid = signal<boolean>(false);
+  private readonly _isDataValid = signal<boolean>(true);
   isDataValid = computed(() => this._isDataValid());
 
   _changedDocument = signal<Invoice | Receipt>({});
@@ -58,7 +58,6 @@ export class DocumentCardComponent {
   }
 
   onDataValidChange(valid: any) {
-    console.log('changed', valid)
     this._isDataValid.set(valid);
   }
 

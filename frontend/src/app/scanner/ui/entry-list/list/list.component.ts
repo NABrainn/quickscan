@@ -13,7 +13,7 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
 })
 export class ListComponent implements OnInit {
 
-  isDataValid = model<boolean>(false);
+  isDataValid = model<boolean>(true);
   canEdit = model<boolean>(false);
   document = model.required<Invoice | Receipt>();
   documentDisplay = computed(() => {
@@ -31,7 +31,6 @@ export class ListComponent implements OnInit {
 
   onDataValidChange() {
     this.isDataValid.set(this.items().every(el => el.isDataValid() === true));
-    console.log('list valid change', this.isDataValid())
   }
 
   onEntryChange(entry: any){

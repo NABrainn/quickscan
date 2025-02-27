@@ -22,7 +22,7 @@ export class ListItemDetailsComponent {
   fields = viewChildren(EditableFieldComponent);
 
   value = model<any | any[]>();
-  isDataValid = model<boolean>(false);
+  isDataValid = model<boolean>(true);
   canEdit = model<boolean>(false);
 
   onEntryChange(index: number | null, change: any) {
@@ -36,8 +36,10 @@ export class ListItemDetailsComponent {
         return prev;
       }
     })
-
-    this.isDataValid.set(this.fields().every(el => el.form.controls.input.valid === true));
     this.value.set(this.value());
+  }
+
+  onDataValidChange() {
+    this.isDataValid.set(this.fields().every(el => el.form.controls.input.valid === true));
   }
 }

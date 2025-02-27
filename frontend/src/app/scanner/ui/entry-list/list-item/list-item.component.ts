@@ -23,7 +23,7 @@ import { EditableFieldComponent } from '../../editable-field/editable-field.comp
 export class ListItemComponent {
   
   isToggledDetails = model<boolean>(false);
-  isDataValid = model<boolean>(false);
+  isDataValid = model<boolean>(true);
   canEdit = model<boolean>(false);
 
   entry = model<{key: string, value: any}>();

@@ -21,7 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class EditableFieldComponent {
 
   entry = model<{key: any, value: any}>();
-  isDataValid = model<boolean>(false);
+  isDataValid = model<boolean>(true);
   canEdit = model<boolean>(false);
 
   form = new FormGroup({

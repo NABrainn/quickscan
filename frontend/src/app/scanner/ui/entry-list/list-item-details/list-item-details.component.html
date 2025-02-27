@@ -9,6 +9,7 @@
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"
                     [canEdit]="canEdit()"
+                    (isDataValidChange)="onDataValidChange()"
                     (entryChange)="onEntryChange(idx, $event)"></app-editable-field>
                 </span>
             }
@@ -27,6 +28,7 @@
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"
                     [canEdit]="canEdit()"
+                    (isDataValidChange)="onDataValidChange()"
                     (entryChange)="onEntryChange(null, $event)"></app-editable-field>
                 </span>
             }
