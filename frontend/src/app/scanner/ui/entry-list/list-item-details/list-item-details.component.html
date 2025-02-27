@@ -8,7 +8,8 @@
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"
-                    (entry)="updateData(idx, $event)"></app-editable-field>
+                    [canEdit]="canEdit()"
+                    (entryChange)="onEntryChange(idx, $event)"></app-editable-field>
                 </span>
             }
         </div>
@@ -25,7 +26,8 @@
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"
-                    (entry)="updateData(null, $event)"></app-editable-field>
+                    [canEdit]="canEdit()"
+                    (entryChange)="onEntryChange(null, $event)"></app-editable-field>
                 </span>
             }
         </div>

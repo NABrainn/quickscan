@@ -1,7 +1,7 @@
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, model, output, viewChildren } from '@angular/core';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
-import { EditableFieldComponent } from '../editable-field/editable-field.component';
+import { EditableFieldComponent } from '../../editable-field/editable-field.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
 
@@ -22,10 +22,10 @@ export class ListItemDetailsComponent {
   fields = viewChildren(EditableFieldComponent);
 
   value = model<any | any[]>();
+  isDataValid = model<boolean>(false);
+  canEdit = model<boolean>(false);
 
-  validChange = output<boolean>();
-
-  updateData(index: number | null, change: any) {
+  onEntryChange(index: number | null, change: any) {
     this.value.update(prev => {
       if(index === null) {
         prev[change.key] = change.value;
@@ -37,7 +37,7 @@ export class ListItemDetailsComponent {
       }
     })
 
-    this.fields().every(el => el.form.controls.input.valid === true) ? this.validChange.emit(true) : this.validChange.emit(false);
+    this.isDataValid.set(this.fields().every(el => el.form.controls.input.valid === true));
     this.value.set(this.value());
   }
 }

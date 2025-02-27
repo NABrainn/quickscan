@@ -5,7 +5,7 @@ import { ListItemDetailsComponent } from '../list-item-details/list-item-details
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
 import { MatIcon } from '@angular/material/icon';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
-import { EditableFieldComponent } from '../editable-field/editable-field.component';
+import { EditableFieldComponent } from '../../editable-field/editable-field.component';
 
 @Component({
   selector: 'app-list-item',
@@ -23,28 +23,22 @@ import { EditableFieldComponent } from '../editable-field/editable-field.compone
 export class ListItemComponent {
   
   isToggledDetails = model<boolean>(false);
-  isItemValid = signal<boolean>(true);
+  isDataValid = model<boolean>(false);
+  canEdit = model<boolean>(false);
 
   entry = model<{key: string, value: any}>();
   documentType = input<string | undefined>();
 
-  itemValidChange = output<boolean>();
-  itemValueChange = output<any>();
-
-
   toggleDetails() {
-    if(this.isItemValid())
-      this.isToggledDetails.update(prev => !prev);
+    this.isToggledDetails.update(prev => !prev);
   }
 
-  updateItem(valid: boolean) {
-    this.isItemValid.set(valid);
-    this.itemValidChange.emit(valid);
+  onDataValidChange(valid: boolean) {
+    this.isDataValid.set(valid);
   }
 
-  onValueChange() {
-    console.log('value changed');
-    // this.itemValueChange.emit(value);
+  onEntryChange(value: any) {
+    this.entry.set(value);
   }
 
   addProduct() {

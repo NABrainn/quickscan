@@ -4,8 +4,9 @@
         class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
-        (validChange)="updateItem($event)"
-        [(entry)]="entry"></app-editable-field>
+        (isDataValidChange)="onDataValidChange($event)"
+        [canEdit]="canEdit()"
+        [entry]="entry()"></app-editable-field>
     </div>
 }
 @else if((entry()?.value | typeof) === 'object') {
@@ -22,7 +23,7 @@
                     <div 
                     (click)="addProduct()"
                     class="flex gap-2 cursor-pointer">
-                        <span class="text-[var(--mat-sys-primary-fixed)]">Dodaj produktxd</span>
+                        <span class="text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
                         <mat-icon
                         style="color: var(--mat-sys-on-tertiary-fixed-variant);">
                         add</mat-icon>
@@ -32,8 +33,10 @@
         </div>
         @if(isToggledDetails()) {
             <app-list-item-details 
-            (validChange)="updateItem($event)"
-            [(value)]="entry">
+            (isDataValidChange)="onDataValidChange($event)"
+            (valueChange)="onEntryChange($event)"
+            [canEdit]="canEdit()"
+            [value]="entry()?.value">
             </app-list-item-details>
         }
     </div>
@@ -43,8 +46,10 @@
         <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
-        (validChange)="updateItem($event)"
-        [(entry)]="entry"
+        (isDataValidChange)="onDataValidChange($event)"
+        (entryChange)="onEntryChange($event)"
+        [canEdit]="canEdit()"
+        [entry]="entry()"
         ></app-editable-field>
     </div>
 }

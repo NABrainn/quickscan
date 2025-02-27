@@ -2,8 +2,11 @@
     <mat-card-content>
         <app-list 
         (documentChange)="_changedDocument.set($event)"
+        (isDataValidChange)="onDataValidChange($event)"
+        [isDataValid]="isDataValid()"
+        [canEdit]="canEdit()"
         [isToggledDetails]="isToggledDetails()"
-        [_document]="document()">
+        [document]="document()">
             
         </app-list>
     </mat-card-content>

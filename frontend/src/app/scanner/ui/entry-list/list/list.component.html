@@ -2,10 +2,11 @@
     @for(item of documentDisplay() | keyvalue; track $index) {
             <app-list-item 
             class="bg-[var(--mat-sys-secondary)] p-2"
-            (itemValidChange)="onItemValidChange()"
-            (itemValueChange)="onItemValueChange($event)"
+            (isDataValidChange)="onDataValidChange()"
+            (entryChange)="onEntryChange($event)"
             [documentType]="documentType()"
             [isToggledDetails]="isToggledDetails()"
+            [canEdit]="canEdit()"
             [entry]="{key: item.key, value: item.value}">
             </app-list-item>
     }

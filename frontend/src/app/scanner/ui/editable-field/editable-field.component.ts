@@ -2,7 +2,6 @@ import { Component, effect, inject, input, model, output } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {MatInput} from '@angular/material/input';
-import { ListService } from '../list.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -21,11 +20,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EditableFieldComponent {
 
-  private readonly service = inject(ListService);
-
   entry = model<{key: any, value: any}>();
-
-  validChange = output<boolean>();
+  isDataValid = model<boolean>(false);
+  canEdit = model<boolean>(false);
 
   form = new FormGroup({
     input: new FormControl('', [Validators.maxLength(50)])
@@ -35,7 +32,7 @@ export class EditableFieldComponent {
 
   constructor() {
     effect(() => {
-      if (this.service.canEdit()) {
+      if (this.canEdit()) {
         this.form.controls.input.enable();
       } 
       else {
@@ -49,12 +46,11 @@ export class EditableFieldComponent {
       key: this.entry()?.key, 
       value: this.form.controls.input.value,
     });
-    this.validChange.emit(this.form.controls.input.valid);
-    console.log(this.entry())
+    this.isDataValid.set(this.form.controls.input.valid);
   }
 
   ngOnInit() {
     this.form.controls.input.setValue(this.entry()?.value);
-    this.service._isDataValid.set(this.form.controls.input.valid);
+    this.isDataValid.set(this.form.controls.input.valid);
   }
 }
