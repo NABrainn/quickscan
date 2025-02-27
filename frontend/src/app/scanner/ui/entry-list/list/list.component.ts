@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, computed, inject, input, model, OnInit, output, viewChildren } from '@angular/core';
+import { Component, computed, inject, input, model, OnInit, output, Signal, viewChildren } from '@angular/core';
 import { ListItemComponent } from '../list-item/list-item.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 
@@ -11,7 +11,7 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
   ],
   templateUrl: './list.component.html'
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
   isDataValid = model<boolean>(true);
   canEdit = model<boolean>(false);
@@ -22,8 +22,7 @@ export class ListComponent implements OnInit {
     return document;
   });
   documentType = computed(() => this.document().type);
-
-  documentRef: Invoice | Receipt = {};
+  documentRef = computed(() => this.document())
 
   items = viewChildren(ListItemComponent);
 
@@ -34,12 +33,10 @@ export class ListComponent implements OnInit {
   }
 
   onEntryChange(entry: any){
-    const document: any = this.documentRef;
-    document[entry.key] = entry.value;
-    this.document.set(document);
+    const ref: Signal<Receipt | Invoice> = computed(() => {
+      this.document()[entry.key] = entry.value;
+      return this.document();
+    });    
+    this.document.set(ref());
   }
-
-  ngOnInit(): void {
-    this.documentRef = {...this.document()};
-  }  
 }

@@ -12,7 +12,8 @@ export type Invoice = {
     formaPłatności?: string,
     odbiorca?: Client,
     sprzedawca?: Vendor,
-    produkty?: InvoiceProduct[]
+    produkty?: InvoiceProduct[],
+    [key: string]: any;
 }
 
 export type Receipt = {
@@ -20,7 +21,8 @@ export type Receipt = {
     dataZakupu?: string,
     nazwaSklepu?: string,
     kwotaCałkowita?: number,
-    produkty?: ReceiptProduct[]
+    produkty?: ReceiptProduct[],
+    [key: string]: any;
 }
 
 export type InvoiceProduct = {
