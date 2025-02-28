@@ -6,6 +6,8 @@ import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-w
 import { MatIcon } from '@angular/material/icon';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 import { EditableFieldComponent } from '../../editable-field/editable-field.component';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
 
 @Component({
   selector: 'app-list-item',
@@ -18,7 +20,21 @@ import { EditableFieldComponent } from '../../editable-field/editable-field.comp
     MatIcon,
     IsArrayPipe,
   ],
-  templateUrl: './list-item.component.html'
+  templateUrl: './list-item.component.html',
+  animations: [    
+    trigger('popInOut', [
+      transition(':enter', [
+        useAnimation(popInAnimation, {
+          params: { zero: 0, one: 1, time: '150ms' }
+        })
+      ]),
+      transition(':leave', [
+        useAnimation(popOutAnimation, {
+          params: { zero: 0, time: '150ms' }
+        })
+      ])
+    ])
+  ]
 })
 export class ListItemComponent {
   

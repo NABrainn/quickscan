@@ -1,7 +1,7 @@
 @if(value() | isArray) {
     <form class="flex flex-col gap-8">
     @for(item of value(); track $index; let idx = $index) {
-        <div>
+        <div @popInOut>
             @for(detail of item | keyvalue ; track $index) {
                 <span class="flex text-[var(--mat-sys-on-surface)]">
                     <span class="basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>

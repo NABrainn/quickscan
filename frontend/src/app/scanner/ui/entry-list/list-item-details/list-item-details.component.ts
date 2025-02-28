@@ -4,6 +4,8 @@ import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 import { EditableFieldComponent } from '../../editable-field/editable-field.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
 
 @Component({
   selector: 'app-list-item-details',
@@ -15,7 +17,21 @@ import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-w
     TitleCasePipe,
     CamelCaseToWordsPipe
   ],
-  templateUrl: './list-item-details.component.html'
+  templateUrl: './list-item-details.component.html',
+  animations: [    
+    trigger('popInOut', [
+      transition(':enter', [
+        useAnimation(popInAnimation, {
+          params: { zero: 0, one: 1, time: '150ms' }
+        })
+      ]),
+      transition(':leave', [
+        useAnimation(popOutAnimation, {
+          params: { zero: 0, time: '150ms' }
+        })
+      ])
+    ])
+  ]
 })
 export class ListItemDetailsComponent {
 

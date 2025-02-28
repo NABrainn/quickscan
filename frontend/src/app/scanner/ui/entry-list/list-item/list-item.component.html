@@ -17,22 +17,28 @@
             </span>
             <div class="basis-1/2 flex gap-2 justify-between w-full">
                 <span 
-                class="text-[var(--mat-sys-primary-fixed)] cursor-pointer"
+                class="
+                hover:text-[var(--mat-sys-tertiary-fixed)]
+                text-[var(--mat-sys-primary-fixed)] cursor-pointer"
                 (click)="toggleDetails()">Wyświetl szczegóły</span>
                 @if((entry()?.value | isArray) && isToggledDetails()) {
                     <div 
                     (click)="addProduct()"
                     class="flex gap-2 cursor-pointer">
-                        <span class="text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
+                        <span 
+                        @popInOut 
+                        class="
+                        hover:text-[var(--mat-sys-tertiary-fixed)]
+                        text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
                         <mat-icon
-                        style="color: var(--mat-sys-on-tertiary-fixed-variant);">
-                        add</mat-icon>
+                        style="color: var(--mat-sys-on-tertiary-fixed-variant);">add</mat-icon>
                     </div>
                 }
             </div>
         </div>
         @if(isToggledDetails()) {
             <app-list-item-details 
+            @popInOut
             (isDataValidChange)="onDataValidChange($event)"
             (valueChange)="onEntryChange($event)"
             [canEdit]="canEdit()"
