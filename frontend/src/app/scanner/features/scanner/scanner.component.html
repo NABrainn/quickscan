@@ -1,9 +1,8 @@
-<div class="md:max-w-3/5 m-auto">
+<div class="max-w-[100%] lg:max-w-3/5 m-auto">
     <mat-stepper linear #stepper (selectionChange)="navigate($event)">
-        <mat-step 
-        [stepControl]="fileUploadForm">
+        <mat-step [stepControl]="fileUploadForm">
             <ng-template matStepLabel>
-                Wgraj dokument
+                <span>Wgraj dokument</span>
             </ng-template>
             <ng-template matStepContent>
                 <app-file-upload 
@@ -15,10 +14,9 @@
                 </app-file-upload>
             </ng-template>
         </mat-step>
-        <mat-step
-        [stepControl]="documentUploadForm">
+        <mat-step [stepControl]="documentUploadForm">
             <ng-template matStepLabel>
-                Prześlij
+                <span >Prześlij</span>
             </ng-template>
             <ng-template matStepContent>
                 <app-document-card
@@ -30,7 +28,7 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>
-                Gotowe
+                <span>Gotowe</span>
             </ng-template>
             <ng-template matStepContent>
                 <app-ready-card

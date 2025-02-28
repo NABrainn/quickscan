@@ -4,7 +4,9 @@
         <div @popInOut>
             @for(detail of item | keyvalue ; track $index) {
                 <span class="flex text-[var(--mat-sys-on-surface)]">
-                    <span class="basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
+                    <span class="                        
+                    md:text-lg
+                    text-sm basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"
@@ -23,7 +25,9 @@
         <div class="flex flex-col">
             @for(detail of value() | keyvalue; track $index) {
                 <span class="flex">
-                    <span class="text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
+                    <span class="                        
+                    md:text-lg
+                    text-sm text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
                     [entry]="{key: detail.key, value: detail.value}"

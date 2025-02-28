@@ -1,7 +1,9 @@
 @if(entry()?.value === null) {
     <div class="flex">
         <span 
-        class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
+        class="                        
+        md:text-md
+        text-sm basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (isDataValidChange)="onDataValidChange($event)"
@@ -13,13 +15,16 @@
     <div class="flex flex-col">
         <div class="flex">
             <span 
-            class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}
+            class="                        
+            md:text-md
+            text-sm basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}
             </span>
             <div class="basis-1/2 flex gap-2 justify-between w-full">
                 <span 
                 class="
                 hover:text-[var(--mat-sys-tertiary-fixed)]
-                text-[var(--mat-sys-primary-fixed)] cursor-pointer"
+                md:text-md
+                text-sm text-[var(--mat-sys-primary-fixed)] cursor-pointer"
                 (click)="toggleDetails()">Wyświetl szczegóły</span>
                 @if((entry()?.value | isArray) && isToggledDetails()) {
                     <div 
@@ -29,7 +34,8 @@
                         @popInOut 
                         class="
                         hover:text-[var(--mat-sys-tertiary-fixed)]
-                        text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
+                        md:text-md md:inline
+                        text-sm hidden text-[var(--mat-sys-primary-fixed)]">Dodaj produkt</span>
                         <mat-icon
                         style="color: var(--mat-sys-on-tertiary-fixed-variant);">add</mat-icon>
                     </div>
@@ -49,7 +55,10 @@
 }
 @else {
     <div class="flex">
-        <span class="basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
+        <span class="
+        md:text-md
+        text-sm
+        basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}</span>
         <app-editable-field 
         class="basis-1/2 text-[var(--mat-sys-primary-fixed)]"
         (isDataValidChange)="onDataValidChange($event)"

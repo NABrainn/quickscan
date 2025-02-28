@@ -1,13 +1,13 @@
 import { Component, output } from '@angular/core';
 import {MatFabButton} from '@angular/material/button'; 
-import {MatCard, MatCardActions, MatCardHeader} from '@angular/material/card'; 
+import {MatCard, MatCardFooter, MatCardHeader} from '@angular/material/card'; 
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-ready-card',
   imports: [
     MatCard,
-    MatCardActions,
+    MatCardFooter,
     MatCardHeader,
     MatFabButton,
     MatIcon
