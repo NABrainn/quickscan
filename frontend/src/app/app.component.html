@@ -1,4 +1,26 @@
 <div class="flex flex-col min-h-screen bg-[var(--mat-sys-background)]">
+  <nav>
+    <mat-toolbar class="flex">
+      <div class="flex">
+        <mat-icon>insert_photo</mat-icon>
+        <span class="font-bold">Quickscan</span>
+      </div>
+      <div class="grow-1 flex justify-center gap-8">
+        <div class="flex items-center">
+          <mat-icon>image_search</mat-icon>
+          <a mat-button routerLink="/skaner/skanuj" routerLinkActive="active">
+            <span class="font-semibold">Skaner</span>
+          </a>
+        </div>
+        <div class="flex items-center">
+          <mat-icon>collections</mat-icon>
+          <a mat-button routerLink="/dokumenty" routerLinkActive="active">
+            <span class="font-semibold">Dokumenty</span>
+          </a>
+        </div>
+      </div>
+    </mat-toolbar>
+  </nav>
   <div class="flex-grow">
     <router-outlet></router-outlet>
   </div>

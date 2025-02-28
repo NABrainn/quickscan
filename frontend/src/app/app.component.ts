@@ -1,13 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {MatProgressBar} from '@angular/material/progress-bar'; 
 import { LoadingService } from './scanner/core/loading.service';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-root',
     imports: [
         RouterOutlet,
-        MatProgressBar
+        RouterLink,
+        RouterLinkActive,
+        MatProgressBar,
+        MatToolbar,
+        MatIcon,
+        MatButtonModule
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'

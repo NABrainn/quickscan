@@ -16,4 +16,8 @@ html {
     @include mat.card-overrides((
         elevated-container-color: map.get(app-theme.$secondary-palette, 50)
     ));
-  }
+    @include mat.toolbar-overrides((
+        container-background-color: map.get(app-theme.$tertiary-palette, 50),
+        container-text-color: map.get(app-theme.$secondary-palette, 20),
+    ));
+}
