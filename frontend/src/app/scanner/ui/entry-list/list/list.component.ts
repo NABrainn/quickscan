@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, computed, inject, input, model, OnInit, output, Signal, viewChildren } from '@angular/core';
+import { Component, computed, input, model, Signal, viewChildren } from '@angular/core';
 import { ListItemComponent } from '../list-item/list-item.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 
@@ -22,7 +22,6 @@ export class ListComponent {
     return document;
   });
   documentType = computed(() => this.document().type);
-  documentRef = computed(() => this.document())
 
   items = viewChildren(ListItemComponent);
 

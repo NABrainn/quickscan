@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, input, model, output, signal } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { TypeofPipe } from '@pipes/typeof/typeof.pipe';
 import { ListItemDetailsComponent } from '../list-item-details/list-item-details.component';
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';

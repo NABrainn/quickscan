@@ -1,7 +1,7 @@
 <mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
         <app-list 
-        (documentChange)="_changedDocument.set($event)"
+        (documentChange)="document.set($event)"
         (isDataValidChange)="onDataValidChange($event)"
         [isDataValid]="isDataValid()"
         [canEdit]="canEdit()"

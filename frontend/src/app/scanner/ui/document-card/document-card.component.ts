@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, model, output, signal } from '@angular/core';
+import { Component, computed, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../entry-list/list/list.component';
@@ -20,9 +20,6 @@ export class DocumentCardComponent {
 
   private readonly _isDataValid = signal<boolean>(true);
   isDataValid = computed(() => this._isDataValid());
-
-  _changedDocument = signal<Invoice | Receipt>({});
-  changedDocument = computed(() => this._changedDocument());
 
   private readonly _canEdit = signal<boolean>(false);
   canEdit = computed(() => this._canEdit());
@@ -52,16 +49,12 @@ export class DocumentCardComponent {
 
   save() {
     if(this.isDataValid())
-      this.requestUpload.emit(this.changedDocument());
+      this.requestUpload.emit(this.document());
     else
       this._errorMsg.set('Dokument zawiera błędne dane');
   }
 
   onDataValidChange(valid: any) {
     this._isDataValid.set(valid);
-  }
-
-  ngOnInit() {
-    this._changedDocument.set(this.document());
   }
 }

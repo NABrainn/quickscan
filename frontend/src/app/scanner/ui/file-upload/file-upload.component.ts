@@ -26,7 +26,6 @@ export class FileUploadComponent {
   errorMsg = model<string>('');
   cErrorMsg = computed(() => this.errorMsg());
 
-  //max size in megabytes
   maxSizeNumber = input<number>(5);
   maxSize = computed(() => this.maxSizeNumber() * 1024 * 1024)
   allowedTypes = input<string[]>([]);
