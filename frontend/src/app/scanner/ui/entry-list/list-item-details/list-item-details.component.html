@@ -5,7 +5,7 @@
             @for(detail of item | keyvalue ; track $index) {
                 <span class="flex text-[var(--mat-sys-on-surface)]">
                     <span class="                        
-                    md:text-lg
+                    md:text-md
                     text-sm basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
@@ -26,7 +26,7 @@
             @for(detail of value() | keyvalue; track $index) {
                 <span class="flex">
                     <span class="                        
-                    md:text-lg
+                    md:text-md
                     text-sm text-[var(--mat-sys-on-surface)] basis-1/2">{{detail.key | camelCaseToWords | titlecase}}</span>
                     <app-editable-field 
                     class="text-[var(--mat-sys-primary-fixed)] basis-1/2"
