@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { StepperService } from '../service/stepper.service';
+import { StepperGuardService } from '../service/stepper.service';
 
 export const stepperGuard: CanActivateFn = (route, state) => {
-  const stepper = inject(StepperService);
+  const stepper = inject(StepperGuardService);
   const router = inject(Router);
   
   switch(state.url) {
