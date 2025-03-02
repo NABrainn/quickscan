@@ -11,7 +11,7 @@ public class TesseractConfiguration {
     public Tesseract tesseract() {
         Tesseract tesseract = new Tesseract();
         tesseract.setLanguage("pol");
-        tesseract.setDatapath("/usr/share/tesseract-ocr/4.00/tessdata");
+        tesseract.setDatapath("/usr/share/tesseract-ocr/5/tessdata/");
         tesseract.setVariable("user_defined_dpi", "300");
         return tesseract;
     }
