@@ -50,6 +50,7 @@ export class FileUploadComponent {
         formData.append('file', file);
         formData.append('name', file.name);
         this.formData.emit(formData);
+        input.value = '';
       }
     }
   }
