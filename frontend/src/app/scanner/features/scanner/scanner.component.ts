@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, inject, model, signal, viewChild } from '@angular/core';
 import {MatStepper, MatStepperModule} from '@angular/material/stepper'; 
 import {MatButtonModule} from '@angular/material/button';
 import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
@@ -9,7 +9,7 @@ import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ReadyCardComponent } from 'app/scanner/ui/ready-card/ready-card.component';
 import { Router } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { StepperService } from './service/stepper.service';
+import { StepperGuardService } from './service/stepper.service';
 
 @Component({
   selector: 'app-scanner',
@@ -27,7 +27,7 @@ import { StepperService } from './service/stepper.service';
 export class ScannerComponent{
 
   scannerService = inject(ScannerService);
-  stepperService = inject(StepperService);
+  stepperService = inject(StepperGuardService);
 
   fb = inject(FormBuilder);
   router = inject(Router);
@@ -37,6 +37,9 @@ export class ScannerComponent{
 
   private readonly _document = signal<Invoice | Receipt>({} as Invoice);
   document = computed(() => this._document());
+
+  readonly _isToggledDetails = signal<boolean>(false);
+  readonly isToggledDetails = computed(() => this._isToggledDetails());
 
   private _savedFormData = signal<FormData>(new FormData());
   savedFormData = computed(() => this._savedFormData());
@@ -52,6 +55,7 @@ export class ScannerComponent{
   })
 
   uploadFile(formData: FormData) {
+    this._isToggledDetails.set(false); 
     this._savedFormData.set(formData);
     this.scannerService.uploadFile(formData).subscribe({
       next: (res: Invoice | Receipt) => {

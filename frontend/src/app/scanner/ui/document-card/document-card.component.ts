@@ -1,4 +1,4 @@
-import { Component, computed, model, output, signal } from '@angular/core';
+import { Component, computed, effect, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../entry-list/list/list.component';
@@ -21,11 +21,9 @@ export class DocumentCardComponent {
   private readonly _isDataValid = signal<boolean>(true);
   isDataValid = computed(() => this._isDataValid());
 
-  private readonly _canEdit = signal<boolean>(false);
-  canEdit = computed(() => this._canEdit());
+  readonly canEdit = model<boolean>(false);
 
-  private readonly _isToggledDetails = signal<boolean>(false);
-  isToggledDetails = computed(() => this._isToggledDetails());
+  readonly isToggledDetails = model<boolean>(false);
   
   document = model<Invoice | Receipt>({});
   data = computed(() => {
@@ -43,8 +41,8 @@ export class DocumentCardComponent {
   }
 
   edit() {
-    this._canEdit.update(prev => !prev);
-    this._isToggledDetails.update(prev => !prev);
+    this.canEdit.update(prev => !prev);
+    this.isToggledDetails.update(prev => !prev);
   }
 
   save() {

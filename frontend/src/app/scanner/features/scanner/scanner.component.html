@@ -22,6 +22,8 @@
                 <app-document-card
                 (requestRegenerate)="regenerateDocument()"
                 (requestUpload)="saveDocument($event)"
+                [isToggledDetails]="isToggledDetails()"
+                (isToggledDetailsChange)="_isToggledDetails.set($event)"
                 [document]="document()">
                 </app-document-card>
             </ng-template>
