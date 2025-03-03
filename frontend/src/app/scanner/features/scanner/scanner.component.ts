@@ -1,6 +1,5 @@
-import { Component, computed, effect, inject, model, signal, viewChild } from '@angular/core';
-import {MatStepper, MatStepperModule} from '@angular/material/stepper'; 
-import {MatButtonModule} from '@angular/material/button';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import {MatStep, MatStepContent, MatStepLabel, MatStepper} from '@angular/material/stepper'; 
 import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScannerService } from './service/scanner.service';
@@ -15,8 +14,10 @@ import { StepperGuardService } from './service/stepper.service';
   selector: 'app-scanner',
   imports: [
     ReactiveFormsModule,
-    MatStepperModule,
-    MatButtonModule,
+    MatStep,
+    MatStepper,
+    MatStepContent,
+    MatStepLabel,
     FileUploadComponent,
     DocumentCardComponent,
     ReadyCardComponent

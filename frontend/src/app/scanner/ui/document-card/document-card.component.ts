@@ -1,4 +1,4 @@
-import { Component, computed, effect, model, output, signal } from '@angular/core';
+import { Component, computed, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../entry-list/list/list.component';

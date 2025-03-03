@@ -42,14 +42,16 @@
                 }
             </div>
         </div>
-        @if(isToggledDetails()) {
-            <app-list-item-details 
-            @popInOut
-            (isDataValidChange)="onDataValidChange($event)"
-            (valueChange)="onEntryChange($event)"
-            [canEdit]="canEdit()"
-            [value]="entry()?.value">
-            </app-list-item-details>
+        @defer(when isToggledDetails()) {
+            @if(isToggledDetails()) {
+                <app-list-item-details 
+                @popInOut
+                (isDataValidChange)="onDataValidChange($event)"
+                (valueChange)="onEntryChange($event)"
+                [canEdit]="canEdit()"
+                [value]="entry()?.value">
+                </app-list-item-details>
+            }
         }
     </div>
 }

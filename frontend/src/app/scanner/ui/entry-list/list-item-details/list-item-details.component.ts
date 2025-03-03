@@ -1,8 +1,7 @@
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
-import { Component, model, output, viewChildren } from '@angular/core';
+import { Component, model, viewChildren } from '@angular/core';
 import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
 import { EditableFieldComponent } from '../../editable-field/editable-field.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
@@ -13,7 +12,6 @@ import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
     IsArrayPipe,
     KeyValuePipe,
     EditableFieldComponent,
-    ReactiveFormsModule,
     TitleCasePipe,
     CamelCaseToWordsPipe
   ],
