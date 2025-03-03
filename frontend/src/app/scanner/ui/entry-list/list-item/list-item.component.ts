@@ -25,12 +25,12 @@ import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
     trigger('popInOut', [
       transition(':enter', [
         useAnimation(popInAnimation, {
-          params: { zero: 0, one: 1, time: '150ms' }
+          params: { zero: 0, one: 1, time: '400ms' }
         })
       ]),
       transition(':leave', [
         useAnimation(popOutAnimation, {
-          params: { zero: 0, time: '150ms' }
+          params: { zero: 0, time: '400ms' }
         })
       ])
     ])

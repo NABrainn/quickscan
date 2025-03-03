@@ -19,7 +19,7 @@
             md:text-md
             text-sm basis-1/2 text-[var(--mat-sys-on-surface)]">{{entry()?.key | camelCaseToWords | titlecase}}
             </span>
-            <div class="basis-1/2 flex gap-2 justify-between w-full">
+            <div class="basis-1/2 flex gap-2 justify-between w-full items-center min-h-6">
                 <span 
                 class="
                 hover:text-[var(--mat-sys-tertiary-fixed)]
@@ -28,10 +28,10 @@
                 (click)="toggleDetails()">Wyświetl szczegóły</span>
                 @if((entry()?.value | isArray) && isToggledDetails()) {
                     <div 
+                    @popInOut
                     (click)="addProduct()"
-                    class="flex gap-2 cursor-pointer">
-                        <span 
-                        @popInOut 
+                    class="flex gap-2 cursor-pointer items-center">
+                        <span  
                         class="
                         hover:text-[var(--mat-sys-tertiary-fixed)]
                         md:text-md md:inline
