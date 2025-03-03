@@ -1,5 +1,5 @@
 <div class="max-w-[100%] lg:max-w-3/5 m-auto">
-    <mat-stepper linear #stepper (selectionChange)="navigate($event)">
+    <mat-stepper linear #stepper (selectionChange)="onStepperSelectionChange($event)">
         <mat-step [stepControl]="fileUploadForm">
             <ng-template matStepLabel>
                 <span>Wgraj dokument</span>
@@ -23,7 +23,7 @@
                 (requestRegenerate)="regenerateDocument()"
                 (requestUpload)="saveDocument($event)"
                 [isToggledDetails]="isToggledDetails()"
-                (isToggledDetailsChange)="_isToggledDetails.set($event)"
+                (isToggledDetailsChange)="onToggledDetailsChange($event)"
                 [document]="document()">
                 </app-document-card>
             </ng-template>
@@ -34,7 +34,7 @@
             </ng-template>
             <ng-template matStepContent>
                 <app-ready-card
-                (requestNavigate)="handleNavigate($event)">
+                (requestNavigate)="onRequestNavigate($event)">
                 </app-ready-card>
             </ng-template>
         </mat-step>

@@ -27,25 +27,25 @@ import { StepperGuardService } from './service/stepper.service';
 })
 export class ScannerComponent{
 
-  scannerService = inject(ScannerService);
-  stepperService = inject(StepperGuardService);
+  readonly scannerService = inject(ScannerService);
+  readonly stepperService = inject(StepperGuardService);
 
-  fb = inject(FormBuilder);
-  router = inject(Router);
+  readonly fb = inject(FormBuilder);
+  readonly router = inject(Router);
 
   readonly _stepErrorMsg = signal<string>('');
-  stepErrorMsg = computed(() => this._stepErrorMsg());
+  readonly stepErrorMsg = computed(() => this._stepErrorMsg());
 
   private readonly _document = signal<Invoice | Receipt>({} as Invoice);
-  document = computed(() => this._document());
+  readonly document = computed(() => this._document());
 
-  readonly _isToggledDetails = signal<boolean>(false);
+  private readonly _isToggledDetails = signal<boolean>(false);
   readonly isToggledDetails = computed(() => this._isToggledDetails());
 
   private _savedFormData = signal<FormData>(new FormData());
-  savedFormData = computed(() => this._savedFormData());
+  readonly savedFormData = computed(() => this._savedFormData());
 
-  stepper = viewChild(MatStepper);
+  readonly stepper = viewChild(MatStepper);
   
   fileUploadForm = this.fb.group({
     file: ['', Validators.required]
@@ -78,11 +78,13 @@ export class ScannerComponent{
       next: (res: Invoice | Receipt) => {
         this._document.set(res);
       },
+      error: (res) => {
+        this._stepErrorMsg.set(res?.error?.message);
+      }
     });
   }
 
   saveDocument(document: Invoice | Receipt) {
-    console.log(document)
     this.scannerService.saveDocument(document).subscribe({
       next: (res: Invoice | Receipt) => {
         this.documentUploadForm.controls.document.setValue(document);
@@ -96,7 +98,11 @@ export class ScannerComponent{
     });
   }
 
-  navigate(value: StepperSelectionEvent) {
+  onToggledDetailsChange(value: boolean) {
+    this._isToggledDetails.set(value);
+  }
+
+  onStepperSelectionChange(value: StepperSelectionEvent) {
     switch(value.selectedIndex) {
       case 0:
         this.router.navigate(['skaner/skanuj']);
@@ -112,7 +118,7 @@ export class ScannerComponent{
     }
   }
 
-  handleNavigate(value: any) {
+  onRequestNavigate(value: any) {
     this.router.navigate([value.uri]);
     if(value.reset)
       this.stepper()?.reset();
