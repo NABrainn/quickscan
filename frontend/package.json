@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "analyze": "ng build --configuration production --source-map && source-map-explorer dist/scanner-io/browser/*.js"
   },
   "private": true,
   "dependencies": {
