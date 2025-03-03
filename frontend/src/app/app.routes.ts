@@ -10,6 +10,12 @@ export const routes: Routes = [
         canActivate: [canActivateAuthRole],
         children: [
             {
+                path: '',
+                redirectTo: 'skanuj',
+                pathMatch: 'full',
+                
+            },
+            {
                 path: 'skanuj', 
                 loadComponent: () => import('./scanner/ui/file-upload/file-upload.component').then((c) => c.FileUploadComponent), 
                 canActivate: [stepperGuard]
@@ -26,6 +32,7 @@ export const routes: Routes = [
             }
         ]
     },
+
     {
         path: '',
         redirectTo: 'skaner/skanuj',
