@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ScannerComponent } from './scanner/features/scanner/scanner.component';
 import { canActivateAuthRole } from './scanner/core/auth/auth-guard';
 import { stepperGuard } from './scanner/features/scanner/guards/stepper.guard';
+import { DocumentsComponent } from './scanner/features/documents/documents.component';
 
 export const routes: Routes = [
     { 
@@ -32,7 +33,11 @@ export const routes: Routes = [
             }
         ]
     },
-
+    {
+        path: 'dokumenty',
+        loadComponent: () => import('./scanner/features/documents/documents.component').then((c) => DocumentsComponent),
+        canActivate: [canActivateAuthRole],
+    },
     {
         path: '',
         redirectTo: 'skaner/skanuj',
