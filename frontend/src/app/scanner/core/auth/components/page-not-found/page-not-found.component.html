@@ -1,8 +1,18 @@
-<div slot="header">
-    404 strona nie istnieje.
-</div>
-<div slot="description">
-    <a routerLink="/scanner">Kliknij tutaj</a>
-    aby przenieść się do głównego widoku
-</div>
+<mat-card class="text-[var(--mat-sys-primary-fixed)] w-3/5 mx-auto min-h-65 md:min-h-140 justify-center">
+    <mat-card-header class="text-md md:text-lg">
+        <div class="mx-auto w-full md:w-3/5 flex flex-col items-center gap-4">
+            <div class="text-[var(--mat-sys-tertiary)] flex items-center gap-4 text-2xl md:text-3xl">
+                <mat-icon>error</mat-icon>
+                <h2 >Błąd 404 </h2>
+            </div>
+            <span>strona {{url}} nie istnieje.</span>
+            
+            <span>
+                <a routerLink="/skaner" routerLinkActive="true" class="font-bold text-[var(--mat-sys-on-tertiary-fixed-variant)]">Kliknij tutaj</a> 
+                aby przenieść się do głównego widoku
+            </span>
+
+        </div>
+    </mat-card-header>
+</mat-card>
 
