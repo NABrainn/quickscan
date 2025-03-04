@@ -13,5 +13,5 @@ const isAccessAllowed = async (
     return true;
   };
   
-  export const canActivateAuthRole = createAuthGuard<CanActivateFn>(isAccessAllowed);
+  export const authGuard = createAuthGuard<CanActivateFn>(isAccessAllowed);
   
