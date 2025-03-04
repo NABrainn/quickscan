@@ -1,3 +1,4 @@
+export type Document = Invoice | Receipt;
 export type Invoice = {
     type?: 'invoice',
     numerFaktury?: string,
