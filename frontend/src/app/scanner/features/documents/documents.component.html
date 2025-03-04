@@ -1,1 +1,23 @@
-<p>documents works!</p>
+<div class="flex flex-col gap-6">
+    @switch(filterBy()) {
+        @case (filterEnum.Invoice) {
+            @for(invoice of invoices(); track $index) {
+            }
+        }
+        @case (filterEnum.Receipt) {
+            @for(receipt of receipts(); track $index) {
+                <div class="flex flex-col">
+                    <span>Data Zakupu: {{receipt.dataZakupu}}</span>
+                    <span>Nazwa Sklepu: {{receipt.nazwaSklepu}}</span>
+                    <span>Kwota Całkowita: {{receipt['kwotaCałkowita']}}</span>
+                    <span>Produkty: [ ...{{receipt.produkty?.length}} ]</span>
+                </div>
+            }
+        }
+        @default {
+            @for(document of documents(); track $index) {
+                document: {{document['id']}}
+            }
+        }
+    }
+</div>
