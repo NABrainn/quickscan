@@ -15,7 +15,6 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 public abstract class Product {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

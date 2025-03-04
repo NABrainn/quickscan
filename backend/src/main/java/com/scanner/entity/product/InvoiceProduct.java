@@ -36,7 +36,6 @@ public class InvoiceProduct extends Product{
     @Column(name = "gross")
     private String gross;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "invoice_id")
     private Invoice invoice;

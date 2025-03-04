@@ -1,5 +1,6 @@
 package com.scanner.entity.product;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Receipt;
@@ -20,7 +21,7 @@ public class ReceiptProduct extends Product{
     @Column(name = "sum_price")
     private String sumPrice;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "receipt_id")
     private Receipt receipt;

@@ -1,5 +1,6 @@
 package com.scanner.entity.document;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.Client;
 import com.scanner.entity.Vendor;
@@ -65,16 +66,19 @@ public class Invoice extends Document{
     private String paymentMethod;
 
     @JsonProperty("odbiorca")
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @JsonProperty("sprzedawca")
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vendor_id", referencedColumnName = "id")
     private Vendor vendor;
 
     @JsonProperty("produkty")
+    @JsonManagedReference
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<InvoiceProduct> products;

@@ -1,5 +1,6 @@
 package com.scanner.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Invoice;
@@ -32,7 +33,7 @@ public class Client {
     @Column(name = "address")
     private String address;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToOne(mappedBy = "client")
     private Invoice invoice;
 

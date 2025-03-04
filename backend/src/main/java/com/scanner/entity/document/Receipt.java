@@ -1,5 +1,6 @@
 package com.scanner.entity.document;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.product.ReceiptProduct;
 import jakarta.persistence.*;
@@ -35,6 +36,7 @@ public class Receipt extends Document{
     private String totalAmount;
 
     @JsonProperty("produkty")
+    @JsonManagedReference
     @Fetch(FetchMode.JOIN)
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ReceiptProduct> products;
