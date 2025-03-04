@@ -21,9 +21,8 @@ import java.util.Set;
 @Table(name = "invoices")
 public class Invoice extends Document{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @JsonProperty("type")
+    private final String type = "invoice";
 
     @JsonProperty("numerFaktury")
     @Column(name = "invoice_number")
@@ -83,7 +82,6 @@ public class Invoice extends Document{
     @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + id +
                 ", invoiceNumber='" + invoiceNumber + '\'' +
                 ", bankAccountNumber='" + bankAccountNumber + '\'' +
                 ", issueDate=" + issueDate +

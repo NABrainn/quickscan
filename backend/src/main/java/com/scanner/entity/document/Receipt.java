@@ -19,9 +19,8 @@ import java.util.Set;
 @Table(name = "receipts")
 public class Receipt extends Document{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @JsonProperty("type")
+    private final String type = "receipt";
 
     @JsonProperty("dataZakupu")
     @Column(name = "purchase_date")
@@ -43,7 +42,6 @@ public class Receipt extends Document{
     @Override
     public String toString() {
         return "Receipt{" +
-                "id=" + id +
                 ", purchaseDate=" + purchaseDate +
                 ", storeName='" + storeName + '\'' +
                 ", totalAmount=" + totalAmount +
