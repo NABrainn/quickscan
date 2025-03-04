@@ -1,6 +1,6 @@
 import { Component, computed, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
-import { Invoice, Receipt } from 'app/scanner/shared/types';
+import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
 import { ListComponent } from '../entry-list/list/list.component';
 import { MatButton } from '@angular/material/button';
 
@@ -25,7 +25,7 @@ export class DocumentCardComponent {
 
   readonly isToggledDetails = model<boolean>(false);
   
-  document = model<Invoice | Receipt>({});
+  document = model<Document>({});
   data = computed(() => {
     return Object.entries(this.document());
   });
