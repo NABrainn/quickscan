@@ -1,14 +1,12 @@
-package com.scanner.dto;
+package com.scanner.dto.document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         property = "type"
@@ -18,4 +16,10 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = InvoiceDto.class, name = "invoice")
 })
 public abstract class DocumentDto {
+
+    @JsonIgnore
+    @JsonProperty("id")
+    private long id;
+    @JsonIgnore
+    private String createdBy;
 }

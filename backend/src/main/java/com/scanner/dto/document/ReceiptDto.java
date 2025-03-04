@@ -1,17 +1,21 @@
-package com.scanner.dto;
+package com.scanner.dto.document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import com.scanner.dto.product.ReceiptProductDto;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class ReceiptDto extends DocumentDto{
+
+    @JsonProperty("type")
+    private final String type = "receipt";
 
     @JsonProperty("dataZakupu")
     private String purchaseDate;
@@ -20,7 +24,7 @@ public class ReceiptDto extends DocumentDto{
     private String storeName;
 
     @JsonProperty("kwotaCałkowita")
-    private double totalAmount;
+    private String totalAmount;
 
     @Getter(onMethod_ = { @JsonProperty("produkty") })
     @JsonSetter(contentNulls = Nulls.SKIP)

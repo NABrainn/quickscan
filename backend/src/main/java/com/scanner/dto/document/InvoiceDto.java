@@ -1,17 +1,22 @@
-package com.scanner.dto;
+package com.scanner.dto.document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.Client;
 import com.scanner.entity.Vendor;
 import com.scanner.entity.product.InvoiceProduct;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Set;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class InvoiceDto extends DocumentDto {
+
+    @JsonProperty("type")
+    private final String type = "invoice";
+
     @JsonProperty("numerFaktury")
     private String invoiceNumber;
 
