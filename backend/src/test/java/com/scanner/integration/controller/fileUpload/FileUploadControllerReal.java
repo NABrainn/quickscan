@@ -1,7 +1,7 @@
 package com.scanner.integration.controller.fileUpload;
 
-import com.scanner.dto.InvoiceDto;
-import com.scanner.dto.ReceiptDto;
+import com.scanner.dto.document.InvoiceDto;
+import com.scanner.dto.document.ReceiptDto;
 import com.scanner.integration.ITBase;
 import com.scanner.service.document.DocumentService;
 import com.scanner.service.fileUpload.FileUploadService;

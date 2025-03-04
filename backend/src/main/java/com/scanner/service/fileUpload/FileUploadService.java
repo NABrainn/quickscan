@@ -2,7 +2,7 @@ package com.scanner.service.fileUpload;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scanner.dto.DocumentDto;
+import com.scanner.dto.document.DocumentDto;
 import com.scanner.dto.FileUploadRequestDto;
 import com.scanner.service.ChatService;
 import com.scanner.service.ImageProcessor;
@@ -68,7 +68,6 @@ public class FileUploadService {
 
     private DocumentDto parseDocument(String json) {
         try {
-            System.out.println("output: " + json);
             return objectMapper.readValue(json, DocumentDto.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

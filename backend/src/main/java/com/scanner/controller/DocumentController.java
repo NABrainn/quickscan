@@ -1,5 +1,6 @@
 package com.scanner.controller;
 
+import com.scanner.dto.document.DocumentDto;
 import com.scanner.entity.document.Document;
 import com.scanner.service.document.DocumentService;
 import com.scanner.service.document.DocumentServiceException;
@@ -47,15 +48,15 @@ public class DocumentController {
     }
 
     @GetMapping
-    public Page<Document> getAllDocuments(
-            @RequestParam(defaultValue = "10") int page,
-            @RequestParam(defaultValue = "5") int size,
+    public Page<DocumentDto> getDocumentPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "9") int size,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "true") boolean ascending,
+            @RequestParam(defaultValue = "false") boolean ascending,
             Authentication authentication) {
         Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        return documentService.getAllDocuments(authentication.getName(), pageable);
+        return documentService.getDocumentPage(authentication.getName(), pageable);
     }
 
     @PutMapping
@@ -67,7 +68,7 @@ public class DocumentController {
         catch (DocumentServiceException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return ResponseEntity.ok("Dokument pomyślnie dodany.");
+        return ResponseEntity.ok("Dokument pomyślnie zaktualizowany.");
     }
 
     @DeleteMapping("/{id}")
