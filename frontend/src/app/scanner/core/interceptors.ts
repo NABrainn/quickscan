@@ -1,9 +1,10 @@
-import { HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { finalize, Observable } from "rxjs";
+import { catchError, finalize, Observable, throwError } from "rxjs";
 import { LoadingService } from "./loading.service";
+import { Router } from "@angular/router";
 
-export function LoadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
+export function loadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
 
     const loadingService = inject(LoadingService);
 
@@ -13,4 +14,18 @@ export function LoadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerF
         loadingService.loadingOff();
       })
     )
+}
+
+export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>>  {
+
+  const router = inject(Router);
+
+  return next(req).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        router.navigate(['/skaner/skanuj']);
+      }
+      return throwError(() => error);
+    })
+  );
 }
