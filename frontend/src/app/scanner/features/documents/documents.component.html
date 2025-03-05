@@ -1,18 +1,44 @@
-<div class="flex flex-col gap-6">
+
+<div class="flex flex-col gap-16 w-3/5 mx-auto">
+    <p class="text-3xl text-[var(--mat-sys-primary)] font-bold">Widok dokumentów</p>
     @switch(filterBy()) {
-        @case (filterEnum.Invoice) {
+        @case (filterOption.Invoice) {
             @for(invoice of invoices(); track $index) {
             }
         }
-        @case (filterEnum.Receipt) {
-            @for(receipt of receipts(); track $index) {
-                <div class="flex flex-col">
-                    <span>Data Zakupu: {{receipt.dataZakupu}}</span>
-                    <span>Nazwa Sklepu: {{receipt.nazwaSklepu}}</span>
-                    <span>Kwota Całkowita: {{receipt['kwotaCałkowita']}}</span>
-                    <span>Produkty: [ ...{{receipt.produkty?.length}} ]</span>
-                </div>
-            }
+        @case (filterOption.Receipt) {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+                @for(receipt of receipts(); track $index) {
+                    <mat-card class="gap-4">
+                        <mat-card-header class="justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-12 h-auto fill-[var(--mat-sys-tertiary)]">
+                                <path d="M0 0h24v24H0V0z" fill="none"/>
+                                <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5zM19 19.09H5V4.91h14v14.18zM6 15h12v2H6zm0-4h12v2H6zm0-4h12v2H6z"/>
+                            </svg>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="flex flex-col max-w-80 mx-auto">
+                                <div class="flex gap-2">
+                                    <span class="text-[var(--mat-sys-primary-fixed)]">Data Zakupu: </span> 
+                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt.dataZakupu}}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="text-[var(--mat-sys-primary-fixed)]">Nazwa Sklepu: </span> 
+                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt.nazwaSklepu}}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="text-[var(--mat-sys-primary-fixed)]">Kwota Całkowita: </span> 
+                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt['kwotaCałkowita']}}</span>
+                                </div>
+                                <div class="flex gap-2">
+                                    <span class="text-[var(--mat-sys-primary-fixed)]">Produkty: </span> 
+                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">[ ...{{receipt.produkty?.length}} ]</span>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                }
+            </div>
         }
         @default {
             @for(document of documents(); track $index) {
@@ -21,3 +47,4 @@
         }
     }
 </div>
+
