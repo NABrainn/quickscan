@@ -9,7 +9,7 @@ export class DocumentsService {
 
   private readonly http = inject(HttpClient);
 
-  getDocumentsPage() {
-    return this.http.get(`${API_URL}/documents?page=0`);
+  getDocumentsPage(pageNumber: number, pageSize: number) {
+    return this.http.get(`${API_URL}/documents?page=${pageNumber}&size=${pageSize}`);
   }
 }
