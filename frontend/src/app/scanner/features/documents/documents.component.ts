@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { DocumentsService } from './services/documents.service';
-import { map, catchError, tap } from 'rxjs';
+import { map, catchError, tap, Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
@@ -9,6 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ScrollerDirective } from './directives/scroller.directive';
 
 enum FilterOption {
   Invoice,
@@ -28,32 +29,26 @@ enum FilterOption {
     MatLabel,
     MatInput,
     MatSuffix,
-    MatIcon
+    MatIcon,
+    ScrollerDirective
   ],
   templateUrl: './documents.component.html'
 })
 export class DocumentsComponent {
   private readonly service = inject(DocumentsService);
 
-  private pageNumber: number = 0;
-  private pageSize: number = 12;
+  private pageNumber = signal<number>(0);
+  private pageSize: number = 3;
 
   filterOption = FilterOption;
 
-  private _hasMoreData: boolean = true;
+  private _hasMoreData = signal<boolean>(true);
 
   private readonly _filterBy = signal<FilterOption>(FilterOption.Receipt);
   readonly filterBy = computed(() => this._filterBy());
 
   private readonly _documents = signal<Document[]>([]);
   documents = computed(() => this._documents());
-  documents$ = this.service.getDocumentsPage(this.pageNumber, this.pageSize).pipe(
-    map((page: any) => page.content as Document[]),
-    catchError((error) => {
-      console.error('Error fetching documents:', error);
-      return of([]);
-    })
-  ).subscribe((data) => this._documents.set(data));
 
   invoices = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'invoice') as Invoice[]);
   receipts = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'receipt') as Receipt[]);
@@ -62,34 +57,7 @@ export class DocumentsComponent {
 
   private scrollListener!: () => void;
 
-  setupScrollListener() {
-    this.scrollListener = () => {
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-        if (!this._hasMoreData) return;
-  
-        this.pageNumber++;
-        this.pageSize = 3;
-        this.service.getDocumentsPage(this.pageNumber, this.pageSize).pipe(
-          map((page: any) => page.content as Document[]),
-          tap((data) => {
-            if (data.length === 0) {
-              this._hasMoreData = (false);
-              window.removeEventListener('scroll', this.scrollListener);
-            }
-          }),
-          catchError((error) => {
-            console.error('Error fetching documents:', error);
-            return of([]);
-          })
-        ).subscribe((data) => {
-          if (data.length > 0) {
-            this._documents.update(prev => [...prev, ...data]);
-          }
-        });
-      }
-    };
-    window.addEventListener('scroll', this.scrollListener);
-  }
+
 
   //TODO: regex query by title (there is no title for documents currently)
   onSearch() {
@@ -105,16 +73,43 @@ export class DocumentsComponent {
     // })
   }
 
+  onScroll(){
+    this.pageNumber.update((prev) => prev += 1);
+    this.fetchPage(this.pageNumber(), 3).subscribe((data) => this._documents.update((prev) => [...prev, ...data]))
+  }
+
   onSubmit(event: Event) {
     event.preventDefault()
   }
 
-  ngOnInit() {
-    this.setupScrollListener();
-    this.onSearch();
-  }
-
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scrollListener);
+  }
+
+  fetchPage(pageNumber: number, pageSize: number): Observable<Document[]> {
+    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
+      if (!this._hasMoreData) return of([]);
+
+      return this.service.getDocumentsPage(pageNumber, pageSize).pipe(
+        map((page: any) => page.content as Document[]),
+        tap((data) => {
+          console.log(data.length)
+          if (data.length === 0) {
+            this._hasMoreData.set(false);
+            window.removeEventListener('scroll', this.scrollListener);
+          }
+        }),
+        catchError((error) => {
+          console.error('Error fetching documents:', error);
+          return of([]);
+        })
+      )
+    }
+    return of([]);
+  }
+
+  ngOnInit() {
+    this.fetchPage(this.pageNumber(), this.pageSize)?.subscribe((data) => this._documents.set(data));
+    this.onSearch();
   }
 }
