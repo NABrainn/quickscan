@@ -38,7 +38,7 @@ export class DocumentsComponent {
   private readonly service = inject(DocumentsService);
 
   private pageNumber = signal<number>(0);
-  private pageSize: number = 3;
+  private pageSize: number = 12;
 
   filterOption = FilterOption;
 
@@ -54,9 +54,6 @@ export class DocumentsComponent {
   receipts = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'receipt') as Receipt[]);
 
   searchInput = new FormControl('');
-
-  private scrollListener!: () => void;
-
 
 
   //TODO: regex query by title (there is no title for documents currently)
@@ -82,30 +79,21 @@ export class DocumentsComponent {
     event.preventDefault()
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('scroll', this.scrollListener);
-  }
-
   fetchPage(pageNumber: number, pageSize: number): Observable<Document[]> {
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight) {
-      if (!this._hasMoreData) return of([]);
+    if (!this._hasMoreData) return of([]);
 
-      return this.service.getDocumentsPage(pageNumber, pageSize).pipe(
-        map((page: any) => page.content as Document[]),
-        tap((data) => {
-          console.log(data.length)
-          if (data.length === 0) {
-            this._hasMoreData.set(false);
-            window.removeEventListener('scroll', this.scrollListener);
-          }
-        }),
-        catchError((error) => {
-          console.error('Error fetching documents:', error);
-          return of([]);
-        })
-      )
-    }
-    return of([]);
+    return this.service.getDocumentsPage(pageNumber, pageSize).pipe(
+      map((page: any) => page.content as Document[]),
+      tap((data) => {
+        if (data.length === 0) {
+          this._hasMoreData.set(false);
+        }
+      }),
+      catchError((error) => {
+        console.error('Error fetching documents:', error);
+        return of([]);
+      })
+    )  
   }
 
   ngOnInit() {
