@@ -1,11 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+    --color-primary: #557e82;
+    --color-primary-fixed: light-dark(#bfeaef, #bfeaef);
+    --color-on-tertiary: light-dark(#ffffff, #5a1b0b);
+    --color-tertiary: light-dark(#964734, #ffb4a3);
+}
+
 :root {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .mat-icon-lg {
     transform: scale(2);
+}
+
+.mat-icon-xl {
+    transform: scale(4);
 }
   
 input:disabled,select:disabled,textarea:disabled {

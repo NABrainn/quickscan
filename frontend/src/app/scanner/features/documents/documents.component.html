@@ -1,17 +1,28 @@
 
-<div class="flex flex-col gap-16 w-3/5 mx-auto">
-    <p class="text-3xl text-[var(--mat-sys-primary)] font-bold">Widok dokumentów</p>
+<div class="flex flex-col gap-16 w-3/5 mx-auto pb-8">
+    <div class="flex flex-col gap-4 md:flex-row justify-between">
+        <p class="
+        md:text-3xl
+        text-xl text-primary font-bold">Widok dokumentów</p>
+        <form (submit)="onSubmit($event)">
+            <mat-form-field>
+                <mat-label>Wyszukaj</mat-label>
+                <input matInput [formControl]="searchInput">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </form>
+    </div>
     @switch(filterBy()) {
         @case (filterOption.Invoice) {
             @for(invoice of invoices(); track $index) {
             }
         }
         @case (filterOption.Receipt) {
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
                 @for(receipt of receipts(); track $index) {
                     <mat-card class="gap-4">
                         <mat-card-header class="justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-12 h-auto fill-[var(--mat-sys-tertiary)]">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-12 h-auto fill-tertiary">
                                 <path d="M0 0h24v24H0V0z" fill="none"/>
                                 <path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5zM19 19.09H5V4.91h14v14.18zM6 15h12v2H6zm0-4h12v2H6zm0-4h12v2H6z"/>
                             </svg>
@@ -19,20 +30,20 @@
                         <mat-card-content>
                             <div class="flex flex-col max-w-80 mx-auto">
                                 <div class="flex gap-2">
-                                    <span class="text-[var(--mat-sys-primary-fixed)]">Data Zakupu: </span> 
-                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt.dataZakupu}}</span>
+                                    <span class="text-primary-fixed">Data Zakupu: </span> 
+                                    <span class="text-on-tertiary truncate">{{receipt.dataZakupu}}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="text-[var(--mat-sys-primary-fixed)]">Nazwa Sklepu: </span> 
-                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt.nazwaSklepu}}</span>
+                                    <span class="text-primary-fixed">Nazwa Sklepu: </span> 
+                                    <span class="text-on-tertiary truncate">{{receipt.nazwaSklepu}}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="text-[var(--mat-sys-primary-fixed)]">Kwota Całkowita: </span> 
-                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">{{receipt['kwotaCałkowita']}}</span>
+                                    <span class="text-primary-fixed">Kwota Całkowita: </span> 
+                                    <span class="text-on-tertiary truncate">{{receipt['kwotaCałkowita']}}</span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <span class="text-[var(--mat-sys-primary-fixed)]">Produkty: </span> 
-                                    <span class="text-[var(--mat-sys-on-tertiary)] truncate">[ ...{{receipt.produkty?.length}} ]</span>
+                                    <span class="text-primary-fixed">Produkty: </span> 
+                                    <span class="text-on-tertiary truncate">[ ...{{receipt.produkty?.length}} ]</span>
                                 </div>
                             </div>
                         </mat-card-content>
