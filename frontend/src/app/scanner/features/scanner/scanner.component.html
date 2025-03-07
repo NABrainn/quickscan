@@ -19,13 +19,13 @@
                 <span >Prześlij</span>
             </ng-template>
             <ng-template matStepContent>
-                <app-document-card
+                <app-document-menu
                 (requestRegenerate)="regenerateDocument()"
                 (requestUpload)="saveDocument($event)"
                 [isToggledDetails]="isToggledDetails()"
                 (isToggledDetailsChange)="onToggledDetailsChange($event)"
                 [document]="document()">
-                </app-document-card>
+                </app-document-menu>
             </ng-template>
         </mat-step>
         <mat-step>

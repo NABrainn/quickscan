@@ -3,12 +3,12 @@ import {MatStep, MatStepContent, MatStepLabel, MatStepper} from '@angular/materi
 import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScannerService } from './service/scanner.service';
-import { DocumentCardComponent } from 'app/scanner/ui/document-card/document-card.component';
 import { Invoice, Receipt } from 'app/scanner/shared/types';
 import { ReadyCardComponent } from 'app/scanner/ui/ready-card/ready-card.component';
 import { Router } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { StepperGuardService } from './service/stepper.service';
+import { DocumentMenuComponent } from 'app/scanner/ui/document-menu/document-menu.component';
 
 @Component({
   selector: 'app-scanner',
@@ -19,8 +19,8 @@ import { StepperGuardService } from './service/stepper.service';
     MatStepContent,
     MatStepLabel,
     FileUploadComponent,
-    DocumentCardComponent,
-    ReadyCardComponent
+    ReadyCardComponent,
+    DocumentMenuComponent
   ],
   templateUrl: './scanner.component.html',
   styleUrl: './scanner.component.css'
