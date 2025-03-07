@@ -1,5 +1,6 @@
 export type Document = Invoice | Receipt;
 export type Invoice = {
+    id?: number,
     type?: 'invoice',
     numerFaktury?: string,
     nrRachunkuBankowego?: string,
@@ -18,6 +19,7 @@ export type Invoice = {
 }
 
 export type Receipt = {
+    id?: number,
     type?: 'receipt',
     dataZakupu?: string,
     nazwaSklepu?: string,

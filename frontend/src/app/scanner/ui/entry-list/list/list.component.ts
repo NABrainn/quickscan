@@ -19,6 +19,7 @@ export class ListComponent {
   documentDisplay = computed(() => {
     const document = {...this.document()};
     delete document.type;
+    delete document.id;
     return document;
   });
   documentType = computed(() => this.document().type);
