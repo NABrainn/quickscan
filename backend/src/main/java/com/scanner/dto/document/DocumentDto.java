@@ -17,7 +17,6 @@ import lombok.Data;
 })
 public abstract class DocumentDto {
 
-    @JsonIgnore
     @JsonProperty("id")
     private long id;
     @JsonIgnore
