@@ -22,3 +22,21 @@
 input:disabled,select:disabled,textarea:disabled {
     color: var(--mat-sys-primary-fixed) !important;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--mat-sys-neutral);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--mat-sys-tertiary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--mat-sys-neutral);
+}
