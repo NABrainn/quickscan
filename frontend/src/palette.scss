@@ -7,7 +7,7 @@ html {
         color: (
             primary: app-theme.$primary-palette,
             tertiary: app-theme.$tertiary-palette,
-        ),
+            ),
         density: 0,
     ))
 }
@@ -21,3 +21,10 @@ html {
         container-text-color: map.get(app-theme.$secondary-palette, 20),
     ));
 }
+
+.delete-btn {
+    @include mat.fab-overrides((
+        small-container-color: map.get(app-theme.$error-palette, 40)
+    ));
+  }
+  
