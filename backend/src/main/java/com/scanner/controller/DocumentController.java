@@ -63,20 +63,19 @@ public class DocumentController {
     public ResponseEntity<?> updateDocument(@RequestBody Document document, Authentication authentication) {
         try {
             document.setCreatedBy(authentication.getName());
-            documentService.saveDocument(document);
+            Document savedDocument = documentService.saveDocument(document);
+            return ResponseEntity.ok(savedDocument);
         }
         catch (DocumentServiceException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return ResponseEntity.ok("Dokument pomyślnie zaktualizowany.");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDocument(@PathVariable long id) {
         try {
-            documentService.getDocumentById(id);
             documentService.deleteDocument(id);
-            return new ResponseEntity<>("Dokument pomyślnie usunięty.", HttpStatus.OK);
+            return ResponseEntity.ok("Dokument pomyślnie usunięty.");
         }
         catch (DocumentServiceException e) {
             throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
