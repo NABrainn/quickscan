@@ -73,7 +73,5 @@ public class FileUploadService {
             e.printStackTrace();
             throw new FileUploadServiceException("Nie udało się wygenerować dokumentu, spróbuj ponownie.", HttpStatus.BAD_REQUEST);
         }
-
-
     }
 }
