@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { ScannerComponent } from './scanner/features/scanner/scanner.component';
 import { authGuard } from './scanner/core/auth/auth-guard';
 import { stepperGuard } from './scanner/features/scanner/guards/stepper.guard';
-import { DocumentsComponent } from './scanner/features/documents/documents.component';
 
 export const routes: Routes = [
     { 
@@ -23,7 +22,7 @@ export const routes: Routes = [
             },
             {
                 path: 'przeslij', 
-                loadComponent: () => import('./scanner/ui/document-card/document-card.component').then((c) => c.DocumentCardComponent), 
+                loadComponent: () => import('./scanner/ui/document-menu/document-menu.component').then((c) => c.DocumentMenuComponent), 
                 canActivate: [authGuard, stepperGuard]
             },
             {
@@ -35,7 +34,7 @@ export const routes: Routes = [
     },
     {
         path: 'dokumenty',
-        loadComponent: () => import('./scanner/features/documents/documents.component').then((c) => DocumentsComponent),
+        loadComponent: () => import('./scanner/features/documents-page/documents-page.component').then((c) => c.DocumentsPage),
         canActivate: [authGuard],
     },
     {
