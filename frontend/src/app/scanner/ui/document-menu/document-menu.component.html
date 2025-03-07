@@ -1,0 +1,36 @@
+<mat-card class="flex flex-col gap-2 p-2">
+    <mat-card-content>
+        <app-list 
+        (documentChange)="document.set($event)"
+        (isDataValidChange)="onDataValidChange($event)"
+        [isDataValid]="isDataValid()"
+        [canEdit]="canEdit()"
+        [isToggledDetails]="isToggledDetails()"
+        [document]="document()">
+            
+        </app-list>
+    </mat-card-content>
+    <mat-card-actions class="flex justify-between">
+        <div class="flex gap-2">
+            <ng-content select="first-button">
+                <button 
+                (click)="regenerate()"
+                mat-flat-button>Regeneruj
+                </button>
+            </ng-content>
+            <button 
+            (click)="edit()"
+            mat-flat-button>Edytuj
+            </button>
+            <button 
+            (click)="save()"
+            mat-flat-button>Zapisz
+            </button>
+            <span class="text-[var(--mat-sys-on-error-container)]">
+                {{errorMsg()}}
+            </span>
+        </div>
+        <ng-content select="last-button">
+        </ng-content>
+    </mat-card-actions>
+</mat-card>
