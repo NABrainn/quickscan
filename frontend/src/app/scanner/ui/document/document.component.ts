@@ -12,7 +12,9 @@ import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
   templateUrl: './document.component.html'
 })
 export class DocumentComponent {
-  readonly document = input<Document>();
-  readonly receipt = computed(() => this.document() as Receipt);
-  readonly invoice = computed(() => this.document() as Invoice);
+  readonly document = input<Document>(() => {
+    if(this.document()?.type === 'receipt')
+      return this.document() as Receipt;
+    return this.document() as Invoice;
+  });
 }

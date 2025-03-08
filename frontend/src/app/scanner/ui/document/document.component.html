@@ -7,22 +7,43 @@
     </mat-card-header>
     <mat-card-content>
         <div class="flex flex-col max-w-80 mx-auto">
-            <div class="flex gap-2">
-                <span class="text-primary-fixed">Data Zakupu: </span> 
-                <span class="text-on-tertiary truncate">{{receipt().dataZakupu}}</span>
-            </div>
-            <div class="flex gap-2">
-                <span class="text-primary-fixed">Nazwa Sklepu: </span> 
-                <span class="text-on-tertiary truncate">{{receipt().nazwaSklepu}}</span>
-            </div>
-            <div class="flex gap-2">
-                <span class="text-primary-fixed">Kwota Całkowita: </span> 
-                <span class="text-on-tertiary truncate">{{receipt()['kwotaCałkowita']}}</span>
-            </div>
-            <div class="flex gap-2">
-                <span class="text-primary-fixed">Produkty: </span> 
-                <span class="text-on-tertiary truncate">[ ...{{receipt().produkty?.length}} ]</span>
-            </div>
+            @if(document()?.type === 'receipt') {
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Data Zakupu: </span> 
+                    <span class="text-on-tertiary truncate">{{document().dataZakupu}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Nazwa Sklepu: </span> 
+                    <span class="text-on-tertiary truncate">{{document().nazwaSklepu}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Kwota Całkowita: </span> 
+                    <span class="text-on-tertiary truncate">{{document()['kwotaCałkowita']}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Produkty: </span> 
+                    <span class="text-on-tertiary truncate">[ ...{{document().produkty?.length}} ]</span>
+                </div>
+            }
+            @else {
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Numer Faktury: </span> 
+                    <span class="text-on-tertiary truncate">{{document().numerFaktury}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Odbiorca: </span> 
+                    <span class="text-on-tertiary truncate">{{document().odbiorca.nazwa}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Sprzedawca: </span> 
+                    <span class="text-on-tertiary truncate">{{document().sprzedawca.nazwa}}</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-primary-fixed">Produkty: </span> 
+                    <span class="text-on-tertiary truncate">[ ...{{document().produkty?.length}} ]</span>
+                </div>
+            }
+
         </div>
     </mat-card-content>
 </mat-card>

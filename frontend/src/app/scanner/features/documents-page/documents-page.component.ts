@@ -12,11 +12,12 @@ import { ScrollerDirective } from './directives/scroller.directive';
 import { DocumentComponent } from 'app/scanner/ui/document/document.component';
 import { DocumentMenuComponent } from 'app/scanner/ui/document-menu/document-menu.component';
 import { MatMiniFabButton } from '@angular/material/button';
+import {MatOption, MatSelect} from '@angular/material/select';
 
 enum FilterOption {
-  Invoice,
-  Receipt,
-  All
+  Invoice = "Faktury",
+  Receipt = "Paragony",
+  All = "Wszystkie"
 }
 
 @Component({
@@ -33,7 +34,9 @@ enum FilterOption {
     DocumentComponent,
     DocumentMenuComponent,
     MatMiniFabButton,
-    MatIcon
+    MatIcon,
+    MatSelect,
+    MatOption
   ],
   templateUrl: './documents-page.component.html'
 })
@@ -49,8 +52,7 @@ export class DocumentsPage {
   private readonly _fetchedDocument = signal<Document>({});
   fetchedDocument = computed(() => this._fetchedDocument());
 
-  private readonly _filterBy = signal<FilterOption>(FilterOption.Receipt);
-  readonly filterBy = computed(() => this._filterBy());
+  selected = FilterOption.All;
 
   private readonly _documents = signal<Document[]>([]);
   documents = computed(() => this._documents());
@@ -58,7 +60,7 @@ export class DocumentsPage {
   receipts = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'receipt') as Receipt[]);
 
   private pageSize: number = 12;
-  filterOption = FilterOption;
+  filterOptions: FilterOption[] = [FilterOption.Invoice, FilterOption.Receipt, FilterOption.All];
 
   searchInput = new FormControl('');
 
