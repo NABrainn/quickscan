@@ -6,6 +6,7 @@ import com.scanner.dto.document.ReceiptDto;
 import com.scanner.entity.document.Document;
 import com.scanner.entity.document.Invoice;
 import com.scanner.entity.document.Receipt;
+import com.scanner.entity.product.InvoiceProduct;
 import com.scanner.entity.product.ReceiptProduct;
 import com.scanner.repository.document.DocumentPagingAndSortingRepository;
 import com.scanner.repository.document.DocumentRepository;
@@ -33,6 +34,13 @@ public class DocumentService {
                 Set<ReceiptProduct> products = receipt.getProducts();
                 if (products != null) {
                     products.forEach(product -> product.setReceipt(receipt));
+                }
+            }
+            else {
+                Invoice invoice = (Invoice) document;
+                Set<InvoiceProduct> products = invoice.getProducts();
+                if (products != null) {
+                    products.forEach(product -> product.setInvoice(invoice));
                 }
             }
             return documentRepository.save(document);
