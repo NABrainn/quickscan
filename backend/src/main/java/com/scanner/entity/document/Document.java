@@ -1,5 +1,6 @@
 package com.scanner.entity.document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -29,6 +30,7 @@ public abstract class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonIgnore
     @Column(name = "createdBy")
     private String createdBy;
 }
