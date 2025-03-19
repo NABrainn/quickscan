@@ -13,6 +13,7 @@ public class TesseractConfiguration {
         tesseract.setLanguage("pol");
         tesseract.setDatapath("/usr/share/tesseract-ocr/5/tessdata/");
         tesseract.setVariable("user_defined_dpi", "300");
+        tesseract.setPageSegMode(3);
         return tesseract;
     }
 }

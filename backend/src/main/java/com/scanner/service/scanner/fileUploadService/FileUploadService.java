@@ -1,15 +1,15 @@
-package com.scanner.service.fileUpload;
+package com.scanner.service.scanner.fileUploadService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scanner.dto.document.DocumentDto;
 import com.scanner.dto.FileUploadRequestDto;
-import com.scanner.service.ChatService;
-import com.scanner.service.ImageProcessor;
-import com.scanner.service.TesseractService;
+import com.scanner.service.chatService.ChatService;
+import com.scanner.service.chatService.ContentType;
+import lombok.RequiredArgsConstructor;
+import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.springframework.ai.retry.NonTransientAiException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +17,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+@RequiredArgsConstructor
 @Service
 public class FileUploadService {
 
     private final ImageProcessor imageProcessor;
-    private final TesseractService tesseractService;
+    private final Tesseract tesseract;
     private final ChatService chatService;
     private final ObjectMapper objectMapper;
-
-    @Autowired
-    public FileUploadService(ImageProcessor imageProcessor, TesseractService tesseractService, ChatService chatService) {
-        this.imageProcessor = imageProcessor;
-        this.tesseractService = tesseractService;
-        this.chatService = chatService;
-        this.objectMapper = new ObjectMapper();
-    }
 
     public DocumentDto process(FileUploadRequestDto fileUploadRequest) {
         BufferedImage image = processImage(fileUploadRequest);
@@ -40,11 +33,11 @@ public class FileUploadService {
         return parseDocument(jsonContent);
     }
 
-
     private BufferedImage processImage(FileUploadRequestDto request) {
         try {
             BufferedImage image = ImageIO.read(request.file().getInputStream());
-            return imageProcessor.resizeImage(image, 3.3);
+            imageProcessor.deskew(image);
+            return image;
         } catch (IOException e) {
             throw new FileUploadServiceException("Nie udało się przeczytać pliku, spróbuj ponownie.", HttpStatus.BAD_REQUEST);
         }
@@ -52,7 +45,7 @@ public class FileUploadService {
 
     private String performOCR(BufferedImage image) {
         try {
-            return tesseractService.doOCR(image);
+            return tesseract.doOCR(image);
         } catch (TesseractException e) {
             throw new FileUploadServiceException("Nie udało się przeprocesować pliku, spróbuj ponownie.", HttpStatus.BAD_REQUEST);
         }
@@ -60,7 +53,8 @@ public class FileUploadService {
 
     private String generateContent(String ocrResult) {
         try {
-            return chatService.generateContent(ocrResult);
+            System.out.println(ocrResult);
+            return chatService.generateContent(ocrResult, ContentType.JSON);
         } catch (NonTransientAiException e) {
             throw new FileUploadServiceException("Nie udało się wygenerować treści, spróbuj ponownie.", HttpStatus.BAD_REQUEST);
         }
@@ -70,7 +64,6 @@ public class FileUploadService {
         try {
             return objectMapper.readValue(json, DocumentDto.class);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             throw new FileUploadServiceException("Nie udało się wygenerować dokumentu, spróbuj ponownie.", HttpStatus.BAD_REQUEST);
         }
     }

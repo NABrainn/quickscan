@@ -17,9 +17,9 @@ public class DocumentTestFactory {
                 .currency("ZŁ")
                 .paymentMethod("KARTA")
                 .saleDate("tomorrow")
-                .totalGross(2100)
-                .totalRate(3939)
-                .totalNetto(393)
+                .totalGross("2100")
+                .totalRate("3939")
+                .totalNetto("393")
                 .totalTax("32%")
                 .build();
     }
@@ -30,11 +30,11 @@ public class DocumentTestFactory {
                 InvoiceProduct.builder()
                         .productName("smiertana")
                         .measureUnit("decybel")
-                        .quantity(28000)
-                        .netWorth(653)
-                        .vatRate(1)
+                        .quantity("28000")
+                        .netWorth("653")
+                        .vatRate("1")
                         .vatTax("8%")
-                        .gross(93)
+                        .gross("93")
                         .build()
         );
         Invoice invoice = createInvoice();
@@ -56,7 +56,7 @@ public class DocumentTestFactory {
     public static Receipt createReceipt() {
         return Receipt.builder()
                 .storeName("biedronka")
-                .totalAmount(21.37)
+                .totalAmount("21.37")
                 .build();
     }
 

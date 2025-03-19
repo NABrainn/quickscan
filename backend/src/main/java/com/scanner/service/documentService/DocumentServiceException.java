@@ -1,4 +1,4 @@
-package com.scanner.service.document;
+package com.scanner.service.documentService;
 
 import com.scanner.exception.RestException;
 import org.springframework.http.HttpStatus;
