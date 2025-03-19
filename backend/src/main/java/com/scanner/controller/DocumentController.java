@@ -2,48 +2,43 @@ package com.scanner.controller;
 
 import com.scanner.dto.document.DocumentDto;
 import com.scanner.entity.document.Document;
-import com.scanner.service.document.DocumentService;
-import com.scanner.service.document.DocumentServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.scanner.service.documentService.DocumentService;
+import com.scanner.service.documentService.DocumentServiceException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/documents")
 public class DocumentController {
 
     private final DocumentService documentService;
 
-    @Autowired
-    public DocumentController(DocumentService documentService) {
-        this.documentService = documentService;
-    }
-
     @PostMapping
-    public ResponseEntity<?> addDocument(@RequestBody Document document, Authentication authentication) {
+    public ResponseEntity<DocumentDto> addDocument(@RequestBody Document document, Authentication authentication) {
         try {
             document.setCreatedBy(authentication.getName());
             return ResponseEntity.ok(documentService.saveDocument(document));
         }
         catch (DocumentServiceException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dokument zawiera błędne dane.");
+            throw new ResponseStatusException(e.getHttpStatus(), "Dokument zawiera błędne dane.");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getDocumentById(@PathVariable long id) {
+    public ResponseEntity<DocumentDto> getDocumentById(@PathVariable long id) {
         try {
             return ResponseEntity.ok(documentService.getDocumentById(id));
         }
         catch (DocumentServiceException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Dokument nie istnieje.");
+            throw new ResponseStatusException(e.getHttpStatus(), "Dokument nie istnieje.");
         }
     }
 
@@ -60,14 +55,13 @@ public class DocumentController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateDocument(@RequestBody Document document, Authentication authentication) {
+    public ResponseEntity<DocumentDto> updateDocument(@RequestBody Document document, Authentication authentication) {
         try {
             document.setCreatedBy(authentication.getName());
-            Document savedDocument = documentService.saveDocument(document);
-            return ResponseEntity.ok(savedDocument);
+            return ResponseEntity.ok(documentService.saveDocument(document));
         }
         catch (DocumentServiceException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
         }
     }
 
