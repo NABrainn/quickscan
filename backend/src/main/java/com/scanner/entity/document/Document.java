@@ -30,7 +30,6 @@ public abstract class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonIgnore
     @Column(name = "createdBy")
     private String createdBy;
 }
