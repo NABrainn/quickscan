@@ -1,4 +1,4 @@
-package com.scanner.service.document;
+package com.scanner.service.documentService;
 
 import com.scanner.dto.document.DocumentDto;
 import com.scanner.dto.document.InvoiceDto;
@@ -28,7 +28,7 @@ public class DocumentService {
     private final DocumentRepository documentRepository;
     private final DocumentPagingAndSortingRepository documentPagingAndSortingRepository;
 
-    public Document saveDocument(Document document) {
+    public DocumentDto saveDocument(Document document) {
         try {
             if (document instanceof Receipt receipt) {
                 Set<ReceiptProduct> products = receipt.getProducts();
@@ -43,14 +43,15 @@ public class DocumentService {
                     products.forEach(product -> product.setInvoice(invoice));
                 }
             }
-            return documentRepository.save(document);
+            return modelMapper.map(documentRepository.save(document), DocumentDto.class);
         } catch (DataIntegrityViolationException e) {
             throw new DocumentServiceException("Nip klienta/sprzedawcy istnieje w systemie.", HttpStatus.NOT_FOUND);
         }
     }
 
-    public Document getDocumentById(long id) {
-        return documentRepository.findById(id).orElseThrow(() -> new DocumentServiceException("Document not found.", HttpStatus.NOT_FOUND));
+    public DocumentDto getDocumentById(long id) {
+        Document found = documentRepository.findById(id).orElseThrow(() -> new DocumentServiceException("Document not found.", HttpStatus.NOT_FOUND));
+        return modelMapper.map(found, DocumentDto.class);
     }
 
     public Page<DocumentDto> getDocumentPage(String createdBy, Pageable pageable) {
@@ -65,7 +66,8 @@ public class DocumentService {
         if (document instanceof Invoice) {
             return modelMapper.map(document, InvoiceDto.class);
         } else if (document instanceof Receipt) {
-            return modelMapper.map(document, ReceiptDto.class);        }
+            return modelMapper.map(document, ReceiptDto.class);
+        }
         throw new IllegalArgumentException("Unknown document type: " + document.getClass().getName());
     }
 }
