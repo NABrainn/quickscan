@@ -17,7 +17,6 @@ import lombok.*;
 @Table(name = "vendors")
 public class Vendor {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
