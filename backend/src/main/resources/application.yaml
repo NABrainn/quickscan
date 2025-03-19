@@ -19,14 +19,6 @@ spring:
     url: jdbc:postgresql://localhost:5440/scanner
     username: postgres
     password: postgres
-  ai:
-    openai:
-      api-key: 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
-      base-url: https://api.groq.com/openai
-      chat:
-        options:
-          model: llama-3.3-70b-versatile
-          temperature: 1.0
-          topP: 1
+
 
 
