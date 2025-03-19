@@ -1,7 +1,6 @@
 package com.scanner.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Invoice;
 import jakarta.persistence.*;

@@ -35,6 +35,7 @@ public class DocumentService {
                 if (products != null) {
                     products.forEach(product -> product.setReceipt(receipt));
                 }
+                return modelMapper.map(documentRepository.save(document), ReceiptDto.class);
             }
             else {
                 Invoice invoice = (Invoice) document;
@@ -42,8 +43,8 @@ public class DocumentService {
                 if (products != null) {
                     products.forEach(product -> product.setInvoice(invoice));
                 }
+                return modelMapper.map(documentRepository.save(document), InvoiceDto.class);
             }
-            return modelMapper.map(documentRepository.save(document), DocumentDto.class);
         } catch (DataIntegrityViolationException e) {
             throw new DocumentServiceException("Nip klienta/sprzedawcy istnieje w systemie.", HttpStatus.NOT_FOUND);
         }
@@ -51,7 +52,9 @@ public class DocumentService {
 
     public DocumentDto getDocumentById(long id) {
         Document found = documentRepository.findById(id).orElseThrow(() -> new DocumentServiceException("Document not found.", HttpStatus.NOT_FOUND));
-        return modelMapper.map(found, DocumentDto.class);
+        if (found instanceof Invoice)
+            return modelMapper.map(found, InvoiceDto.class);
+        return modelMapper.map(found, ReceiptDto.class);
     }
 
     public Page<DocumentDto> getDocumentPage(String createdBy, Pageable pageable) {

@@ -1,7 +1,6 @@
 package com.scanner.entity.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.scanner.entity.document.Receipt;
 import jakarta.persistence.*;
