@@ -1,14 +1,14 @@
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import {MatStep, MatStepContent, MatStepLabel, MatStepper} from '@angular/material/stepper'; 
-import { FileUploadComponent } from 'app/scanner/ui/file-upload/file-upload.component';
+import { FileUploadComponent } from 'app/ui/file-upload/file-upload.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ScannerService } from './service/scanner.service';
-import { Invoice, Receipt } from 'app/scanner/shared/types';
-import { ReadyCardComponent } from 'app/scanner/ui/ready-card/ready-card.component';
+import { Invoice, Receipt } from 'app/shared/types';
+import { ReadyCardComponent } from 'app/ui/ready-card/ready-card.component';
 import { Router } from '@angular/router';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { StepperGuardService } from './service/stepper.service';
-import { DocumentMenuComponent } from 'app/scanner/ui/document-menu/document-menu.component';
+import { DocumentMenuComponent } from 'app/ui/document-menu/document-menu.component';
 
 @Component({
   selector: 'app-scanner',

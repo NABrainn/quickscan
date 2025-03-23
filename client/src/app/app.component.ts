@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {MatProgressBar} from '@angular/material/progress-bar'; 
-import { LoadingService } from './scanner/core/loading.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
+import { LoadingService } from '@core/loading.service';
 
 @Component({
     selector: 'app-root',

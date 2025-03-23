@@ -1,6 +1,6 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
-import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
+import { Document, Invoice, Receipt } from '@shared/types';
 
 @Component({
   selector: 'app-document',

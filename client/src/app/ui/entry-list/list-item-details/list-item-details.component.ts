@@ -1,10 +1,10 @@
 import { KeyValuePipe, TitleCasePipe } from '@angular/common';
 import { Component, computed, model, viewChildren } from '@angular/core';
-import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
-import { EditableFieldComponent } from '../../editable-field/editable-field.component';
-import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
+import { IsArrayPipe } from '@shared/pipes/is-array/is-array.pipe';
+import { CamelCaseToWordsPipe } from '@shared/pipes/camel-case-to-words/camel-case-to-words.pipe';
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
+import { EditableFieldComponent } from '@ui/editable-field/editable-field.component';
+import { popInAnimation, popOutAnimation } from '@shared/animations';
 
 @Component({
   selector: 'app-list-item-details',

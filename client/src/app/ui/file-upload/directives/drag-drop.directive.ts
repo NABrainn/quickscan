@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostListener, inject, output } from '@angular/core';
-import { Colors } from 'app/scanner/shared/enums';
+import { Colors } from '@shared/enums';
 
 @Directive({
   selector: '[dragDrop]'

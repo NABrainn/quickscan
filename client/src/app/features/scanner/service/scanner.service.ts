@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Invoice, Receipt } from 'app/scanner/shared/types';
+import { Invoice, Receipt } from 'app/shared/types';
 import { API_URL } from 'environment';
 
 @Injectable({

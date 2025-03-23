@@ -2,15 +2,15 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { DocumentsPageService } from './services/documents-page.service';
 import { map, catchError, tap, Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
+import { Document, Invoice, Receipt } from 'app/shared/types';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ScrollerDirective } from './directives/scroller.directive';
-import { DocumentComponent } from 'app/scanner/ui/document/document.component';
-import { DocumentMenuComponent } from 'app/scanner/ui/document-menu/document-menu.component';
+import { DocumentComponent } from 'app/ui/document/document.component';
+import { DocumentMenuComponent } from 'app/ui/document-menu/document-menu.component';
 import { MatMiniFabButton } from '@angular/material/button';
 import {MatOption, MatSelect} from '@angular/material/select';
 

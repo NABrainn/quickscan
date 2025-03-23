@@ -25,10 +25,10 @@
     ],
     "baseUrl" : "./src",
     "paths": {
-      "@components/*": ["app/scanner/shared/components/*"],
-      "@services/*": ["app/scanner/shared/services/*"],
-      "@dto/*": ["app/scanner/shared/dto/*"],
-      "@pipes/*": ["app/scanner/shared/pipes/*"]
+      "@core/*": ["app/core/*"],
+      "@features/*": ["app/features/*"],
+      "@shared/*": ["app/shared/*"],
+      "@ui/*": ["app/ui/*"]
     }
   },
   "angularCompilerOptions": {

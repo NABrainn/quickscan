@@ -1,8 +1,9 @@
 import { Component, computed, model, output, signal } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
-import { Document, Invoice, Receipt } from 'app/scanner/shared/types';
-import { ListComponent } from '../entry-list/list/list.component';
+
 import { MatButton } from '@angular/material/button';
+import { Document, Invoice, Receipt } from '@shared/types';
+import { ListComponent } from '@ui/entry-list/list/list.component';
 
 @Component({
   selector: 'app-document-menu',

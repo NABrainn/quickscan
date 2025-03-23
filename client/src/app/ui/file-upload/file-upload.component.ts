@@ -1,8 +1,8 @@
 import { Component, computed, Input, input, model, output } from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card'; 
-import { DragDropDirective } from './directives/drag-drop.directive';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {MatIcon} from '@angular/material/icon'; 
+import { DragDropDirective } from './directives/drag-drop.directive';
 
 @Component({
   selector: 'app-file-upload',

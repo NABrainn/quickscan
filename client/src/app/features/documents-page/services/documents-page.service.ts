@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Document } from 'app/scanner/shared/types';
+import { Document } from 'app/shared/types';
 import { API_URL } from 'environment';
 
 @Injectable({

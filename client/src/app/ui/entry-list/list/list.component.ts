@@ -1,7 +1,7 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, computed, input, model, Signal, viewChildren } from '@angular/core';
+import { Invoice, Receipt } from 'app/shared/types';
 import { ListItemComponent } from '../list-item/list-item.component';
-import { Invoice, Receipt } from 'app/scanner/shared/types';
 
 @Component({
   selector: 'app-list',

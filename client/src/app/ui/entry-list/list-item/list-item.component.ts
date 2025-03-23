@@ -1,13 +1,13 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, input, model } from '@angular/core';
-import { TypeofPipe } from '@pipes/typeof/typeof.pipe';
+import { TypeofPipe } from '@shared/pipes/typeof/typeof.pipe';
 import { ListItemDetailsComponent } from '../list-item-details/list-item-details.component';
-import { CamelCaseToWordsPipe } from '@pipes/camel-case-to-words/camel-case-to-words.pipe';
+import { CamelCaseToWordsPipe } from '@shared/pipes/camel-case-to-words/camel-case-to-words.pipe';
 import { MatIcon } from '@angular/material/icon';
-import { IsArrayPipe } from '@pipes/is-array/is-array.pipe';
-import { EditableFieldComponent } from '../../editable-field/editable-field.component';
+import { IsArrayPipe } from '@shared/pipes/is-array/is-array.pipe';
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { popInAnimation, popOutAnimation } from 'app/scanner/shared/animations';
+import { popInAnimation, popOutAnimation } from 'app/shared/animations';
+import { EditableFieldComponent } from '@ui/editable-field/editable-field.component';
 
 @Component({
   selector: 'app-list-item',
