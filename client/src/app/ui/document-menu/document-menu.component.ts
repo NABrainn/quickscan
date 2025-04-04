@@ -1,9 +1,9 @@
-import { Component, computed, model, output, signal } from '@angular/core';
+import { Component, computed, input, model, output, signal, viewChild } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 
 import { MatButton } from '@angular/material/button';
-import { Document, Invoice, Receipt } from '@shared/types';
-import { ListComponent } from '@ui/entry-list/list/list.component';
+import { Document } from '@shared/services/document.service';
+import { DocumentForm } from '@ui/document-form/document-form.component';
 
 @Component({
   selector: 'app-document-menu',
@@ -12,48 +12,38 @@ import { ListComponent } from '@ui/entry-list/list/list.component';
     MatCardContent,
     MatCardActions,
     MatButton,
-    ListComponent
+    DocumentForm
   
   ],
   templateUrl: './document-menu.component.html'
 })
 export class DocumentMenuComponent {
 
-  private readonly _isDataValid = signal<boolean>(true);
-  isDataValid = computed(() => this._isDataValid());
+  form = viewChild(DocumentForm)
 
-  readonly canEdit = model<boolean>(false);
+  readonly #canEdit = signal<boolean>(false);
+  canEdit = computed(() => this.#canEdit())
 
-  readonly isToggledDetails = model<boolean>(false);
-  
-  document = model<Document>({});
-  data = computed(() => {
-    return Object.entries(this.document());
-  });
+  readonly message = input<string>('');
+  readonly detailsOpen = model<boolean>(false);
+  document = model<Document>();
 
-  private readonly _errorMsg = signal<string>('');
-  errorMsg = computed(() => this._errorMsg())
 
   requestRegenerate = output<void>();
-  requestUpload = output<Invoice | Receipt>();
+  requestUpload = output<Document | undefined>();
 
   regenerate() {
     this.requestRegenerate.emit();
   }
 
   edit() {
-    this.canEdit.update(prev => !prev);
-    this.isToggledDetails.update(prev => !prev);
+    this.#canEdit.update(prev => !prev);
+    this.detailsOpen.update(prev => !prev);
   }
 
   save() {
-    if(this.isDataValid())
+    if(this.form()?.form.valid) {
       this.requestUpload.emit(this.document());
-    else
-      this._errorMsg.set('Dokument zawiera błędne dane');
-  }
-
-  onDataValidChange(valid: any) {
-    this._isDataValid.set(valid);
+    }
   }
 }

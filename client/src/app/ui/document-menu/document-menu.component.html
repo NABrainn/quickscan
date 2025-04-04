@@ -1,14 +1,12 @@
 <mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
-        <app-list 
+        <app-document-form 
         (documentChange)="document.set($event)"
-        (isDataValidChange)="onDataValidChange($event)"
-        [isDataValid]="isDataValid()"
         [canEdit]="canEdit()"
-        [isToggledDetails]="isToggledDetails()"
+        [detailsOpen]="detailsOpen()"
         [document]="document()">
             
-        </app-list>
+        </app-document-form>
     </mat-card-content>
     <mat-card-actions class="flex justify-between">
         <div class="flex gap-2">
@@ -27,7 +25,7 @@
             mat-flat-button>Zapisz
             </button>
             <span class="text-[var(--mat-sys-on-error-container)]">
-                {{errorMsg()}}
+                {{message()}}
             </span>
         </div>
         <ng-content select="last-button">
