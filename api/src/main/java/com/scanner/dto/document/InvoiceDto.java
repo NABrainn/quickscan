@@ -1,8 +1,11 @@
 package com.scanner.dto.document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.scanner.entity.Client;
-import com.scanner.entity.Vendor;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
+import com.scanner.dto.ClientDto;
+import com.scanner.dto.VendorDto;
+import com.scanner.dto.product.InvoiceProductDto;
 import com.scanner.entity.product.InvoiceProduct;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,9 +16,6 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class InvoiceDto extends DocumentDto {
-
-    @JsonProperty("type")
-    private final String type = "invoice";
 
     @JsonProperty("numerFaktury")
     private String invoiceNumber;
@@ -48,11 +48,15 @@ public class InvoiceDto extends DocumentDto {
     private String paymentMethod;
 
     @JsonProperty("odbiorca")
-    private Client client;
+    private ClientDto client;
 
     @JsonProperty("sprzedawca")
-    private Vendor vendor;
+    private VendorDto vendor;
 
     @Getter(onMethod_ = { @JsonProperty("produkty") })
-    private Set<InvoiceProduct> products;
+    @JsonSetter(contentNulls = Nulls.SKIP)
+    private Set<InvoiceProductDto> products;
+
+    @JsonProperty("type")
+    private final String type = "invoice";
 }

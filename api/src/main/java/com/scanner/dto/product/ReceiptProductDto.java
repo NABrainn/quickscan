@@ -8,6 +8,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ReceiptProductDto extends ProductDto {
 
-    @JsonProperty("cenaSuma")
-    String cenaSuma;
+    @JsonProperty("type")
+    private final String type = "receiptProduct";
 }

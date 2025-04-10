@@ -21,4 +21,7 @@ public class InvoiceProductDto extends ProductDto {
 
         @JsonProperty("wartośćBrutto")
         private String gross;
+
+        @JsonProperty("type")
+        private final String type = "invoiceProduct";
 }

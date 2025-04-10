@@ -16,6 +16,10 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "invoice_products")
 public class InvoiceProduct extends Product{
 
+    @JsonProperty("cenaSuma")
+    @Column(name = "cena_suma")
+    private String sumPrice;
+
     @JsonProperty("jednostkaMiary")
     @Column(name = "measure_unit")
     private String measureUnit;

@@ -14,9 +14,6 @@ import java.util.Set;
 @Data
 public class ReceiptDto extends DocumentDto{
 
-    @JsonProperty("type")
-    private final String type = "receipt";
-
     @JsonProperty("dataZakupu")
     private String purchaseDate;
 
@@ -30,5 +27,7 @@ public class ReceiptDto extends DocumentDto{
     @JsonSetter(contentNulls = Nulls.SKIP)
     private Set<ReceiptProductDto> products;
 
+    @JsonProperty("type")
+    private final String type = "receipt";
 }
 
