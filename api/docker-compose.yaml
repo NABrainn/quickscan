@@ -3,7 +3,7 @@ services:
     container_name: scanner_db
     image: postgres:12
     ports:
-      - 5440:5432
+      - 5470:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
