@@ -3,4 +3,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 

@@ -3,6 +3,7 @@ package com.scanner.dto.document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+
 import com.scanner.dto.ClientDto;
 import com.scanner.dto.VendorDto;
 import com.scanner.dto.product.InvoiceProductDto;
