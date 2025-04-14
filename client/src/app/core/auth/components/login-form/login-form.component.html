@@ -1,0 +1,42 @@
+<mat-card class="mt-40 mx-auto w-1/5">
+    <form 
+    class="flex flex-col p-8"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()">
+        <h2
+        class="py-4 text-2xl font-bold text-primary-fixed">
+            Zaloguj się
+        </h2>
+        <mat-form-field>
+            <mat-label>Nazwa użytkownika</mat-label>
+            <input 
+            [formControl]="loginForm.controls.username"
+            matInput
+            type="text">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Hasło</mat-label>
+            <input 
+            [formControl]="loginForm.controls.password"
+            matInput
+            type="text">
+        </mat-form-field>
+        <div class="flex flex-col gap-4">
+            <button
+            type="submit"
+            mat-flat-button>Prześlij formularz</button>
+            <div class="flex justify-between">
+                <a
+                class="text-sm text-primary-fixed" 
+                type="button"
+                mat-flat-button>Przypomnij hasło</a>
+                <a
+                class="text-sm text-primary-fixed" 
+                routerLink="/rejestracja"
+                routerLinkActive="active"
+                type="button"
+                mat-flat-button>Załóż konto</a>
+            </div>
+        </div>
+    </form>
+</mat-card>

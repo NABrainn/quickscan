@@ -13,28 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptors([loadingInterceptor, authInterceptor, includeBearerTokenInterceptor])
+      withInterceptors([loadingInterceptor, authInterceptor])
     ),
-    provideKeycloak({
-      config: {
-        url: 'http://localhost:9090',
-        realm: 'scanner-network',
-        clientId: 'sn'
-      },
-      initOptions: {
-        onLoad: 'check-sso',
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
-      },
-      providers: [AutoRefreshTokenService, UserActivityService]
-    }),
-    {
-      provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-      useValue: [
-        {
-          urlPattern: /^http:\/\/localhost:8080\/api\//,
-          httpMethods: ['GET', 'POST', 'PUT', 'DELETE']
-        }
-      ]
-    },
   ]
 };

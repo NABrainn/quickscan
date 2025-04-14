@@ -4,6 +4,8 @@ import {MatProgressBar} from '@angular/material/progress-bar';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { LoadingService } from '@core/loading.service';
+import { AuthService } from '@core/auth/services/auth.service';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-root',
@@ -14,6 +16,7 @@ import { LoadingService } from '@core/loading.service';
         MatProgressBar,
         MatToolbar,
         MatIcon,
+        MatButtonModule
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
@@ -21,8 +24,17 @@ import { LoadingService } from '@core/loading.service';
 export class AppComponent {
 
     loadingService = inject(LoadingService);
+    authService = inject(AuthService);
 
     isLoading() {
         return this.loadingService.isLoading();
+    }
+
+    isLoggedIn() {
+        return this.authService.authenticated()
+    }
+
+    logout() {
+        this.authService.logout()
     }
 }

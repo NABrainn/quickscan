@@ -1,31 +1,38 @@
-import { HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpRequest } from "@angular/common/http";
+import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { catchError, finalize, Observable, throwError } from "rxjs";
+import { catchError, finalize, map, Observable, tap, throwError } from "rxjs";
 import { LoadingService } from "./loading.service";
 import { Router } from "@angular/router";
+import { AuthService } from "./auth/services/auth.service";
 
 export function loadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
 
-    const loadingService = inject(LoadingService);
+  const loadingService = inject(LoadingService);
 
-    loadingService.loadingOn();
-    return next(req).pipe(
-      finalize(() => {
-        loadingService.loadingOff();
-      })
-    )
+  loadingService.loadingOn();
+  return next(req).pipe(
+    finalize(() => {
+      loadingService.loadingOff();
+    })
+  )
 }
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>>  {
 
-  const router = inject(Router);
+  const authService = inject(AuthService);
 
-  return next(req).pipe(
-    catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        router.navigate(['/skaner/skanuj']);
-      }
-      return throwError(() => error);
-    })
-  );
+  let authorizedReq: HttpRequest<unknown> = req;
+
+  if(authService.getTokenPair().accessToken !== null)
+    authorizedReq = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${authService.getTokenPair().accessToken}`)
+    })  
+
+  return next(authorizedReq).pipe(    
+    catchError((error: HttpErrorResponse) => {      
+    if (error.status === 401 || error.status === 403) {
+      authService.logout()
+    }
+    return throwError(() => error);
+  }));
 }

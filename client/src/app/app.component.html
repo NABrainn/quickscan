@@ -1,4 +1,5 @@
 <div class="flex flex-col gap-12 sm:gap-8 min-h-screen bg-[var(--mat-sys-background)]">
+  @if(isLoggedIn()) {
   <nav class="flex top-0 sticky z-1">
     <mat-toolbar>
       <div class="hidden md:flex">
@@ -8,20 +9,34 @@
       <div class="grow-1 flex justify-center gap-8">
         <div class="flex items-center">
           <mat-icon>image_search</mat-icon>
-          <a mat-button routerLink="/skaner/skanuj" routerLinkActive="active">
+          <a 
+          mat-button 
+          routerLink="/skaner" 
+          routerLinkActive="active">
             <span class="font-semibold">Skaner</span>
           </a>
         </div>
         <div class="flex items-center">
           <mat-icon>collections</mat-icon>
-          <a mat-button routerLink="/dokumenty" routerLinkActive="active">
+          <a 
+          mat-button 
+          routerLink="/dokumenty" 
+          routerLinkActive="active">
             <span class="font-semibold">Dokumenty</span>
           </a>
         </div>
+
+      </div>
+      <div>
+          <a 
+          mat-button
+          (click)="logout()"
+          >Wyloguj</a>
       </div>
     </mat-toolbar>
   </nav>
-  <div class="flex-grow">
+  }
+  <div class="flex-grow flex flex-col">
     <router-outlet></router-outlet>
   </div>
   @if(isLoading()) {

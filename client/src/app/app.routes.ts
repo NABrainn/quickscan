@@ -1,37 +1,21 @@
 import { Routes } from '@angular/router';
-import { authGuard } from '@core/auth/auth-guard';
-import { stepperGuard } from '@features/scanner/guards/stepper.guard';
-import { ScannerComponent } from '@features/scanner/scanner.component';
+import { authGuard } from '@core/auth/auth.guard';
+import { StepperFormComponent } from '@features/stepper-form/stepper-form.component';
 
 
 export const routes: Routes = [
     { 
         path: 'skaner', 
-        component: ScannerComponent,
+        component: StepperFormComponent,
         canActivate: [authGuard],
-        children: [
-            {
-                path: '',
-                redirectTo: 'skanuj',
-                pathMatch: 'full',
-                
-            },
-            {
-                path: 'skanuj', 
-                loadComponent: () => import('./ui/file-upload/file-upload.component').then((c) => c.FileUploadComponent), 
-                canActivate: [authGuard, stepperGuard]
-            },
-            {
-                path: 'przeslij', 
-                loadComponent: () => import('./ui/document-menu/document-menu.component').then((c) => c.DocumentMenuComponent), 
-                canActivate: [authGuard, stepperGuard]
-            },
-            {
-                path: 'gotowe', 
-                loadComponent: () => import('./ui/ready-card/ready-card.component').then((c) => c.ReadyCardComponent), 
-                canActivate: [authGuard, stepperGuard]
-            }
-        ]
+    },
+    {
+        path: 'rejestracja',
+        loadComponent: () => import('./core/auth/components/signup-form/signup-form.component').then((c) => c.SignupFormComponent)
+    },
+    {
+        path: 'logowanie',
+        loadComponent: () => import('./core/auth/components/login-form/login-form.component').then((c) => c.LoginFormComponent)
     },
     {
         path: 'dokumenty',
@@ -40,7 +24,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: 'skaner/skanuj',
+        redirectTo: 'skaner',
         pathMatch: 'full',
         
     },
