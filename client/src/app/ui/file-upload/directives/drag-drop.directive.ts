@@ -1,17 +1,22 @@
 import { Directive, ElementRef, HostListener, inject, output } from '@angular/core';
-import { Colors } from '@shared/enums';
 
 @Directive({
-  selector: '[dragDrop]'
+  selector: '[dragDrop]',
+  host: {
+    '(drop)': 'onDrop($event)',
+    '(dragover)': 'onDragover($event)',
+    '(dragleave)': 'onDragleave($event)',
+    '(mouseleave)': 'onMouseLeave($event)', 
+  }
 })
 export class DragDropDirective {
 
   ref = inject(ElementRef);
   fileDropped = output<File | undefined>();
-  prevColor = this.ref.nativeElement.style.backgroundColor;
-  
 
-  @HostListener('drop', ['$event'])
+  currColor = 'red';
+  prevColor = 'blue';
+  
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();
@@ -21,27 +26,26 @@ export class DragDropDirective {
       this.fileDropped.emit(files?.[0]);
   }
 
-  @HostListener('dragover', ['$event'])
   onDragover(event: Event) {
+    console.log('kurwa');
+    
     event.preventDefault();
     event.stopPropagation();
-    this.ref.nativeElement.style.backgroundColor = Colors.secondary
+    this.ref.nativeElement.style.backgroundColor = 'var(--mat-sys-secondary)'
   }
 
-  @HostListener('dragleave', ['$event'])
   onDragleave(event: Event) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.ref.nativeElement.style.backgroundColor = this.prevColor
+    this.ref.nativeElement.style.backgroundColor = '#487f87'
   }
   
-  @HostListener('mouseleave', ['$event'])
   onMouseLeave(event: Event) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.ref.nativeElement.style.backgroundColor = this.prevColor
+    this.ref.nativeElement.style.backgroundColor = '#487f87'
 
 
   }

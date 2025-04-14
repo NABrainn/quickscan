@@ -1,0 +1,28 @@
+<mat-stepper linear>
+    <mat-step 
+    [optional]="false"
+    [stepControl]="fileForm">
+        <ng-template 
+        matStepLabel>Wgraj plik</ng-template>
+        <ng-template matStepContent>
+            <app-file-upload
+            [fileForm]="fileForm">
+            </app-file-upload>
+        </ng-template>
+    </mat-step>
+    <mat-step 
+    [optional]="false"
+    [stepControl]="documentForm">
+        <ng-template 
+        matStepLabel>Potwierdzenie</ng-template>
+        <ng-template matStepContent>
+
+        </ng-template>
+    </mat-step>
+    <mat-step>
+        <ng-template 
+        matStepLabel>Gotowe</ng-template>
+        <ng-template matStepContent>
+        </ng-template>
+    </mat-step>
+</mat-stepper>

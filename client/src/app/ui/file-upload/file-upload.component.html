@@ -1,6 +1,6 @@
 <mat-card class="p-8 flex flex-col justify-center">
     <div 
-      class="w-full border-2 border-[var(--mat-sys-on-secondary-fixed-variant)] border-dashed"
+      class="w-full border-2 border-on-secondary-fixed-variant border-dashed"
       dragDrop
       (fileDropped)="onFileDropped($event)">
       <mat-card-content class="m-2 md:m-8">
@@ -10,16 +10,15 @@
             class="mat-icon-lg">
             file_upload
           </mat-icon>
-          <form [formGroup]="fileUploadForm">
+          <form>
             <input 
               accept="image/png, image/jpeg"
               type="file" 
               class="hidden"
               #fileInput
-              formControlName="file"
               (change)="onFileClicked($event)">
           </form>
-          <span class="block text-[var(--mat-sys-secondary-fixed)]">
+          <span class="block text-secondary-fixed">
             Wrzuć zdjęcie dokumentu albo 
             <a 
               (click)="fileInput.click()"
@@ -27,8 +26,8 @@
               wybierz z dysku
             </a>
           </span>
-          <span class="block text-[var(--mat-sys-secondary-fixed)]">obsługiwane formaty: .jpg / .jpeg / .png</span>
-          <span class="text-[var(--mat-sys-error)]">{{cErrorMsg()}}</span>
+          <span class="block text-secondary-fixed">obsługiwane formaty: .jpg / .jpeg / .png</span>
+          <span class="text-error">{{message()}}</span>
         </div>
       </mat-card-content>
     </div>
