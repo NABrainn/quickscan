@@ -22,9 +22,7 @@ import { Subscription } from 'rxjs';
   ],
   templateUrl: './signup-form.component.html'
 })
-export class SignupFormComponent implements OnDestroy {
-
-  #submitSubscription!: Subscription;
+export class SignupFormComponent {
 
   #fb = inject(FormBuilder);
   #service = inject(AuthService)
@@ -40,7 +38,7 @@ export class SignupFormComponent implements OnDestroy {
     if(this.signupForm.invalid)
       return
     
-    this.#submitSubscription = this.#service.signup(this.signupForm.value as AuthUser).subscribe({
+    this.#service.signup(this.signupForm.value as AuthUser).subscribe({
       next: () => {
         this.#router.navigate(['logowanie'])
       },
@@ -50,8 +48,4 @@ export class SignupFormComponent implements OnDestroy {
     })
   }
 
-  ngOnDestroy(): void {
-    if(this.#submitSubscription)
-      this.#submitSubscription.unsubscribe()
-  }
 }

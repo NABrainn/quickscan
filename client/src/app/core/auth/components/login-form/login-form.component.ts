@@ -24,8 +24,6 @@ import { Subscription } from 'rxjs';
 })
 export class LoginFormComponent {
 
-  #submitSubscription!: Subscription;
-
   #fb = inject(FormBuilder);
   #service = inject(AuthService)
   #router = inject(Router)
@@ -39,7 +37,7 @@ export class LoginFormComponent {
     if(this.loginForm.invalid)
       return
 
-    this.#submitSubscription = this.#service.login(this.loginForm.value as AuthUser).subscribe({
+    this.#service.login(this.loginForm.value as AuthUser).subscribe({
       next: (res: any) => {                
         this.#service.setTokenPair(res.tokenPair.accessToken, res.tokenPair.refreshToken);        
         this.#router.navigate(['skaner'])
@@ -48,10 +46,5 @@ export class LoginFormComponent {
         console.error('an error occurred: ', err);
       }
     })
-  }
-
-  ngOnDestroy(): void {
-    if(this.#submitSubscription)
-      this.#submitSubscription.unsubscribe()
   }
 }
