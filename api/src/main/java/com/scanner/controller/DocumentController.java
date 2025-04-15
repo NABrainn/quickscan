@@ -49,9 +49,13 @@ public class DocumentController {
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "false") boolean ascending,
             Authentication authentication) {
-        Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return documentService.getDocumentPage(authentication.getName(), pageable);
+        try {
+            Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+            Pageable pageable = PageRequest.of(page, size, sort);
+            return documentService.getDocumentPage(authentication.getName(), pageable);
+        } catch (DocumentServiceException e) {
+            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
+        }
     }
 
     @PutMapping
