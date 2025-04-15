@@ -1,4 +1,4 @@
 package com.scanner.controller.authentication.dto;
 
-public record SignupResponse() {
+public record SignupResponse(String message) {
 }
