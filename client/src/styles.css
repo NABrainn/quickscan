@@ -5,6 +5,13 @@
     --color-primary-fixed: light-dark(#bfeaef, #bfeaef);
     --color-on-tertiary: light-dark(#ffffff, #5a1b0b);
     --color-tertiary: light-dark(#964734, #ffb4a3);
+    --color-on-secondary-fixed-variant: light-dark(#0c4e55, #0c4e55);
+    --color-secondary-fixed: light-dark(#b3ecf4, #b3ecf4);
+    --color-error: light-dark(#ba1a1a, #ffb4ab);
+    --color-on-tertiary-fixed-variant: light-dark(#78301f, #78301f);
+    --color-error-container: light-dark(#ffdad6, #93000a);
+    --color-on-error: light-dark(#ffffff, #690005);
+    --color-on-error-container: light-dark(#410002, #ffdad6);
 }
 
 :root {
