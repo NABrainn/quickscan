@@ -2,14 +2,12 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { DocumentsPageService } from './services/documents-page.service';
 import { map, catchError, tap, Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { Document, Invoice, Receipt } from 'app/shared/types';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ScrollerDirective } from './directives/scroller.directive';
-import { DocumentComponent } from 'app/ui/document/document.component';
 import { DocumentMenuComponent } from 'app/ui/document-menu/document-menu.component';
 import { MatMiniFabButton } from '@angular/material/button';
 import {MatOption, MatSelect} from '@angular/material/select';
@@ -31,9 +29,6 @@ enum FilterOption {
     MatSuffix,
     MatIcon,
     ScrollerDirective,
-    DocumentComponent,
-    DocumentMenuComponent,
-    MatMiniFabButton,
     MatIcon,
     MatSelect,
     MatOption
@@ -49,15 +44,15 @@ export class DocumentsPage {
   private readonly _modalOpen = signal<boolean>(false);
   modalOpen = computed(() => this._modalOpen());
 
-  private readonly _fetchedDocument = signal<Document>({});
-  fetchedDocument = computed(() => this._fetchedDocument());
+  // private readonly _fetchedDocument = signal<Document>({});
+  // fetchedDocument = computed(() => this._fetchedDocument());
 
   selected = FilterOption.All;
 
   private readonly _documents = signal<Document[]>([]);
   documents = computed(() => this._documents());
-  invoices = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'invoice') as Invoice[]);
-  receipts = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'receipt') as Receipt[]);
+  // invoices = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'invoice') as Invoice[]);
+  // receipts = computed(() => this._documents().filter(doc => doc.type?.toLowerCase() === 'receipt') as Receipt[]);
 
   private pageSize: number = 12;
   filterOptions: FilterOption[] = [FilterOption.Invoice, FilterOption.Receipt, FilterOption.All];
@@ -87,8 +82,8 @@ export class DocumentsPage {
   }
 
   onDocumentClick(document: Document) {
-    document = this.service.findById(document.id).subscribe((data) => this._fetchedDocument.set(data));
-    this._modalOpen.set(true);
+    // document = this.service.findById(document.id).subscribe((data) => this._fetchedDocument.set(data));
+    // this._modalOpen.set(true);
   }
 
   onSubmit(event: Event) {
@@ -113,25 +108,25 @@ export class DocumentsPage {
   }
 
   onDelete() {
-    this.service.delete(this.fetchedDocument().id).subscribe({
-      next: () => {
-        this._documents.update(prev => prev.filter(doc => doc.id !== this.fetchedDocument().id))
-        this.toggleModal();
-      }
-    });
+    // this.service.delete(this.fetchedDocument().id).subscribe({
+    //   next: () => {
+    //     this._documents.update(prev => prev.filter(doc => doc.id !== this.fetchedDocument().id))
+    //     this.toggleModal();
+    //   }
+    // });
   }
 
   onRequestUpload(document: Document) {
-    this.service.update(document).subscribe({
-      next: (currDoc: Document) => {
-        this._documents.update(prev => {
-          const idx = prev.findIndex(prevDoc => prevDoc.id === currDoc.id);
-          const curr = [...prev];
-          curr[idx] = currDoc;
-          return curr; 
-        })
-      }
-    });
+    // this.service.update(document).subscribe({
+    //   next: (currDoc: Document) => {
+    //     this._documents.update(prev => {
+    //       const idx = prev.findIndex(prevDoc => prevDoc.id === currDoc.id);
+    //       const curr = [...prev];
+    //       curr[idx] = currDoc;
+    //       return curr; 
+    //     })
+    //   }
+    // });
   }
 
   toggleModal() {

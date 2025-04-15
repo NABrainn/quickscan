@@ -1,11 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Invoice, Receipt } from "./types";
+import { Invoice, Receipt } from "./services/document/document.service";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class TestObjects {
-    helperInvoice(): Invoice {
+    static helperInvoice(): Invoice {
         const json: string = `
         {
             "type": "invoice",
@@ -55,7 +52,7 @@ export class TestObjects {
         return JSON.parse(json);
     }
     
-    helperReceipt(): Receipt {
+    static helperReceipt(): Receipt {
         const json: string = `
         {
           "type":"receipt",

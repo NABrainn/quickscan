@@ -1,8 +1,7 @@
 <mat-card class="flex flex-col gap-2 p-2">
     <mat-card-content>
         <app-document-form 
-        (documentChange)="document.set($event)"
-        [canEdit]="canEdit()"
+        [readonly]="readonly()"
         [detailsOpen]="detailsOpen()"
         [document]="document()">
             

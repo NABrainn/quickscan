@@ -26,9 +26,7 @@ export class DragDropDirective {
       this.fileDropped.emit(files?.[0]);
   }
 
-  onDragover(event: Event) {
-    console.log('kurwa');
-    
+  onDragover(event: Event) {    
     event.preventDefault();
     event.stopPropagation();
     this.ref.nativeElement.style.backgroundColor = 'var(--mat-sys-secondary)'

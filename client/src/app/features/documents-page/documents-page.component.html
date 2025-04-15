@@ -33,7 +33,7 @@
         <p class="pl-8 text-2xl text-primary">Nie znaleziono dokumentów do wyświetlenia.</p>
     }
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
-    @switch(selected) {
+    <!-- @switch(selected) {
         @case (filterOptions[0]) {
             @for(invoice of invoices(); track $index) {
                 <app-document
@@ -55,12 +55,12 @@
                 [document]="document"></app-document>
             }
         }
-    }
+    } -->
     </div>
     @if(modalOpen()) {
         <div (click)="toggleModal(); $event.stopImmediatePropagation()" class="fixed z-50 left-0 top-0 bg-gray-500/75 w-screen h-screen flex justify-center items-center">
             <div (click)="$event.stopPropagation()" class="min-w-2/5">
-                <app-document-menu
+                <!-- <app-document-menu
                 (requestUpload)="onRequestUpload($event)"
                 [document]="fetchedDocument()">
                     <div ngProjectAs="first-button"></div>
@@ -72,7 +72,7 @@
                             <mat-icon >delete</mat-icon>
                         </button>
                     </div>
-                </app-document-menu>
+                </app-document-menu> -->
             </div>
         </div>
     }

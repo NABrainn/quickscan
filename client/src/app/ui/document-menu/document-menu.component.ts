@@ -2,8 +2,8 @@ import { Component, computed, input, model, output, signal, viewChild } from '@a
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 
 import { MatButton } from '@angular/material/button';
-import { Document } from '@shared/services/document.service';
 import { DocumentForm } from '@ui/document-form/document-form.component';
+import { BillingDocument } from '@shared/services/document/document.service';
 
 @Component({
   selector: 'app-document-menu',
@@ -19,31 +19,32 @@ import { DocumentForm } from '@ui/document-form/document-form.component';
 })
 export class DocumentMenuComponent {
 
-  form = viewChild(DocumentForm)
+  documentForm = viewChild(DocumentForm)
 
-  readonly #canEdit = signal<boolean>(false);
-  canEdit = computed(() => this.#canEdit())
+  readonly #readonly = signal<boolean>(true);
+  readonly = computed(() => this.#readonly())
+
+  readonly #detailsOpen = signal<boolean>(false);
+  detailsOpen = computed(() => this.#detailsOpen());
 
   readonly message = input<string>('');
-  readonly detailsOpen = model<boolean>(false);
-  document = model<Document>();
+  document = input<BillingDocument>();
 
-
-  requestRegenerate = output<void>();
-  requestUpload = output<Document | undefined>();
+  regenerateDocument = output<void>();
+  saveDocument = output<BillingDocument | undefined>();
 
   regenerate() {
-    this.requestRegenerate.emit();
+    this.regenerateDocument.emit();
   }
 
   edit() {
-    this.#canEdit.update(prev => !prev);
-    this.detailsOpen.update(prev => !prev);
+    this.#readonly.update(prev => !prev);
+    this.#detailsOpen.update(prev => !prev);
   }
 
   save() {
-    if(this.form()?.form.valid) {
-      this.requestUpload.emit(this.document());
+    if(this.documentForm()?.form.valid) {      
+      this.saveDocument.emit(this.document());
     }
   }
 }

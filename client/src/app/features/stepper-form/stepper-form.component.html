@@ -1,28 +1,32 @@
-<mat-stepper linear>
+<mat-stepper 
+class="w-3/5 mx-auto"
+linear>
     <mat-step 
-    [optional]="false"
-    [stepControl]="fileForm">
+    [stepControl]="fileUploadControl">
         <ng-template 
         matStepLabel>Wgraj plik</ng-template>
         <ng-template matStepContent>
             <app-file-upload
-            [fileForm]="fileForm">
+            (fileUpload)="onFileUpload($event)">
             </app-file-upload>
         </ng-template>
     </mat-step>
     <mat-step 
-    [optional]="false"
-    [stepControl]="documentForm">
+    [stepControl]="documentFormControl">
         <ng-template 
         matStepLabel>Potwierdzenie</ng-template>
         <ng-template matStepContent>
-
+            <app-document-menu
+            (saveDocument)="onSaveDocument($event)"
+            [document]="document()">
+            </app-document-menu>
         </ng-template>
     </mat-step>
     <mat-step>
         <ng-template 
         matStepLabel>Gotowe</ng-template>
         <ng-template matStepContent>
+            <app-ready-card></app-ready-card>
         </ng-template>
     </mat-step>
 </mat-stepper>

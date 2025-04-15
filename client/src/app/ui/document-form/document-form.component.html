@@ -8,7 +8,7 @@ flex flex-col gap-2 overflow-y-scroll">
                     <input 
                     class="basis-1/2"
                     [formControl]="(control.value | asFormControl)"
-                    [readonly]="canEdit()">
+                    [readonly]="readonly()">
                 </div>
             }
             @if(control.value | isFormGroup) {
@@ -18,7 +18,7 @@ flex flex-col gap-2 overflow-y-scroll">
                         <span class="basis-1/2">{{control.key}}</span>
                         <span 
                         class="basis-1/2"
-                        (click)="toggleGroup(control.key)">Wyświetl szczegóły</span>
+                        (click)="toggleDetails(control.key)">Wyświetl szczegóły</span>
                     </div>
                     <app-form-details
                     [controlKey]="control.key"
@@ -47,7 +47,7 @@ flex flex-col gap-2 overflow-y-scroll">
                         <span class="basis-1/2">{{control.key}}</span>
                         <span 
                         class="basis-1/2"
-                        (click)="toggleArray(control.key)">Wyświetl szczegóły</span>
+                        (click)="toggleDetails(control.key)">Wyświetl szczegóły</span>
                     </div>
                     <app-form-details
                     [controlKey]="control.key"
@@ -64,7 +64,7 @@ flex flex-col gap-2 overflow-y-scroll">
                                                 <input 
                                                 class="basis-1/2"
                                                 [formControl]="(ctrl.value | asFormControl)"
-                                                [readonly]="canEdit()">
+                                                [readonly]="readonly()">
                                             </div>
                                         }
                                         </div>

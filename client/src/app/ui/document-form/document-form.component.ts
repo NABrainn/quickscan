@@ -7,9 +7,9 @@ import { AsFormGroupPipe } from '@shared/form/pipes/as-form-group.pipe';
 import { IsFormArrayPipe } from '@shared/form/pipes/is-form-array.pipe';
 import { IsFormControlPipe } from '@shared/form/pipes/is-form-control.pipe';
 import { IsFormGroupPipe } from '@shared/form/pipes/is-form-group.pipe';
-import { Document, Invoice, Receipt } from '@shared/services/document.service';
-import { isInvoice, isReceipt } from '@shared/type-guards';
 import { FormDetailsComponent } from './form-details/form-details.component';
+import { BillingDocument, InvoiceProduct } from '@shared/services/document/document.service';
+import { isInvoice } from '@shared/services/type-guards';
 
 @Component({
   selector: 'app-document-form',
@@ -28,18 +28,18 @@ import { FormDetailsComponent } from './form-details/form-details.component';
 })
 export class DocumentForm implements OnInit {
 
-  fb = inject(FormBuilder);
+  #fb = inject(FormBuilder);
   details = viewChildren(FormDetailsComponent)
   form!: FormGroup;
 
   detailsOpen = input.required<boolean>();
-  canEdit = input.required<boolean>();
-  document = model<Document>();
+  readonly = input.required<boolean>();
+  document = model<BillingDocument>();
 
-  private initForm(document: Document | undefined) {
+  private initDocumentForm(document: BillingDocument | undefined) {
     if(!document) return
     if(isInvoice(document)) {
-      this.form = this.fb.group({
+      this.form = this.#fb.group({
         numerFaktury: [document.numerFaktury],
         nrRachunkuBankowego: [document.nrRachunkuBankowego],
         dataWystawienia: [document.dataWystawienia],
@@ -50,21 +50,21 @@ export class DocumentForm implements OnInit {
         razemBrutto: [document.razemBrutto],
         waluta: [document.waluta],
         formaPłatności: [document.formaPłatności],
-        odbiorca: this.fb.group({
-          nazwa: [document.odbiorca?.nazwa],
-          nip: [document.odbiorca?.nip],
-          adres: [document.odbiorca?.adres],
+        odbiorca: this.#fb.group({
+          nazwa: [document.odbiorca.nazwa],
+          nip: [document.odbiorca.nip],
+          adres: [document.odbiorca.adres],
         }),
-        sprzedawca: this.fb.group({
+        sprzedawca: this.#fb.group({
           nazwa: [document.sprzedawca?.nazwa],
           nip: [document.sprzedawca?.nip],
           adres: [document.sprzedawca?.adres],
         }),
-        produkty: this.fb.array([]),
+        produkty: this.#fb.array([]),
       });
 
       const formArray = this.form.get('produkty') as FormArray;
-      document.produkty?.forEach(product => formArray.push(this.fb.group({
+      document.produkty.forEach(product => formArray.push(this.#fb.group({
         nazwaProduktu: [product.nazwaProduktu],
         ilość: [product.ilość],
         cenaSuma: [product.cenaSuma],
@@ -77,14 +77,14 @@ export class DocumentForm implements OnInit {
     }
 
     else {
-      this.form = this.fb.group({
+      this.form = this.#fb.group({
         dataZakupu: [''],
         nazwaSklepu: [''],
         kwotaCałkowita: [''],
-        produkty: this.fb.array([]),
+        produkty: this.#fb.array([]),
       });
       const formArray = this.form.get('produkty') as FormArray;
-      document.produkty?.forEach(product => formArray.push(this.fb.group({
+      document.produkty?.forEach(product => formArray.push(this.#fb.group({
         nazwaProduktu: [product.nazwaProduktu],
         ilość: [product.ilość],
         cenaSuma: [product.cenaSuma],
@@ -92,17 +92,12 @@ export class DocumentForm implements OnInit {
     }
   }
 
-  toggleGroup(key: string) {
-    const groupDetails = this.details().find(detail => detail.controlKey() === key);
-    groupDetails?.visible.update(prev => !prev)
-  }
-
-  toggleArray(key: string) {
-    const arrayDetails = this.details().find(detail => detail.controlKey() === key);
-    arrayDetails?.visible.update(prev => !prev)  
+  toggleDetails(key: string) {
+    const details = this.details().find(detail => detail.controlKey() === key);
+    details?.visible.update(prev => !prev)
   }
 
   ngOnInit(): void {
-    this.initForm(this.document())      
+    this.initDocumentForm(this.document())      
   }
 }

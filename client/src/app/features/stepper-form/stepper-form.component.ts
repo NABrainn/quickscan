@@ -1,49 +1,49 @@
-import { Component, inject, OnDestroy, OnInit, viewChild } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, computed, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatStep, MatStepContent, MatStepLabel, MatStepper, MatStepperModule} from '@angular/material/stepper';
-import { fileTypeValidator } from '@shared/form/validators/file-validators';
+import { fileSizeValidator, fileTypeValidator } from '@shared/form/validators/file-validators';
+import { BillingDocument } from '@shared/services/document/document.service';
+import { isInvoice } from '@shared/services/type-guards';
+import { TestObjects } from '@shared/test-objects';
+import { DocumentForm } from '@ui/document-form/document-form.component';
+import { DocumentMenuComponent } from '@ui/document-menu/document-menu.component';
 import { FileUploadComponent } from '@ui/file-upload/file-upload.component';
+import { ReadyCardComponent } from '@ui/ready-card/ready-card.component';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'app-stepper-form',
   imports: [
     MatStepperModule,
     FileUploadComponent,
+    DocumentMenuComponent,
+    ReadyCardComponent
   ],
   templateUrl: './stepper-form.component.html'
 })
-export class StepperFormComponent implements OnInit, OnDestroy {
-
-  #fileUploadValidSubscription!: Subscription;
+export class StepperFormComponent {
 
   #fb = inject(FormBuilder);
   stepper = viewChild(MatStepper);
 
-  fileForm = this.#fb.nonNullable.control<File | undefined>(undefined, [
-    Validators.required, 
-    Validators.maxLength(5 * 1024 * 1024), 
-    fileTypeValidator(['image/jpeg', 'image/png'])
+  #document = signal<BillingDocument | undefined>(undefined);
+  document = computed(() => this.#document());
+
+  fileUploadControl = this.#fb.nonNullable.control<FormData | undefined>(undefined, [
+    Validators.required,
   ]);
-  documentForm = this.#fb.nonNullable.control('', Validators.required);
+  documentFormControl = this.#fb.nonNullable.control<BillingDocument | undefined>(undefined, [
+    Validators.required,
+  ]);
 
-  onFileUploadChange() {   
-    if(this.stepper())
-      this.stepper()!.next()    
+  onFileUpload(formData: FormData) {    
+    this.#document.set(TestObjects.helperInvoice());
+    this.fileUploadControl.setValue(formData);
+    this.stepper()?.next();
   }
 
-  ngOnInit() {
-    this.#fileUploadValidSubscription = this.fileForm.statusChanges.subscribe(
-      (value) => {
-        if(value === 'VALID') {
-          this.stepper()!.next();
-        }
-      }
-    )
-  }
-
-  ngOnDestroy(): void {
-    this.#fileUploadValidSubscription.unsubscribe();
+  onSaveDocument(document: BillingDocument | undefined) {
+    this.documentFormControl.setValue(document);
+    this.stepper()?.next();
   }
 }
