@@ -52,7 +52,7 @@ public class JwtService {
 
     public String generateRefreshToken(Authentication authentication) {
         String claim = "refresh";
-        return generateToken(authentication, claim, 86400000);
+        return generateToken(authentication, claim, 864000000);
     }
 
     public String generateToken(Authentication authentication, String tokenType, int expiration) {
