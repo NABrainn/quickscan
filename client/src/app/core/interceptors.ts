@@ -22,8 +22,8 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
   const authService = inject(AuthService);
 
   let authorizedReq: HttpRequest<unknown> = req;
-
-  if(authService.getTokenPair().accessToken !== null)
+  
+  if(authService.getTokenPair().accessToken !== undefined && authService.getTokenPair().accessToken !== null)    
     authorizedReq = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${authService.getTokenPair().accessToken}`)
     })  

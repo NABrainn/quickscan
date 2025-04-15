@@ -38,8 +38,8 @@ export class LoginFormComponent {
       return
 
     this.#service.login(this.loginForm.value as AuthUser).subscribe({
-      next: (res: any) => {                
-        this.#service.setTokenPair(res.tokenPair.accessToken, res.tokenPair.refreshToken);        
+      next: (res: any) => {     
+        this.#service.authenticate(res.tokenPair as TokenPair);       
         this.#router.navigate(['skaner'])
       },
       error: (err) => {
