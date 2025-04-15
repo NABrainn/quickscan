@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,28 +30,33 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    public void signup(SignupRequest request) {
-        if (userRepository.findByUsername(request.username()).isPresent()) {
+    public SignupResponse signup(SignupRequest request) {
+        if (!userRepository.findByUsername(request.getUsername()).isPresent()) {
             EntityUser user = EntityUser.builder()
-                    .username(request.username())
-                    .email(request.email())
-                    .password(passwordEncoder.encode(request.password()))
-                    .role(request.role())
+                    .username(request.getUsername())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(request.getRole())
                     .build();
             userRepository.save(user);
+            return new SignupResponse("Użytkownik zarejestrowany pomyślnie");
         }
-        throw new AuthenticationServiceException("User with that name already exists", HttpStatus.BAD_REQUEST);
+        throw new AuthenticationServiceException("Użytkownik o tej nazwie już istnieje", HttpStatus.BAD_REQUEST);
     }
 
     public LoginResponse login(LoginRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.username(),
-                        request.password()
-                )
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new LoginResponse(jwtService.generateTokenPair(authentication));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.username(),
+                            request.password()
+                    )
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return new LoginResponse(jwtService.generateTokenPair(authentication));
+        } catch (AuthenticationException e) {
+            throw new AuthenticationServiceException(e.getMessage(), HttpStatus.FORBIDDEN);
+        }
     }
 
     public RefreshTokenResponse refreshToken(RefreshTokenRequest request) {
@@ -59,10 +65,9 @@ public class AuthenticationService {
         if(!jwtService.isRefreshToken(refreshToken)) {
             throw new AuthenticationServiceException("Invalid refresh token", HttpStatus.UNAUTHORIZED);
         }
-        String username;
         Optional<String> optionalUsername = jwtService.extractUsername(refreshToken);
         if(optionalUsername.isPresent()) {
-            username = optionalUsername.get();
+            String username = optionalUsername.get();
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
