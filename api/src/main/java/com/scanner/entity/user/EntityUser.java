@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "users")
@@ -24,4 +26,11 @@ public class EntityUser {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public EntityUser(String password, String username, Role role, String email) {
+        this.password = password;
+        this.username = username;
+        this.role = role;
+        this.email = email;
+    }
 }
