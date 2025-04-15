@@ -29,7 +29,6 @@ export class AuthService {
   }
 
   login(data: AuthUser) {
-    this.authenticated.set(true);
     return this.#http.post(`${API_URL}/auth/login`, data)
   }
 
