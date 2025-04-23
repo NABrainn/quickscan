@@ -6,7 +6,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService, AuthUser, TokenPair } from '@core/auth/services/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -42,9 +41,14 @@ export class LoginFormComponent {
         this.#service.authenticate(res.tokenPair as TokenPair);       
         this.#router.navigate(['skaner'])
       },
-      error: (err) => {
-        console.error('an error occurred: ', err);
-      }
     })
+  }
+
+  state() {
+    return this.#service.state();
+  }
+
+  reset() {
+    this.#service.reset()
   }
 }

@@ -17,7 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost:5470/scanner
+    url: jdbc:postgresql://scanner_db:5432/scanner
     username: postgres
     password: postgres
 

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject, output } from '@angular/core';
+import { Directive, ElementRef, inject, output } from '@angular/core';
 
 @Directive({
   selector: '[dragDrop]',

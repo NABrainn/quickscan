@@ -1,9 +1,8 @@
 import { HttpErrorResponse, HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { catchError, finalize, map, Observable, tap, throwError } from "rxjs";
-import { LoadingService } from "./loading.service";
-import { Router } from "@angular/router";
 import { AuthService } from "./auth/services/auth.service";
+import { LoadingService } from "./auth/services/loading.service";
 
 export function loadingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
 

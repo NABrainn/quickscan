@@ -1,4 +1,3 @@
-import { Injectable } from "@angular/core";
 import { Invoice, Receipt } from "./services/document/document.service";
 
 export class TestObjects {

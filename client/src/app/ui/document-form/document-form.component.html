@@ -1,37 +1,48 @@
 <div class="
-flex flex-col gap-2 overflow-y-scroll">
+flex flex-col gap-2 h-140 overflow-y-scroll">
     <form [formGroup]="form!">
         @for(control of form!.controls | keyvalue; track $index; let i = $index) {
             @if(control.value | isFormControl) {    
                 <div class="flex">
-                    <span class="basis-1/2">{{control.key}}</span>
-                    <input 
-                    class="basis-1/2"
-                    [formControl]="(control.value | asFormControl)"
-                    [readonly]="readonly()">
+                    <span class="basis-1/4">{{control.key | camelCaseText | titlecase}}</span>
+                    <mat-form-field 
+                    [ngClass]="!readonly() ? 'list-field' : 'list-field-readonly'"
+                    class="basis-3/4">
+                        <input 
+                        matInput
+                        [formControl]="(control.value | asFormControl)"
+                        [readonly]="readonly()">
+                    </mat-form-field>
                 </div>
             }
             @if(control.value | isFormGroup) {
                 @let group = (control.value) | asFormGroup;
                 <div class="flex flex-col">
-                    <div class="flex">
-                        <span class="basis-1/2">{{control.key}}</span>
+                    <div class="flex py-4">
+                        <span class="basis-1/4">{{control.key | camelCaseText | titlecase}}</span>
                         <span 
-                        class="basis-1/2"
+                        class="basis-3/4 cursor-pointer select-none"
                         (click)="toggleDetails(control.key)">Wyświetl szczegóły</span>
                     </div>
                     <app-form-details
                     [controlKey]="control.key"
                     [visible]="detailsOpen()">
-                        <div ngProjectAs="details">
+                        <div 
+                        class="pt-2"
+                        ngProjectAs="details">
                             <form [formGroup]="group | asFormGroup">
                                 <div class="flex flex-col">
                                 @for(ctrl of group.controls | keyvalue; track $index) {
                                     <div class="flex">
-                                        <span class="basis-1/2 pl-8">{{ctrl.key}}</span>
-                                        <input 
-                                        class="basis-1/2"
-                                        [formControl]="(ctrl.value | asFormControl)">
+                                        <span class="basis-1/4 pl-8">{{ctrl.key | camelCaseText | titlecase}}</span>
+                                        <mat-form-field 
+                                        [ngClass]="!readonly() ? 'list-field' : 'list-field-readonly'"
+                                        class="basis-3/4">
+                                            <input 
+                                            matInput
+                                            [formControl]="(ctrl.value | asFormControl)"
+                                            [readonly]="readonly()">
+                                        </mat-form-field>
                                     </div>
                                 }
                                 </div>
@@ -43,16 +54,18 @@ flex flex-col gap-2 overflow-y-scroll">
             @if(control.value | isFormArray) {
                 <div class="flex flex-col">
                     @let array = (control.value) | asFormArray;
-                    <div class="flex">
-                        <span class="basis-1/2">{{control.key}}</span>
+                    <div class="flex py-4">
+                        <span class="basis-1/4">{{control.key | camelCaseText | titlecase}}</span>
                         <span 
-                        class="basis-1/2"
+                        class="basis-3/4 cursor-pointer select-none"
                         (click)="toggleDetails(control.key)">Wyświetl szczegóły</span>
                     </div>
                     <app-form-details
                     [controlKey]="control.key"
                     [visible]="detailsOpen()">
-                        <div ngProjectAs="details">
+                        <div 
+                        class="pt-2"
+                        ngProjectAs="details">
                             <form>
                                 <div class="flex flex-col gap-2">
                                 @for(group of array.controls; track $index) {
@@ -60,11 +73,15 @@ flex flex-col gap-2 overflow-y-scroll">
                                         <div>
                                         @for(ctrl of (group | asFormGroup).controls | keyvalue; track $index) {
                                             <div class="flex">
-                                                <span class="basis-1/2 pl-8">{{ctrl.key}}</span>
-                                                <input 
-                                                class="basis-1/2"
-                                                [formControl]="(ctrl.value | asFormControl)"
-                                                [readonly]="readonly()">
+                                                <span class="basis-1/4 pl-8">{{ctrl.key | camelCaseText | titlecase}}</span>
+                                                <mat-form-field 
+                                                [ngClass]="!readonly() ? 'list-field' : 'list-field-readonly'"
+                                                class="basis-3/4">
+                                                    <input 
+                                                    matInput
+                                                    [formControl]="(ctrl.value | asFormControl)"
+                                                    [readonly]="readonly()">
+                                                </mat-form-field>
                                             </div>
                                         }
                                         </div>
@@ -79,3 +96,5 @@ flex flex-col gap-2 overflow-y-scroll">
         }
     </form>
 </div>
+
+

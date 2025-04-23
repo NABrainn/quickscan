@@ -1,0 +1,29 @@
+services:
+  scanner_db:
+    container_name: scanner_db
+    image: postgres:12
+    ports:
+      - 5470:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: scanner
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  frontend:
+    container_name: frontend
+    build: ./client
+    ports: 
+      - "9000:80"
+    depends_on:
+      - backend
+  backend:
+    container_name: backend
+    build: ./api
+    expose:
+      - "8080"
+    depends_on:
+      - scanner_db
+
+volumes:
+  pgdata: {}

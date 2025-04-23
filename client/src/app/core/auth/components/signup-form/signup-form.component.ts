@@ -6,7 +6,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService, AuthUser } from '@core/auth/services/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup-form',
@@ -48,4 +47,11 @@ export class SignupFormComponent {
     })
   }
 
+  state() {
+    return this.#service.state();
+  }
+
+  reset() {
+    this.#service.reset()
+  }
 }
