@@ -32,25 +32,31 @@ public class AuthenticationController {
             SignupResponse result = authenticationService.signup(request);
             return ResponseEntity.ok(result);
         } catch (AuthenticationServiceException e) {
-            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
+            return ResponseEntity
+                    .status(e.getHttpStatus())
+                    .body(e.getMessage());
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.login(request));
         } catch (AuthenticationServiceException e) {
-            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
+            return ResponseEntity
+                    .status(e.getHttpStatus())
+                    .body(e.getMessage());
         }
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
         try {
             return ResponseEntity.ok(authenticationService.refreshToken(request));
         } catch (AuthenticationServiceException e) {
-            throw new ResponseStatusException(e.getHttpStatus(), e.getMessage());
+            return ResponseEntity
+                    .status(e.getHttpStatus())
+                    .body(e.getMessage());
         }
     }
 }
