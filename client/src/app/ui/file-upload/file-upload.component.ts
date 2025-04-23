@@ -1,6 +1,6 @@
-import { Component, computed, inject, Input, input, model, output, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card'; 
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {MatIcon} from '@angular/material/icon'; 
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { fileSizeValidator, fileTypeValidator } from '@shared/form/validators/file-validators';
