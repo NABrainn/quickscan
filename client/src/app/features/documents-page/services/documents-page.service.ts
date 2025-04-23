@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { API_URL } from 'environment';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,18 @@ export class DocumentsPageService {
   private readonly http = inject(HttpClient);
 
   getDocumentsPage(pageNumber: number, pageSize: number) {
-    return this.http.get(`${API_URL}/documents?page=${pageNumber}&size=${pageSize}`);
+    return this.http.get(`${environment.apiUrl}/documents?page=${pageNumber}&size=${pageSize}`);
   }
 
   findById(id: number | undefined) {
-    return this.http.get(`${API_URL}/documents/${id}`);
+    return this.http.get(`${environment.apiUrl}/documents/${id}`);
   }
 
   delete(id: number | undefined) {
-    return this.http.delete(`${API_URL}/documents/${id}`, {responseType: 'text'});
+    return this.http.delete(`${environment.apiUrl}/documents/${id}`, {responseType: 'text'});
   }
 
   update(document: Document) {
-    return this.http.put(`${API_URL}/documents`, document);
+    return this.http.put(`${environment.apiUrl}/documents`, document);
   }
 }
