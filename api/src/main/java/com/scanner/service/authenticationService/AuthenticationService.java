@@ -31,7 +31,7 @@ public class AuthenticationService {
     private final UserDetailsService userDetailsService;
 
     public SignupResponse signup(SignupRequest request) {
-        if (!userRepository.findByUsername(request.getUsername()).isPresent()) {
+        if (userRepository.findByUsername(request.getUsername()).isEmpty()) {
             EntityUser user = EntityUser.builder()
                     .username(request.getUsername())
                     .email(request.getEmail())
@@ -55,7 +55,11 @@ public class AuthenticationService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return new LoginResponse(jwtService.generateTokenPair(authentication));
         } catch (AuthenticationException e) {
-            throw new AuthenticationServiceException(e.getMessage(), HttpStatus.FORBIDDEN);
+            switch (e.getMessage().toLowerCase()) {
+                case "bad credentials" -> throw new AuthenticationServiceException("Nieprawidłowe hasło", HttpStatus.FORBIDDEN);
+                case "user not found" -> throw new AuthenticationServiceException("Użytkownik nie istnieje", HttpStatus.FORBIDDEN);
+            }
+            throw new AuthenticationServiceException("Nieznany błąd", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -77,6 +81,6 @@ public class AuthenticationService {
             String accessToken = jwtService.generateAccessToken(authenticationToken);
             return new RefreshTokenResponse(new TokenPair(accessToken, refreshToken));
         }
-        throw new AuthenticationServiceException("User does not exist", HttpStatus.NOT_FOUND);
+        throw new AuthenticationServiceException("Użytkownik nie istnieje", HttpStatus.NOT_FOUND);
     }
 }
