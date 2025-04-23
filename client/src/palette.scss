@@ -22,6 +22,21 @@ html {
     ));
 }
 
+.list-field {
+    @include mat.form-field-overrides((
+        container-vertical-padding: 0,
+        container-height: 1.75em,
+    ))
+}
+
+.list-field-readonly {
+    @include mat.form-field-overrides((
+        container-vertical-padding: 0,
+        container-height: 1.75em,
+        filled-container-color: map.get(app-theme.$secondary-palette, 40)
+    ))
+}
+
 .delete-btn {
     @include mat.fab-overrides((
         small-container-color: map.get(app-theme.$error-palette, 40)
