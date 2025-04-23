@@ -1,12 +1,17 @@
 <mat-card class="mt-40 mx-auto w-1/5">
     <form 
-    class="flex flex-col p-8"
+    class="flex flex-col p-8 gap-2"
     [formGroup]="loginForm"
     (ngSubmit)="onSubmit()">
         <h2
         class="py-4 text-2xl font-bold text-primary-fixed">
             Zaloguj się
         </h2>
+        @if(state().error) {
+            <div class="bg-error text-center py-2 rounded">
+                <span>{{state().message}}</span>
+            </div>
+        }
         <mat-form-field>
             <mat-label>Nazwa użytkownika</mat-label>
             <input 
@@ -32,6 +37,7 @@
                 mat-flat-button>Przypomnij hasło</a>
                 <a
                 class="text-sm text-primary-fixed" 
+                (click)="reset()"
                 routerLink="/rejestracja"
                 routerLinkActive="active"
                 type="button"
