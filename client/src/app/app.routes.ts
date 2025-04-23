@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@core/auth/auth.guard';
-import { StepperFormComponent } from '@features/stepper-form/stepper-form.component';
 
 
 export const routes: Routes = [
     { 
         path: 'skaner', 
-        component: StepperFormComponent,
+        loadComponent: () => import('./features/stepper-form/stepper-form.component').then((c) => c.StepperFormComponent),
         canActivate: [authGuard],
     },
     {

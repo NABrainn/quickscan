@@ -8,8 +8,6 @@ import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field'
 import { MatInput } from '@angular/material/input';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ScrollerDirective } from './directives/scroller.directive';
-import { DocumentMenuComponent } from 'app/ui/document-menu/document-menu.component';
-import { MatMiniFabButton } from '@angular/material/button';
 import {MatOption, MatSelect} from '@angular/material/select';
 
 enum FilterOption {

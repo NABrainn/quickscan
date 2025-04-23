@@ -3,9 +3,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {MatProgressBar} from '@angular/material/progress-bar'; 
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
-import { LoadingService } from '@core/loading.service';
 import { AuthService } from '@core/auth/services/auth.service';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { LoadingService } from '@core/auth/services/loading.service';
 
 @Component({
     selector: 'app-root',

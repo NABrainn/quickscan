@@ -1,4 +1,4 @@
-import { Component, computed, input, model, output, signal, viewChild } from '@angular/core';
+import { Component, computed, input, output, signal, viewChild } from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent} from '@angular/material/card'; 
 
 import { MatButton } from '@angular/material/button';
