@@ -1,6 +1,6 @@
-import { KeyValuePipe } from '@angular/common';
-import { AfterViewInit, Component, computed, effect, EmbeddedViewRef, inject, input, model, OnInit, output, signal, viewChild, viewChildren } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { KeyValuePipe, NgClass, TitleCasePipe } from '@angular/common';
+import { Component, inject, input, model, OnInit, viewChildren } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AsFormArrayPipe } from '@shared/form/pipes/as-form-array.pipe';
 import { AsFormControlPipe } from '@shared/form/pipes/as-form-control.pipe';
 import { AsFormGroupPipe } from '@shared/form/pipes/as-form-group.pipe';
@@ -8,8 +8,11 @@ import { IsFormArrayPipe } from '@shared/form/pipes/is-form-array.pipe';
 import { IsFormControlPipe } from '@shared/form/pipes/is-form-control.pipe';
 import { IsFormGroupPipe } from '@shared/form/pipes/is-form-group.pipe';
 import { FormDetailsComponent } from './form-details/form-details.component';
-import { BillingDocument, InvoiceProduct } from '@shared/services/document/document.service';
-import { isInvoice } from '@shared/services/type-guards';
+import { BillingDocument, Invoice, Receipt } from '@shared/services/document/document.service';
+import { CamelCaseTextPipe } from '@shared/pipes/camel-case-text.pipe';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { isInvoice } from '@shared/type-guards';
 
 @Component({
   selector: 'app-document-form',
@@ -22,7 +25,12 @@ import { isInvoice } from '@shared/services/type-guards';
     AsFormGroupPipe,
     AsFormControlPipe,
     AsFormArrayPipe,
-    FormDetailsComponent
+    FormDetailsComponent,
+    CamelCaseTextPipe,
+    TitleCasePipe,
+    MatFormField,
+    MatInput,
+    NgClass
   ],
   templateUrl: './document-form.component.html'
 })
@@ -36,35 +44,38 @@ export class DocumentForm implements OnInit {
   readonly = input.required<boolean>();
   document = model<BillingDocument>();
 
+  fields = viewChildren(MatFormField);
+
   private initDocumentForm(document: BillingDocument | undefined) {
     if(!document) return
     if(isInvoice(document)) {
+      const invoice = document as Invoice
       this.form = this.#fb.group({
-        numerFaktury: [document.numerFaktury],
-        nrRachunkuBankowego: [document.nrRachunkuBankowego],
-        dataWystawienia: [document.dataWystawienia],
-        dataSprzedaży: [document.dataSprzedaży],
-        razemNetto: [document.razemNetto],
-        razemRata: [document.razemRata],
-        razemPodatek: [document.razemPodatek],
-        razemBrutto: [document.razemBrutto],
-        waluta: [document.waluta],
-        formaPłatności: [document.formaPłatności],
+        numerFaktury: [invoice.numerFaktury],
+        nrRachunkuBankowego: [invoice.nrRachunkuBankowego],
+        dataWystawienia: [invoice.dataWystawienia],
+        dataSprzedaży: [invoice.dataSprzedaży],
+        razemNetto: [invoice.razemNetto],
+        razemRata: [invoice.razemRata],
+        razemPodatek: [invoice.razemPodatek],
+        razemBrutto: [invoice.razemBrutto],
+        waluta: [invoice.waluta],
+        formaPłatności: [invoice.formaPłatności],
         odbiorca: this.#fb.group({
-          nazwa: [document.odbiorca.nazwa],
-          nip: [document.odbiorca.nip],
-          adres: [document.odbiorca.adres],
+          nazwa: [invoice.odbiorca.nazwa],
+          nip: [invoice.odbiorca.nip],
+          adres: [invoice.odbiorca.adres],
         }),
         sprzedawca: this.#fb.group({
-          nazwa: [document.sprzedawca?.nazwa],
-          nip: [document.sprzedawca?.nip],
-          adres: [document.sprzedawca?.adres],
+          nazwa: [invoice.sprzedawca?.nazwa],
+          nip: [invoice.sprzedawca?.nip],
+          adres: [invoice.sprzedawca?.adres],
         }),
         produkty: this.#fb.array([]),
       });
 
       const formArray = this.form.get('produkty') as FormArray;
-      document.produkty.forEach(product => formArray.push(this.#fb.group({
+      invoice.produkty.forEach(product => formArray.push(this.#fb.group({
         nazwaProduktu: [product.nazwaProduktu],
         ilość: [product.ilość],
         cenaSuma: [product.cenaSuma],
@@ -77,14 +88,15 @@ export class DocumentForm implements OnInit {
     }
 
     else {
+      const receipt = document as Receipt
       this.form = this.#fb.group({
-        dataZakupu: [''],
-        nazwaSklepu: [''],
-        kwotaCałkowita: [''],
+        dataZakupu: [receipt.dataZakupu],
+        nazwaSklepu: [receipt.nazwaSklepu],
+        kwotaCałkowita: [receipt.kwotaCałkowita],
         produkty: this.#fb.array([]),
       });
       const formArray = this.form.get('produkty') as FormArray;
-      document.produkty?.forEach(product => formArray.push(this.#fb.group({
+      receipt.produkty?.forEach(product => formArray.push(this.#fb.group({
         nazwaProduktu: [product.nazwaProduktu],
         ilość: [product.ilość],
         cenaSuma: [product.cenaSuma],
@@ -98,6 +110,6 @@ export class DocumentForm implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initDocumentForm(this.document())      
+    this.initDocumentForm(this.document())
   }
 }
