@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install && npm install @angular/cli
 COPY . .
-RUN npx ng build
+RUN npx ng build --configuration=production
 
 FROM nginx:latest
 COPY --from=build /app/dist/scanner-io/browser /data/www

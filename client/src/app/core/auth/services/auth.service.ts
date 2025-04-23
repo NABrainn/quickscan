@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { State } from '@shared/types';
-import { API_URL } from 'environment';
+import { environment } from 'environments/environment';
 import { catchError, tap, throwError } from 'rxjs';
 
 export type AuthUser = {
@@ -36,7 +36,7 @@ export class AuthService {
   })
 
   signup(data: AuthUser) {
-    return this.#http.post(`${API_URL}/auth/signup`, data).pipe(
+    return this.#http.post(`${environment.apiUrl}/auth/signup`, data).pipe(
       tap((data: any) => this.state.set({
         data: data,
         error: false,
@@ -54,7 +54,7 @@ export class AuthService {
   }
 
   login(data: AuthUser) {
-    return this.#http.post(`${API_URL}/auth/login`, data).pipe(
+    return this.#http.post(`${environment.apiUrl}/auth/login`, data).pipe(
       tap((data: any) => this.state.set({
         data: data,
         error: false,
@@ -78,7 +78,7 @@ export class AuthService {
   }
 
   refresh() {
-    return this.#http.post(`${API_URL}/auth/refresh-token`, {
+    return this.#http.post(`${environment.apiUrl}/auth/refresh-token`, {
       refreshToken: this.getTokenPair().refreshToken
     })
   }
