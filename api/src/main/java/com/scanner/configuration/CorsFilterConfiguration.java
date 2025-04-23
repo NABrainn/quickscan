@@ -17,7 +17,7 @@ public class CorsFilterConfiguration {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:9000"));
         configuration.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
@@ -28,7 +28,8 @@ public class CorsFilterConfiguration {
                 "GET",
                 "POST",
                 "PUT",
-                "DELETE"
+                "DELETE",
+                "OPTIONS"
         ));
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
